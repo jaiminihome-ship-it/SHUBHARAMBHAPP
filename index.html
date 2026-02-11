@@ -472,14 +472,14 @@ this.toast('Ready','System loaded','ok');
 },
 
 calcPreviewScale(){
-const vw=window.innerWidth;
-if(vw<=900){const s=Math.min(1,(vw-48)/793);document.documentElement.style.setProperty('--preview-scale',s.toFixed(3))}
+var vw=window.innerWidth;
+if(vw<=900){var s=Math.min(1,(vw-48)/793);document.documentElement.style.setProperty('--preview-scale',s.toFixed(3))}
 },
 
 go(id){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
-const el=document.getElementById(id);if(el)el.classList.add('on');
-document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.pg===id));
+document.querySelectorAll('.page').forEach(function(p){p.classList.remove('on')});
+var el=document.getElementById(id);if(el)el.classList.add('on');
+document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('on',t.dataset.pg===id)});
 window.scrollTo({top:0,behavior:'smooth'});
 if(id==='pgDB'){this.drawDB();this.syncDBStats()}
 if(id==='pgLib')this.drawLib();
@@ -491,45 +491,45 @@ loadRashiPage(){
 document.getElementById('rashiContainer').innerHTML='<iframe src="https://jaiminihome-ship-it.github.io/POOJASAMAGRI/Rashi.html" style="width:100%;height:calc(100vh - 250px);border:none;border-radius:12px;background:#050505;"></iframe>';
 },
 
-modal(id,show){const el=document.getElementById(id);if(el)el.classList.toggle('on',!!show)},
+modal(id,show){var el=document.getElementById(id);if(el)el.classList.toggle('on',!!show)},
 
 confirm(msg,ico){
-return new Promise(resolve=>{
+return new Promise(function(resolve){
 document.getElementById('confirmMsg').textContent=msg;
 document.getElementById('confirmIco').textContent=ico||'⚠️';
 document.getElementById('confirmDlg').classList.add('on');
-const yB=document.getElementById('confirmYes'),nB=document.getElementById('confirmNo');
-const cl=()=>{document.getElementById('confirmDlg').classList.remove('on');yB.removeEventListener('click',onY);nB.removeEventListener('click',onN)};
-const onY=()=>{cl();resolve(true)};const onN=()=>{cl();resolve(false)};
+var yB=document.getElementById('confirmYes'),nB=document.getElementById('confirmNo');
+var cl=function(){document.getElementById('confirmDlg').classList.remove('on');yB.removeEventListener('click',onY);nB.removeEventListener('click',onN)};
+var onY=function(){cl();resolve(true)};var onN=function(){cl();resolve(false)};
 yB.addEventListener('click',onY);nB.addEventListener('click',onN);
 });
 },
 
 toast(title,msg,type){
-type=type||'info';const c=document.getElementById('toasts');
-const icos={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
-const d=document.createElement('div');d.className='toast-item '+type;
+type=type||'info';var c=document.getElementById('toasts');
+var icos={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
+var d=document.createElement('div');d.className='toast-item '+type;
 d.innerHTML='<div class="toast-ico">'+(icos[type]||'ℹ️')+'</div><div class="toast-body"><div class="toast-ttl">'+title+'</div>'+(msg?'<div class="toast-msg">'+msg+'</div>':'')+'</div>';
-c.appendChild(d);setTimeout(()=>{if(d.parentNode)d.remove()},4000);
+c.appendChild(d);setTimeout(function(){if(d.parentNode)d.remove()},4000);
 },
 
 load(txt){document.getElementById('loaderTxt').textContent=txt||'Processing...';document.getElementById('loader').classList.add('on')},
 unload(){document.getElementById('loader').classList.remove('on')},
 
 logActivity(icon,title){
-this.S.activities.unshift({icon,title,time:new Date().toLocaleString('hi-IN')});
+this.S.activities.unshift({icon:icon,title:title,time:new Date().toLocaleString('hi-IN')});
 if(this.S.activities.length>50)this.S.activities.length=50;this.saveState();
 },
 
 drawActivities(){
-const el=document.getElementById('activityList');
+var el=document.getElementById('activityList');
 if(!this.S.activities||!this.S.activities.length){el.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--gray-500);">No recent activity</div>';return}
-el.innerHTML=this.S.activities.slice(0,15).map(a=>'<div class="activity-item"><div class="activity-ico">'+a.icon+'</div><div class="activity-text"><div class="act-title">'+a.title+'</div><div class="act-time">'+a.time+'</div></div></div>').join('');
+el.innerHTML=this.S.activities.slice(0,15).map(function(a){return'<div class="activity-item"><div class="activity-ico">'+a.icon+'</div><div class="activity-text"><div class="act-title">'+a.title+'</div><div class="act-time">'+a.time+'</div></div></div>'}).join('');
 },
 
 loadCfg(){
 try{
-const s=JSON.parse(localStorage.getItem('vedicCfg')||'{}');
+var s=JSON.parse(localStorage.getItem('vedicCfg')||'{}');
 if(s.firstRows)this.CFG.firstRows=s.firstRows;if(s.nextRows)this.CFG.nextRows=s.nextRows;
 if(s.fontSize)this.CFG.fontSize=s.fontSize;
 if(s.showChk!==undefined)this.CFG.showChk=s.showChk;if(s.showRmk!==undefined)this.CFG.showRmk=s.showRmk;
@@ -540,7 +540,7 @@ this._syncSettingsUI();
 },
 
 _syncSettingsUI(){
-const el=id=>document.getElementById(id);
+var el=function(id){return document.getElementById(id)};
 if(el('sFirstRows'))el('sFirstRows').value=this.CFG.firstRows;
 if(el('sNextRows'))el('sNextRows').value=this.CFG.nextRows;
 if(el('sFontSize'))el('sFontSize').value=this.CFG.fontSize;
@@ -564,8 +564,9 @@ this.modal('mSettings',0);this.toast('Saved','Settings updated','ok');this.logAc
 },
 
 drawThemeGrid(){
-const g=document.getElementById('themeGrid');if(!g)return;
-g.innerHTML=this.THEMES.map(t=>'<div class="theme-swatch '+(this.CFG.theme===t.id?'picked':'')+'" onclick="V.pickTheme(\''+t.id+'\')"><div class="swatch-color" style="background:'+t.color+';"></div><div>'+t.name+'</div></div>').join('');
+var g=document.getElementById('themeGrid');if(!g)return;
+var self=this;
+g.innerHTML=this.THEMES.map(function(t){return'<div class="theme-swatch '+(self.CFG.theme===t.id?'picked':'')+'" onclick="V.pickTheme(\''+t.id+'\')"><div class="swatch-color" style="background:'+t.color+';"></div><div>'+t.name+'</div></div>'}).join('');
 },
 
 pickTheme(id){
@@ -577,7 +578,7 @@ _themeClass(){return this.CFG.theme&&this.CFG.theme!=='classic'?' pdf-theme-'+th
 
 saveState(){
 try{
-const o=JSON.parse(JSON.stringify(this.S));
+var o=JSON.parse(JSON.stringify(this.S));
 if(o.editData)delete o.editData.remark;
 localStorage.setItem('vedicState',JSON.stringify(o));
 }catch(e){}
@@ -585,7 +586,7 @@ localStorage.setItem('vedicState',JSON.stringify(o));
 
 loadState(){
 try{
-const s=JSON.parse(localStorage.getItem('vedicState')||'{}');
+var s=JSON.parse(localStorage.getItem('vedicState')||'{}');
 if(s.pandit)this.S.pandit=s.pandit;
 if(s.yajman)this.S.yajman=s.yajman;
 if(s.phone)this.S.phone=s.phone;
@@ -608,24 +609,24 @@ this.unload();
 
 async fetchMaster(){
 try{
-const r=await fetch(this.API);if(!r.ok)throw new Error('HTTP '+r.status);
-const data=await r.json();
-if(Array.isArray(data))this.S.master=data.filter(x=>x&&x.pooja&&x.samagri);
+var r=await fetch(this.API);if(!r.ok)throw new Error('HTTP '+r.status);
+var data=await r.json();
+if(Array.isArray(data))this.S.master=data.filter(function(x){return x&&x.pooja&&x.samagri});
 }catch(e){console.error(e);if(!this.S.master.length)this.toast('Warning','Could not load data','warn')}
 this.drawPoojaList();this.drawDB();this.syncDBStats();this.fillExistingSel();
 },
 
 async fetchTemplates(){
 try{
-const r=await fetch(this.API+'?action=getTemplates');if(!r.ok)throw new Error('HTTP '+r.status);
-const data=await r.json();
+var r=await fetch(this.API+'?action=getTemplates');if(!r.ok)throw new Error('HTTP '+r.status);
+var data=await r.json();
 if(Array.isArray(data)){
-this.S.templates=data.map(row=>({
+this.S.templates=data.map(function(row){return{
 id:(row.id||Date.now()).toString(),name:row.name||'Unknown',date:row.date||'',
 poojas:Array.isArray(row.poojas)?row.poojas.join(', '):(row.poojas||''),
-poojasArr:Array.isArray(row.poojas)?row.poojas:(typeof row.poojas==='string'?row.poojas.split(',').map(p=>p.trim()).filter(Boolean):[]),
+poojasArr:Array.isArray(row.poojas)?row.poojas:(typeof row.poojas==='string'?row.poojas.split(',').map(function(p){return p.trim()}).filter(Boolean):[]),
 samagri:row.samagri||[]
-}));
+}});
 }
 }catch(e){console.error(e)}
 this.drawLib();this.syncStats();
@@ -633,8 +634,8 @@ this.drawLib();this.syncStats();
 
 async apiPost(payload){
 try{
-const r=await fetch(this.API,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
-const text=await r.text();try{return JSON.parse(text)}catch(e){return{status:text}}
+var r=await fetch(this.API,{method:'POST',redirect:'follow',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+var text=await r.text();try{return JSON.parse(text)}catch(e){return{status:text}}
 }catch(e){
 try{await fetch(this.API,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});return{status:'sent'}}
 catch(e2){throw e2}
@@ -642,30 +643,32 @@ catch(e2){throw e2}
 },
 
 drawPandits(){
-const g=document.getElementById('panditGrid');if(!g)return;
-g.innerHTML=Object.values(this.pandits).map(p=>
-'<div class="pandit-card '+(this.S.pandit===p.id?'picked':'')+'" onclick="V.pickPandit(\''+p.id+'\')">' +
+var g=document.getElementById('panditGrid');if(!g)return;
+var self=this;
+g.innerHTML=Object.values(this.pandits).map(function(p){
+return'<div class="pandit-card '+(self.S.pandit===p.id?'picked':'')+'" onclick="V.pickPandit(\''+p.id+'\')">' +
 '<div class="pandit-top"><div class="pandit-av">🙏</div><div><div class="pandit-nm">'+p.name+'</div><div class="pandit-tl">'+p.title+'</div></div></div>' +
 '<div class="pandit-det"><span>📞 '+p.phone+'</span><span>📍 '+p.address+'</span>'+(p.website?'<span>🌐 '+p.website+'</span>':'')+'</div></div>'
-).join('');
+}).join('');
 },
 
 pickPandit(id){this.S.pandit=id;this.drawPandits();this.saveState();this.toast('Selected',this.pandits[id].name,'ok')},
 
-_uniquePoojas(){return[...new Set(this.S.master.map(x=>(x.pooja||'').trim()))].filter(Boolean)},
+_uniquePoojas(){return[...new Set(this.S.master.map(function(x){return(x.pooja||'').trim()}))].filter(Boolean)},
 _esc(s){return(s||'').replace(/'/g,"\\'").replace(/"/g,'&quot;')},
 
 drawPoojaList(filter){
-let all=this._uniquePoojas();
-if(filter){const q=filter.toLowerCase();all=all.filter(n=>n.toLowerCase().includes(q))}
-const g=document.getElementById('poojaList');if(!g)return;
+var all=this._uniquePoojas();
+var self=this;
+if(filter){var q=filter.toLowerCase();all=all.filter(function(n){return n.toLowerCase().includes(q)})}
+var g=document.getElementById('poojaList');if(!g)return;
 if(!all.length){g.innerHTML='<p style="color:var(--gray-500);text-align:center;padding:2rem;">'+(filter?'No match':'No poojas')+'</p>';return}
-g.innerHTML=all.map(name=>{
-const cnt=this.S.master.filter(x=>x.pooja===name).length;
-const sel=this.S.selPoojas.some(p=>p.name===name);
-const idx=this.S.selPoojas.findIndex(p=>p.name===name);
-const orderNum=sel?(idx+1):'';
-return'<div class="pooja-row '+(sel?'picked':'')+'" onclick="V.togPooja(\''+this._esc(name)+'\')">' +
+g.innerHTML=all.map(function(name){
+var cnt=self.S.master.filter(function(x){return x.pooja===name}).length;
+var sel=self.S.selPoojas.some(function(p){return p.name===name});
+var idx=self.S.selPoojas.findIndex(function(p){return p.name===name});
+var orderNum=sel?(idx+1):'';
+return'<div class="pooja-row '+(sel?'picked':'')+'" onclick="V.togPooja(\''+self._esc(name)+'\')">' +
 '<div class="pooja-tick"></div>' +
 '<div class="pooja-body"><div class="pooja-nm">'+(sel?'<span class="badge badge-bhagwa" style="margin-right:0.3rem;">'+orderNum+'</span>':'')+name+'</div><div class="pooja-ct">'+cnt+' items</div></div>' +
 (sel?'<div class="pooja-arrows"><button class="arr-btn" onclick="event.stopPropagation();V.moveP('+idx+',-1)">▲</button><button class="arr-btn" onclick="event.stopPropagation();V.moveP('+idx+',1)">▼</button></div>':'') +
@@ -676,22 +679,22 @@ return'<div class="pooja-row '+(sel?'picked':'')+'" onclick="V.togPooja(\''+this
 filterPoojas(){this.drawPoojaList((document.getElementById('poojaSearch')||{}).value||'')},
 
 togPooja(name){
-const i=this.S.selPoojas.findIndex(p=>p.name===name);
-if(i>-1)this.S.selPoojas.splice(i,1);else this.S.selPoojas.push({name,order:this.S.selPoojas.length});
+var i=this.S.selPoojas.findIndex(function(p){return p.name===name});
+if(i>-1)this.S.selPoojas.splice(i,1);else this.S.selPoojas.push({name:name,order:this.S.selPoojas.length});
 this.drawPoojaList((document.getElementById('poojaSearch')||{}).value||'');this.saveState();
 },
 
 moveP(i,dir){
-const j=i+dir;if(j<0||j>=this.S.selPoojas.length)return;
-[this.S.selPoojas[i],this.S.selPoojas[j]]=[this.S.selPoojas[j],this.S.selPoojas[i]];
+var j=i+dir;if(j<0||j>=this.S.selPoojas.length)return;
+var temp=this.S.selPoojas[i];this.S.selPoojas[i]=this.S.selPoojas[j];this.S.selPoojas[j]=temp;
 this.drawPoojaList((document.getElementById('poojaSearch')||{}).value||'');this.saveState();
 },
 
-selAll(){this.S.selPoojas=this._uniquePoojas().map((name,i)=>({name,order:i}));this.drawPoojaList();this.saveState();this.toast('All Selected',this.S.selPoojas.length+' poojas','ok')},
+selAll(){var self=this;this.S.selPoojas=this._uniquePoojas().map(function(name,i){return{name:name,order:i}});this.drawPoojaList();this.saveState();this.toast('All Selected',this.S.selPoojas.length+' poojas','ok')},
 selNone(){this.S.selPoojas=[];this.drawPoojaList();this.saveState()},
 
 stepPooja(){
-const y=document.getElementById('inpYajman').value.trim();
+var y=document.getElementById('inpYajman').value.trim();
 if(!y){this.toast('Required','Enter yajman name','warn');document.getElementById('inpYajman').focus();return}
 this.S.yajman=y;this.S.phone=document.getElementById('inpPhone').value.trim();
 this.S.date=document.getElementById('inpDate').value;this.S.address=(document.getElementById('inpAddress')||{}).value||'';
@@ -706,40 +709,43 @@ this.buildMats();this.drawMats();this.go('pgMats');
 stepPreview(){
 this.S.editData={
 yajman:this.S.yajman||'',phone:this.S.phone||'',date:this.S.date||'',
-address:this.S.address||'',poojas:this.S.selPoojas.map(p=>p.name).join(', '),
+address:this.S.address||'',poojas:this.S.selPoojas.map(function(p){return p.name}).join(', '),
 remark:''
 };
-this.go('pgPreview');setTimeout(()=>this.buildPreview(),400);
+var self=this;
+this.go('pgPreview');setTimeout(function(){self.buildPreview()},400);
 },
 
 buildMats(){
-const existing=new Map();this.S.mats.forEach(m=>existing.set(m.pooja+'||'+m.name,m));
-const newMats=[];
-this.S.selPoojas.forEach(p=>{
-const items=this.S.master.filter(d=>d.pooja===p.name);
-items.forEach(item=>{const key=p.name+'||'+item.samagri;if(existing.has(key))newMats.push(existing.get(key));else newMats.push({pooja:p.name,name:item.samagri,qty:'',unit:'',on:true,custom:false})});
-this.S.mats.filter(m=>m.pooja===p.name&&m.custom).forEach(cm=>{if(!newMats.some(n=>n.pooja===cm.pooja&&n.name===cm.name))newMats.push(cm)});
+var existing=new Map();this.S.mats.forEach(function(m){existing.set(m.pooja+'||'+m.name,m)});
+var newMats=[];
+var self=this;
+this.S.selPoojas.forEach(function(p){
+var items=self.S.master.filter(function(d){return d.pooja===p.name});
+items.forEach(function(item){var key=p.name+'||'+item.samagri;if(existing.has(key))newMats.push(existing.get(key));else newMats.push({pooja:p.name,name:item.samagri,qty:'',unit:'',on:true,custom:false})});
+self.S.mats.filter(function(m){return m.pooja===p.name&&m.custom}).forEach(function(cm){if(!newMats.some(function(n){return n.pooja===cm.pooja&&n.name===cm.name}))newMats.push(cm)});
 });
 this.S.mats=newMats;
 },
 
 drawMats(filter){
-const c=document.getElementById('matSections');if(!c)return;
-const fq=(filter||'').toLowerCase();
-c.innerHTML=this.S.selPoojas.map(p=>{
-let items=this.S.mats.filter(m=>m.pooja===p.name);
-const totalCount=items.length;const onCount=items.filter(m=>m.on).length;
-if(fq)items=items.filter(m=>m.name.toLowerCase().includes(fq));
-const sk=p.name.replace(/\s/g,'_');const collapsed=this.S.collapsedSections[sk];
+var c=document.getElementById('matSections');if(!c)return;
+var fq=(filter||'').toLowerCase();
+var self=this;
+c.innerHTML=this.S.selPoojas.map(function(p){
+var items=self.S.mats.filter(function(m){return m.pooja===p.name});
+var totalCount=items.length;var onCount=items.filter(function(m){return m.on}).length;
+if(fq)items=items.filter(function(m){return m.name.toLowerCase().includes(fq)});
+var sk=p.name.replace(/\s/g,'_');var collapsed=self.S.collapsedSections[sk];
 return'<div class="card mat-section">' +
 '<div class="mat-head" onclick="V.toggleSection(\''+sk+'\')" style="cursor:pointer;">' +
 '<div class="mat-head-title"><span>'+(collapsed?'▶':'▼')+'</span><span>🕉️ '+p.name+'</span><span class="mat-head-count">'+onCount+'/'+totalCount+'</span></div>' +
-'<div style="display:flex;gap:0.3rem;" onclick="event.stopPropagation();"><button class="btn btn-xs btn-s" onclick="V.togAllMats(\''+this._esc(p.name)+'\')">Toggle</button></div>' +
+'<div style="display:flex;gap:0.3rem;" onclick="event.stopPropagation();"><button class="btn btn-xs btn-s" onclick="V.togAllMats(\''+self._esc(p.name)+'\')">Toggle</button></div>' +
 '</div>' +
 (collapsed?'':(
 '<div class="mat-grid">' +
-items.map(m=>{
-const gi=this.S.mats.indexOf(m);if(gi===-1)return'';
+items.map(function(m){
+var gi=self.S.mats.indexOf(m);if(gi===-1)return'';
 return'<div class="mat-row'+(!m.on?' mat-off':'')+(m.custom?' mat-custom':'')+'">' +
 '<input type="checkbox" class="mat-chk" '+(m.on?'checked':'')+' onchange="V.S.mats['+gi+'].on=this.checked;V.drawMats(\''+(fq||'')+'\');V.saveState()">' +
 '<div class="mat-nm" title="'+m.name+(m.custom?' (Custom)':'')+'">'+m.name+(m.custom?' ⭐':'')+'</div>' +
@@ -764,8 +770,8 @@ return'<div class="mat-row'+(!m.on?' mat-off':'')+(m.custom?' mat-custom':'')+'"
 }).join('') +
 '</div>' +
 '<div class="add-item-row">' +
-'<input class="add-item-input" id="addInput_'+sk+'" placeholder="➕ नई सामग्री जोड़ें..." onkeydown="if(event.key===\'Enter\')V.addCustomItem(\''+this._esc(p.name)+'\')">' +
-'<button class="btn btn-sm btn-p" onclick="V.addCustomItem(\''+this._esc(p.name)+'\')">Add</button>' +
+'<input class="add-item-input" id="addInput_'+sk+'" placeholder="➕ नई सामग्री जोड़ें..." onkeydown="if(event.key===\'Enter\')V.addCustomItem(\''+self._esc(p.name)+'\')">' +
+'<button class="btn btn-sm btn-p" onclick="V.addCustomItem(\''+self._esc(p.name)+'\')">Add</button>' +
 '</div>'
 )) +
 '</div>';
@@ -775,17 +781,19 @@ return'<div class="mat-row'+(!m.on?' mat-off':'')+(m.custom?' mat-custom':'')+'"
 toggleSection(key){this.S.collapsedSections[key]=!this.S.collapsedSections[key];this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState()},
 
 expandAllSections(expand){
-this.S.selPoojas.forEach(p=>{this.S.collapsedSections[p.name.replace(/\s/g,'_')]=!expand});
+var self=this;
+this.S.selPoojas.forEach(function(p){self.S.collapsedSections[p.name.replace(/\s/g,'_')]=!expand});
 this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState();
 },
 
 filterMats(){this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'')},
 
 async addCustomItem(poojaName){
-const sk=poojaName.replace(/\s/g,'_');const input=document.getElementById('addInput_'+sk);
-if(!input)return;const val=input.value.trim();
+var sk=poojaName.replace(/\s/g,'_');var input=document.getElementById('addInput_'+sk);
+if(!input)return;var val=input.value.trim();
 if(!val){this.toast('Required','Enter item name','warn');return}
-if(this.S.mats.some(m=>m.pooja===poojaName&&m.name===val)){this.toast('Duplicate','Already exists','warn');return}
+var self=this;
+if(this.S.mats.some(function(m){return m.pooja===poojaName&&m.name===val})){this.toast('Duplicate','Already exists','warn');return}
 this.S.mats.push({pooja:poojaName,name:val,qty:'',unit:'',on:true,custom:true});
 input.value='';this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState();
 this.toast('Added','"'+val+'" added','ok');
@@ -794,33 +802,35 @@ catch(e){this.toast('Warning','Local only','warn')}
 },
 
 removeCustomItem(gi){
-const m=this.S.mats[gi];if(!m||!m.custom)return;
+var m=this.S.mats[gi];if(!m||!m.custom)return;
 this.S.mats.splice(gi,1);this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');
 this.saveState();this.toast('Removed','Custom item removed','ok');
 },
 
 togAllMats(poojaName){
-const items=this.S.mats.filter(m=>m.pooja===poojaName);const allOn=items.every(m=>m.on);
-items.forEach(m=>{m.on=!allOn});this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState();
+var items=this.S.mats.filter(function(m){return m.pooja===poojaName});var allOn=items.every(function(m){return m.on});
+items.forEach(function(m){m.on=!allOn});this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState();
 },
 
 _getAllPairs(){
-const included=this.S.mats.filter(m=>m.on);
-const allItems=[];
-this.S.selPoojas.forEach(sp=>{
-included.filter(m=>m.pooja===sp.name).forEach(m=>allItems.push(m));
+var included=this.S.mats.filter(function(m){return m.on});
+var allItems=[];
+var self=this;
+this.S.selPoojas.forEach(function(sp){
+included.filter(function(m){return m.pooja===sp.name}).forEach(function(m){allItems.push(m)});
 });
-const pairs=[];
-for(let i=0;i<allItems.length;i+=2){pairs.push([allItems[i],allItems[i+1]||null])}
+var pairs=[];
+for(var i=0;i<allItems.length;i+=2){pairs.push([allItems[i],allItems[i+1]||null])}
 return pairs;
 },
 
 _tableRowsHTML(pairs){
-return pairs.map(p=>{
-const c1c=this.CFG.showChk?'<td class="chk-cell"><span class="chk-box"></span></td>':'';
-const c1r=this.CFG.showRmk?'<td class="rmk-cell"></td>':'';
-const c2c=this.CFG.showChk?'<td class="chk-cell">'+(p[1]?'<span class="chk-box"></span>':'')+'</td>':'';
-const c2r=this.CFG.showRmk?'<td class="rmk-cell"></td>':'';
+var self=this;
+return pairs.map(function(p){
+var c1c=self.CFG.showChk?'<td class="chk-cell"><span class="chk-box"></span></td>':'';
+var c1r=self.CFG.showRmk?'<td class="rmk-cell"></td>':'';
+var c2c=self.CFG.showChk?'<td class="chk-cell">'+(p[1]?'<span class="chk-box"></span>':'')+'</td>':'';
+var c2r=self.CFG.showRmk?'<td class="rmk-cell"></td>':'';
 return'<tr>'+c1c+
 '<td>'+(p[0]?p[0].name:'')+'</td>'+
 '<td>'+(p[0]?((p[0].qty||'')+' '+(p[0].unit||'')).trim():'')+'</td>'+
@@ -832,8 +842,8 @@ c2r+'</tr>';
 },
 
 _tableHeadHTML(){
-const chkTH=this.CFG.showChk?'<th class="chk-cell">☐</th>':'';
-const rmkTH=this.CFG.showRmk?'<th class="rmk-cell">टिप्पणी</th>':'';
+var chkTH=this.CFG.showChk?'<th class="chk-cell">☐</th>':'';
+var rmkTH=this.CFG.showRmk?'<th class="rmk-cell">टिप्पणी</th>':'';
 return'<thead><tr>'+chkTH+'<th>सामग्री</th><th>मात्रा</th>'+rmkTH+chkTH+'<th>सामग्री</th><th>मात्रा</th>'+rmkTH+'</tr></thead>';
 },
 
@@ -842,21 +852,21 @@ return'<table class="pdf-tbl">'+this._tableHeadHTML()+'<tbody>'+this._tableRowsH
 },
 
 _paginate(){
-const allPairs=this._getAllPairs();
+var allPairs=this._getAllPairs();
 if(!allPairs.length)return[];
-const pages=[];let idx=0;let isFirst=true;
+var pages=[];var idx=0;var isFirst=true;
 while(idx<allPairs.length){
-const maxRows=isFirst?this.CFG.firstRows:this.CFG.nextRows;
-const chunk=allPairs.slice(idx,idx+maxRows);
-pages.push({isFirst,pairs:chunk});idx+=maxRows;isFirst=false;
+var maxRows=isFirst?this.CFG.firstRows:this.CFG.nextRows;
+var chunk=allPairs.slice(idx,idx+maxRows);
+pages.push({isFirst:isFirst,pairs:chunk});idx+=maxRows;isFirst=false;
 }
 return pages;
 },
 
 _headerHTML(editable){
 if(!this.CFG.showHdr)return'';
-const p=this.pandits[this.S.pandit]||this.pandits.yugal;const ed=this.S.editData||{};
-let yF,dF,phF,pjF,adF;
+var p=this.pandits[this.S.pandit]||this.pandits.yugal;var ed=this.S.editData||{};
+var yF,dF,phF,pjF,adF;
 if(editable){
 yF='<input type="text" class="editable-inline" data-field="yajman" value="'+(ed.yajman||'')+'">';
 dF='<input type="text" class="editable-inline" data-field="date" value="'+(ed.date||'')+'">';
@@ -865,7 +875,7 @@ pjF='<input type="text" class="editable-inline" data-field="poojas" value="'+(ed
 adF='<input type="text" class="editable-inline" data-field="address" value="'+(ed.address||p.address||'')+'" style="width:90%;">';
 }else{
 yF=ed.yajman||this.S.yajman||'';dF=ed.date||this.S.date||'';phF=ed.phone||this.S.phone||'';
-pjF=ed.poojas||this.S.selPoojas.map(x=>x.name).join(', ');adF=ed.address||this.S.address||p.address||'';
+pjF=ed.poojas||this.S.selPoojas.map(function(x){return x.name}).join(', ');adF=ed.address||this.S.address||p.address||'';
 }
 return'<div class="pdf-hdr"><div class="pdf-swastik">卐</div><div class="pdf-hdr-center"><h1>॥ श्री गणेशाय नमः ॥</h1><h2>पूजा सामग्री सूची</h2></div><div class="pdf-swastik">卐</div></div>' +
 '<div class="pdf-divider"></div>' +
@@ -875,12 +885,12 @@ return'<div class="pdf-hdr"><div class="pdf-swastik">卐</div><div class="pdf-hd
 
 _footerHTML(){
 if(!this.CFG.showFtr)return'';
-const p=this.pandits[this.S.pandit]||this.pandits.yugal;
+var p=this.pandits[this.S.pandit]||this.pandits.yugal;
 return'<div class="pdf-ftr"><div><strong>पंडित:</strong> '+p.name+' | <strong>फोन:</strong> '+p.phone+'</div><div><strong>पता:</strong> '+p.address+'</div>'+(p.website?'<div><strong>वेबसाइट:</strong> '+p.website+'</div>':'')+'</div>';
 },
 
 _remarkHTML(editable){
-const val=(this.S.editData&&this.S.editData.remark)?this.S.editData.remark:'';
+var val=(this.S.editData&&this.S.editData.remark)?this.S.editData.remark:'';
 if(editable){
 return'<div class="pdf-remark-section"><div class="pdf-remark-title">📝 विशेष टिप्पणी / Special Remarks:</div><textarea class="remark-box" placeholder="यहाँ विशेष टिप्पणी लिखें..." oninput="V.S.editData.remark=this.value">'+val+'</textarea></div>';
 }else{
@@ -890,127 +900,104 @@ return'<div class="pdf-remark-section"><div class="pdf-remark-title">📝 वि
 
 buildPreview(){
 this.load('Building preview...');
-const tc=this._themeClass();
+var tc=this._themeClass();
+var self=this;
 try{
-const pages=this._paginate();const wrap=document.getElementById('previewWrap');
+var pages=this._paginate();var wrap=document.getElementById('previewWrap');
 if(!pages.length){wrap.innerHTML='<p style="color:#666;text-align:center;padding:2rem;">No materials selected.</p>';this.unload();return}
-const total=pages.length;
-wrap.innerHTML=pages.map((pg,pi)=>{
-let content='';
-if(pg.isFirst)content+=this._headerHTML(true);
-content+=this._buildTableHTML(pg.pairs);
-if(pi===total-1)content+=this._remarkHTML(true);
-content+=this._footerHTML();
-return'<div class="preview-page"><div class="preview-page-num">Page '+(pi+1)+' / '+total+'</div><div class="pdfpage'+tc+'" style="font-size:'+this.CFG.fontSize+'px;">'+content+'</div></div>';
+var total=pages.length;
+wrap.innerHTML=pages.map(function(pg,pi){
+var content='';
+if(pg.isFirst)content+=self._headerHTML(true);
+content+=self._buildTableHTML(pg.pairs);
+if(pi===total-1)content+=self._remarkHTML(true);
+content+=self._footerHTML();
+return'<div class="preview-page"><div class="preview-page-num">Page '+(pi+1)+' / '+total+'</div><div class="pdfpage'+tc+'" style="font-size:'+self.CFG.fontSize+'px;">'+content+'</div></div>';
 }).join('');
-wrap.querySelectorAll('.editable-inline').forEach(inp=>{
-inp.addEventListener('input',e=>{if(e.target.dataset.field)this.S.editData[e.target.dataset.field]=e.target.value});
+wrap.querySelectorAll('.editable-inline').forEach(function(inp){
+inp.addEventListener('input',function(e){if(e.target.dataset.field)self.S.editData[e.target.dataset.field]=e.target.value});
 });
 this.calcPreviewScale();this.unload();this.toast('Preview Ready',total+' page(s)','ok');
 }catch(e){this.unload();this.toast('Error','Preview failed: '+e.message,'err')}
 },
 
 _renderPages(){
-document.querySelectorAll('.editable-inline').forEach(inp=>{if(inp.dataset.field)this.S.editData[inp.dataset.field]=inp.value});
-const rb=document.querySelector('.remark-box');if(rb)this.S.editData.remark=rb.value||'';
-const tc=this._themeClass();const pages=this._paginate();
-const zone=document.getElementById('renderZone');zone.innerHTML='';
-const total=pages.length;const elements=[];
-pages.forEach((pg,pi)=>{
-const div=document.createElement('div');div.className='pdfpage render-mode'+tc;div.style.fontSize=this.CFG.fontSize+'px';
-let content='';
-if(pg.isFirst)content+=this._headerHTML(false);
-content+=this._buildTableHTML(pg.pairs);
-if(pi===total-1)content+=this._remarkHTML(false);
-if(this.CFG.showFtr)content+='<div style="position:absolute;bottom:25px;left:30px;right:30px;">'+this._footerHTML()+'</div>';
+var self=this;
+document.querySelectorAll('.editable-inline').forEach(function(inp){if(inp.dataset.field)self.S.editData[inp.dataset.field]=inp.value});
+var rb=document.querySelector('.remark-box');if(rb)this.S.editData.remark=rb.value||'';
+var tc=this._themeClass();var pages=this._paginate();
+var zone=document.getElementById('renderZone');zone.innerHTML='';
+var total=pages.length;var elements=[];
+pages.forEach(function(pg,pi){
+var div=document.createElement('div');div.className='pdfpage render-mode'+tc;div.style.fontSize=self.CFG.fontSize+'px';
+var content='';
+if(pg.isFirst)content+=self._headerHTML(false);
+content+=self._buildTableHTML(pg.pairs);
+if(pi===total-1)content+=self._remarkHTML(false);
+if(self.CFG.showFtr)content+='<div style="position:absolute;bottom:25px;left:30px;right:30px;">'+self._footerHTML()+'</div>';
 div.innerHTML=content;zone.appendChild(div);elements.push(div);
 });
 return elements;
 },
 
 // =====================================================
-// 🔥 ANDROID FRIENDLY SMART DOWNLOAD - YE NAYA HAI 🔥
+// 🔥 ANDROID DOWNLOAD - DIRECT SAVE (NO SHARE SHEET) 🔥
 // =====================================================
-async _smartDownload(blob, filename, mimeType){
-    // METHOD 1: Share API (Best for Android APK/PWA)
-    if(navigator.share && navigator.canShare){
-        try{
-            const file=new File([blob],filename,{type:mimeType});
-            if(navigator.canShare({files:[file]})){
-                await navigator.share({files:[file],title:filename});
-                return true;
-            }
-        }catch(e){
-            if(e.name==='AbortError')return true;
-        }
-    }
 
-    // METHOD 2: File System Access API (Chrome 86+)
-    if(window.showSaveFilePicker){
-        try{
-            const extMap={'application/pdf':['.pdf'],'application/zip':['.zip'],'application/json':['.json'],'image/png':['.png']};
-            const handle=await window.showSaveFilePicker({
-                suggestedName:filename,
-                types:[{description:filename,accept:{[mimeType]:extMap[mimeType]||['.bin']}}]
-            });
-            const writable=await handle.createWritable();
-            await writable.write(blob);
-            await writable.close();
-            return true;
-        }catch(e){
-            if(e.name==='AbortError')return true;
-        }
-    }
-
-    // METHOD 3: Blob URL + anchor click
-    try{
-        const url=URL.createObjectURL(blob);
-        const a=document.createElement('a');
-        a.href=url;
-        a.download=filename;
-        a.style.display='none';
-        document.body.appendChild(a);
+_forceDownload(blob, filename){
+try{
+    var url=URL.createObjectURL(blob);
+    var a=document.createElement('a');
+    a.href=url;
+    a.download=filename;
+    a.style.cssText='position:fixed;top:0;left:0;opacity:0;pointer-events:none;z-index:99999;';
+    document.body.appendChild(a);
+    setTimeout(function(){
         a.click();
-        setTimeout(()=>{URL.revokeObjectURL(url);if(a.parentNode)a.remove()},5000);
-        return true;
-    }catch(e){}
-
-    // METHOD 4: Open blob in new window
-    try{
-        const url=URL.createObjectURL(blob);
-        window.open(url,'_blank');
-        setTimeout(()=>URL.revokeObjectURL(url),60000);
-        this.toast('Opened','Long press to save','warn');
-        return true;
-    }catch(e){}
-
-    this.toast('Error','Download failed','err');
-    return false;
+        setTimeout(function(){
+            if(a.parentNode)document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        },3000);
+    },100);
+    return true;
+}catch(e){return false}
 },
 
-// =====================================================
-// 🔥 FIXED DOWNLOAD FUNCTIONS FOR ANDROID 🔥
-// =====================================================
+_downloadWithFallback(blob, filename, mimeType){
+var self=this;
+var ok=this._forceDownload(blob, filename);
+if(!ok){
+    try{
+        var url=URL.createObjectURL(blob);
+        window.open(url,'_blank');
+        self.toast('Opened','Long press karke save karo','warn');
+        setTimeout(function(){URL.revokeObjectURL(url)},60000);
+    }catch(e){
+        self.toast('Error','Download failed','err');
+    }
+}
+},
 
 async dlPDF(){
     this.load('Generating PDF...');
+    var self=this;
     try{
-        const pages=this._renderPages();
+        var pages=this._renderPages();
         if(!pages.length){this.unload();this.toast('Error','No pages','warn');return}
-        await new Promise(r=>setTimeout(r,500));
-        const{jsPDF}=window.jspdf;
-        const pdf=new jsPDF('p','mm','a4');
-        for(let i=0;i<pages.length;i++){
+        await new Promise(function(r){setTimeout(r,500)});
+        var jsPDFLib=window.jspdf;
+        var pdf=new jsPDFLib.jsPDF('p','mm','a4');
+        for(var i=0;i<pages.length;i++){
             if(i>0)pdf.addPage();
-            const canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
             pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);
         }
-        const name=(this.S.editData.yajman||this.S.yajman||'Pooja')+'_Samagri.pdf';
-        const blob=pdf.output('blob');
+        var name=(this.S.editData.yajman||this.S.yajman||'Pooja')+'_Samagri.pdf';
+        var blob=pdf.output('blob');
         document.getElementById('renderZone').innerHTML='';
         this.unload();
-        await this._smartDownload(blob,name,'application/pdf');
-        this.toast('PDF Ready',pages.length+' pages','ok');
+        this._downloadWithFallback(blob,name,'application/pdf');
+        this.toast('PDF Downloading',name,'ok');
         this.logActivity('📄','PDF: '+name);
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
@@ -1021,23 +1008,24 @@ async dlPDF(){
 
 async dlImages(){
     this.load('Generating images...');
+    var self=this;
     try{
-        const pages=this._renderPages();
+        var pages=this._renderPages();
         if(!pages.length){this.unload();return}
-        await new Promise(r=>setTimeout(r,500));
-        const zip=new JSZip();
-        const fn=(this.S.editData.yajman||'Pooja')+'_Samagri';
-        const folder=zip.folder(fn);
-        for(let i=0;i<pages.length;i++){
-            const canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
-            const blob=await new Promise(r=>canvas.toBlob(r,'image/png'));
-            folder.file('Page_'+(i+1)+'.png',blob);
+        await new Promise(function(r){setTimeout(r,500)});
+        var zip=new JSZip();
+        var fn=(this.S.editData.yajman||'Pooja')+'_Samagri';
+        var folder=zip.folder(fn);
+        for(var i=0;i<pages.length;i++){
+            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+            var imgBlob=await new Promise(function(r){canvas.toBlob(r,'image/png')});
+            folder.file('Page_'+(i+1)+'.png',imgBlob);
         }
-        const zipBlob=await zip.generateAsync({type:'blob'});
+        var zipBlob=await zip.generateAsync({type:'blob'});
         document.getElementById('renderZone').innerHTML='';
         this.unload();
-        await this._smartDownload(zipBlob,fn+'.zip','application/zip');
-        this.toast('ZIP Ready',pages.length+' images','ok');
+        this._downloadWithFallback(zipBlob,fn+'.zip','application/zip');
+        this.toast('ZIP Downloading',fn+'.zip','ok');
         this.logActivity('🖼️','Images: '+fn);
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
@@ -1048,23 +1036,38 @@ async dlImages(){
 
 async share(){
     this.load('Preparing...');
+    var self=this;
     try{
-        const pages=this._renderPages();
+        var pages=this._renderPages();
         if(!pages.length){this.unload();return}
-        await new Promise(r=>setTimeout(r,500));
-        const{jsPDF}=window.jspdf;
-        const pdf=new jsPDF('p','mm','a4');
-        for(let i=0;i<pages.length;i++){
+        await new Promise(function(r){setTimeout(r,500)});
+        var jsPDFLib=window.jspdf;
+        var pdf=new jsPDFLib.jsPDF('p','mm','a4');
+        for(var i=0;i<pages.length;i++){
             if(i>0)pdf.addPage();
-            const canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
             pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',0,0,210,297);
         }
-        const blob=pdf.output('blob');
-        const fileName=(this.S.editData.yajman||'Pooja')+'_Samagri.pdf';
+        var blob=pdf.output('blob');
+        var fileName=(this.S.editData.yajman||'Pooja')+'_Samagri.pdf';
         document.getElementById('renderZone').innerHTML='';
         this.unload();
-        await this._smartDownload(blob,fileName,'application/pdf');
-        this.logActivity('📤','Shared: '+fileName);
+        // Share button pe SHARE sheet aayegi
+        if(navigator.share&&navigator.canShare){
+            try{
+                var file=new File([blob],fileName,{type:'application/pdf'});
+                if(navigator.canShare({files:[file]})){
+                    await navigator.share({files:[file],title:'पूजा सामग्री सूची',text:(this.S.editData.yajman||this.S.yajman)+' की सामग्री सूची'});
+                    this.logActivity('📤','Shared: '+fileName);
+                    return;
+                }
+            }catch(e){
+                if(e.name==='AbortError')return;
+            }
+        }
+        // Fallback: download kar do
+        this._downloadWithFallback(blob,fileName,'application/pdf');
+        this.toast('Downloaded','Share not supported','warn');
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
         this.unload();
@@ -1074,7 +1077,7 @@ async share(){
 
 exportAllData(){
     try{
-        const data={
+        var data={
             exportDate:new Date().toISOString(),
             version:'ShubhArambh_v2',
             master:this.S.master,
@@ -1082,47 +1085,55 @@ exportAllData(){
             settings:this.CFG,
             state:{pandit:this.S.pandit,activities:this.S.activities}
         };
-        const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
-        const name='ShubhArambh_Backup_'+new Date().toISOString().split('T')[0]+'.json';
-        this._smartDownload(blob,name,'application/json');
-        this.toast('Backup','All data exported','ok');
+        var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+        var name='ShubhArambh_Backup_'+new Date().toISOString().split('T')[0]+'.json';
+        this._downloadWithFallback(blob,name,'application/json');
+        this.toast('Backup','Downloading...','ok');
         this.logActivity('💾','Backup exported');
     }catch(e){this.toast('Error',e.message,'err')}
 },
 
+// =====================================================
+// END OF DOWNLOAD FUNCTIONS
+// =====================================================
+
 async saveCloud(){
-const name=this.S.yajman||'Unnamed';
+var name=this.S.yajman||'Unnamed';
 if(!name||name==='Unnamed'){this.toast('Required','Set yajman name','warn');return}
 this.load('Saving...');
+var self=this;
 try{
-await this.apiPost({action:'saveTemplate',id:Date.now().toString(),name,date:this.S.date||new Date().toLocaleDateString('hi-IN'),poojas:this.S.selPoojas.map(p=>p.name).join(', '),samagri:this.S.mats.filter(m=>m.on),meta:{yajman:name,date:this.S.date,phone:this.S.phone}});
+await this.apiPost({action:'saveTemplate',id:Date.now().toString(),name:name,date:this.S.date||new Date().toLocaleDateString('hi-IN'),poojas:this.S.selPoojas.map(function(p){return p.name}).join(', '),samagri:this.S.mats.filter(function(m){return m.on}),meta:{yajman:name,date:this.S.date,phone:this.S.phone}});
 this.unload();this.toast('Saved','Template saved','ok');this.logActivity('💾','Saved: '+name);await this.fetchTemplates();
 }catch(e){this.unload();this.toast('Error',e.message,'err')}
 },
 
 drawLib(){
-const g=document.getElementById('tplGrid');if(!g)return;
+var g=document.getElementById('tplGrid');if(!g)return;
+var self=this;
 if(!this.S.templates.length){g.innerHTML='<p style="color:var(--gray-500);text-align:center;padding:2rem;grid-column:1/-1;">No templates yet</p>';return}
-g.innerHTML=this.S.templates.slice().reverse().map(t=>
-'<div class="tpl-card"><div class="tpl-name">'+t.name+'</div><div class="tpl-meta"><span>📅 '+this._fmtDate(t.date)+'</span><span>🕉️ '+(t.poojasArr?t.poojasArr.length:0)+' poojas</span></div><div class="tpl-actions"><button class="btn btn-sm btn-p" onclick="V.loadTpl(\''+t.id+'\')">Open</button><button class="btn btn-sm btn-s" onclick="V.cloneTpl(\''+t.id+'\')">Clone</button><button class="btn btn-sm btn-d" onclick="V.delTpl(\''+t.id+'\')">Delete</button></div></div>'
-).join('');
+g.innerHTML=this.S.templates.slice().reverse().map(function(t){
+return'<div class="tpl-card"><div class="tpl-name">'+t.name+'</div><div class="tpl-meta"><span>📅 '+self._fmtDate(t.date)+'</span><span>🕉️ '+(t.poojasArr?t.poojasArr.length:0)+' poojas</span></div><div class="tpl-actions"><button class="btn btn-sm btn-p" onclick="V.loadTpl(\''+t.id+'\')">Open</button><button class="btn btn-sm btn-s" onclick="V.cloneTpl(\''+t.id+'\')">Clone</button><button class="btn btn-sm btn-d" onclick="V.delTpl(\''+t.id+'\')">Delete</button></div></div>'
+}).join('');
 },
 
 filterLib(){
-const q=((document.getElementById('libSearch')||{}).value||'').toLowerCase();
-const filtered=this.S.templates.filter(t=>t.name.toLowerCase().includes(q)||(t.poojas||'').toLowerCase().includes(q));
-const g=document.getElementById('tplGrid');
+var q=((document.getElementById('libSearch')||{}).value||'').toLowerCase();
+var self=this;
+var filtered=this.S.templates.filter(function(t){return t.name.toLowerCase().includes(q)||(t.poojas||'').toLowerCase().includes(q)});
+var g=document.getElementById('tplGrid');
 if(!filtered.length){g.innerHTML='<p style="color:var(--gray-500);text-align:center;padding:2rem;grid-column:1/-1;">No match</p>';return}
-g.innerHTML=filtered.slice().reverse().map(t=>
-'<div class="tpl-card"><div class="tpl-name">'+t.name+'</div><div class="tpl-meta"><span>📅 '+this._fmtDate(t.date)+'</span></div><div class="tpl-actions"><button class="btn btn-sm btn-p" onclick="V.loadTpl(\''+t.id+'\')">Open</button><button class="btn btn-sm btn-s" onclick="V.cloneTpl(\''+t.id+'\')">Clone</button><button class="btn btn-sm btn-d" onclick="V.delTpl(\''+t.id+'\')">Delete</button></div></div>'
-).join('');
+g.innerHTML=filtered.slice().reverse().map(function(t){
+return'<div class="tpl-card"><div class="tpl-name">'+t.name+'</div><div class="tpl-meta"><span>📅 '+self._fmtDate(t.date)+'</span></div><div class="tpl-actions"><button class="btn btn-sm btn-p" onclick="V.loadTpl(\''+t.id+'\')">Open</button><button class="btn btn-sm btn-s" onclick="V.cloneTpl(\''+t.id+'\')">Clone</button><button class="btn btn-sm btn-d" onclick="V.delTpl(\''+t.id+'\')">Delete</button></div></div>'
+}).join('');
 },
 
 loadTpl(id){
-const t=this.S.templates.find(x=>x.id.toString()===id.toString());
+var self=this;
+var t=this.S.templates.find(function(x){return x.id.toString()===id.toString()});
 if(!t){this.toast('Error','Not found','err');return}
 this.S.yajman=t.name;this.S.date=t.date;
-this.S.selPoojas=(t.poojasArr||[]).map((n,i)=>({name:n,order:i}));
+this.S.selPoojas=(t.poojasArr||[]).map(function(n,i){return{name:n,order:i}});
 this.S.mats=Array.isArray(t.samagri)?t.samagri:[];
 document.getElementById('inpYajman').value=t.name;document.getElementById('inpDate').value=t.date||'';
 this.drawPoojaList();if(this.S.mats.length)this.drawMats();else{this.buildMats();this.drawMats()}
@@ -1130,8 +1141,9 @@ this.go('pgMats');this.saveState();this.toast('Loaded',t.name,'ok');this.logActi
 },
 
 async cloneTpl(id){
-const t=this.S.templates.find(x=>x.id.toString()===id.toString());if(!t)return;
-const nn=prompt('New name:',t.name+' (Copy)');if(!nn)return;
+var self=this;
+var t=this.S.templates.find(function(x){return x.id.toString()===id.toString()});if(!t)return;
+var nn=prompt('New name:',t.name+' (Copy)');if(!nn)return;
 this.load('Cloning...');
 try{await this.apiPost({action:'saveTemplate',id:Date.now().toString(),name:nn,date:new Date().toLocaleDateString('hi-IN'),poojas:t.poojas,samagri:t.samagri,meta:{yajman:nn}});this.unload();this.toast('Cloned',nn,'ok');this.logActivity('📋','Cloned: '+nn);await this.fetchTemplates()}
 catch(e){this.unload();this.toast('Error',e.message,'err')}
@@ -1140,71 +1152,72 @@ catch(e){this.unload();this.toast('Error',e.message,'err')}
 async delTpl(id){
 if(!await this.confirm('Delete this template?','🗑️'))return;
 this.load('Deleting...');
-try{await this.apiPost({action:'deleteTemplate',id});this.unload();this.toast('Deleted','','ok');this.logActivity('🗑️','Template deleted');await this.fetchTemplates()}
+try{await this.apiPost({action:'deleteTemplate',id:id});this.unload();this.toast('Deleted','','ok');this.logActivity('🗑️','Template deleted');await this.fetchTemplates()}
 catch(e){this.unload();this.toast('Error',e.message,'err')}
 },
 
 drawDB(filter){
-const b=document.getElementById('dbBody');if(!b)return;
-let data=this.S.master;
-if(filter){const q=filter.toLowerCase();data=data.filter(r=>(r.pooja||'').toLowerCase().includes(q)||(r.samagri||'').toLowerCase().includes(q))}
+var b=document.getElementById('dbBody');if(!b)return;
+var data=this.S.master;
+var self=this;
+if(filter){var q=filter.toLowerCase();data=data.filter(function(r){return(r.pooja||'').toLowerCase().includes(q)||(r.samagri||'').toLowerCase().includes(q)})}
 if(!data.length){b.innerHTML='<tr><td colspan="4" style="text-align:center;padding:2rem;color:#999;">'+(filter?'No results':'No data')+'</td></tr>';return}
-b.innerHTML=data.map((r,i)=>{const gi=this.S.master.indexOf(r);return'<tr><td>'+(i+1)+'</td><td><strong>'+(r.pooja||'')+'</strong></td><td>'+(r.samagri||'')+'</td><td><div class="db-acts"><button class="db-btn db-btn-e" onclick="V.dbEdit('+gi+')">Edit</button><button class="db-btn db-btn-d" onclick="V.dbDel('+gi+')">Del</button></div></td></tr>'}).join('');
+b.innerHTML=data.map(function(r,i){var gi=self.S.master.indexOf(r);return'<tr><td>'+(i+1)+'</td><td><strong>'+(r.pooja||'')+'</strong></td><td>'+(r.samagri||'')+'</td><td><div class="db-acts"><button class="db-btn db-btn-e" onclick="V.dbEdit('+gi+')">Edit</button><button class="db-btn db-btn-d" onclick="V.dbDel('+gi+')">Del</button></div></td></tr>'}).join('');
 },
 
 filterDB(){this.drawDB((document.getElementById('dbSearch')||{}).value||'')},
 
 syncDBStats(){
-const up=[...new Set(this.S.master.map(x=>(x.pooja||'').trim()))].filter(Boolean);
-const eP=document.getElementById('dbStP'),eS=document.getElementById('dbStS');
+var up=[...new Set(this.S.master.map(function(x){return(x.pooja||'').trim()}))].filter(Boolean);
+var eP=document.getElementById('dbStP'),eS=document.getElementById('dbStS');
 if(eP)eP.textContent=up.length;if(eS)eS.textContent=this.S.master.length;
 },
 
 fillExistingSel(){
-const up=[...new Set(this.S.master.map(x=>(x.pooja||'').trim()))].filter(Boolean);
-const sel=document.getElementById('mAddSel');if(!sel)return;
-sel.innerHTML='<option value="">— or select existing —</option>'+up.map(p=>'<option value="'+p+'">'+p+'</option>').join('');
+var up=[...new Set(this.S.master.map(function(x){return(x.pooja||'').trim()}))].filter(Boolean);
+var sel=document.getElementById('mAddSel');if(!sel)return;
+sel.innerHTML='<option value="">— or select existing —</option>'+up.map(function(p){return'<option value="'+p+'">'+p+'</option>'}).join('');
 },
 
-pickExisting(){const v=document.getElementById('mAddSel').value;if(v)document.getElementById('mAddPooja').value=v},
+pickExisting(){var v=document.getElementById('mAddSel').value;if(v)document.getElementById('mAddPooja').value=v},
 
 async dbAdd(){
-const pooja=document.getElementById('mAddPooja').value.trim();
-const txt=document.getElementById('mAddItems').value.trim();
+var pooja=document.getElementById('mAddPooja').value.trim();
+var txt=document.getElementById('mAddItems').value.trim();
 if(!pooja){this.toast('Required','Enter pooja name','warn');return}
 if(!txt){this.toast('Required','Enter items','warn');return}
-const items=txt.split('\n').map(x=>x.trim()).filter(Boolean);
+var items=txt.split('\n').map(function(x){return x.trim()}).filter(Boolean);
 if(!items.length){this.toast('Required','Enter at least one item','warn');return}
 this.modal('mAdd',0);this.load('Adding '+items.length+' items...');
-let ok=0,fail=0;
-for(let idx=0;idx<items.length;idx++){
+var ok=0,fail=0;
+for(var idx=0;idx<items.length;idx++){
 document.getElementById('loaderTxt').textContent='Adding '+(idx+1)+'/'+items.length+': '+items[idx];
-try{await this.apiPost({action:'add',pooja,samagri:items[idx]});ok++;if(idx<items.length-1)await new Promise(r=>setTimeout(r,300))}catch(e){fail++}
+try{await this.apiPost({action:'add',pooja:pooja,samagri:items[idx]});ok++;if(idx<items.length-1)await new Promise(function(r){setTimeout(r,300)})}catch(e){fail++}
 }
 document.getElementById('mAddPooja').value='';document.getElementById('mAddItems').value='';document.getElementById('mAddSel').value='';
-await new Promise(r=>setTimeout(r,1000));this.unload();
+await new Promise(function(r){setTimeout(r,1000)});this.unload();
 this.toast(fail>0?'Partial':'Added',ok+' added'+(fail?', '+fail+' failed':''),fail?'warn':'ok');
 this.logActivity('➕','Added '+ok+' items to '+pooja);await this.fetchMaster();
 },
 
 dbEdit(i){
-const r=this.S.master[i];if(!r)return;
+var r=this.S.master[i];if(!r)return;
 document.getElementById('mEditPooja').value=r.pooja||'';
 document.getElementById('mEditSamagri').value=r.samagri||'';
 document.getElementById('mEditIdx').value=i;this.modal('mEdit',1);
 },
 
 async dbUpdate(){
-const i=parseInt(document.getElementById('mEditIdx').value);
-const ns=document.getElementById('mEditSamagri').value.trim();
+var i=parseInt(document.getElementById('mEditIdx').value);
+var ns=document.getElementById('mEditSamagri').value.trim();
 if(!ns){this.toast('Required','Cannot be empty','warn');return}
 if(i<0||i>=this.S.master.length)return;
-const old=this.S.master[i];this.modal('mEdit',0);this.load('Updating...');
+var old=this.S.master[i];this.modal('mEdit',0);this.load('Updating...');
 try{
 await this.apiPost({action:'delete',pooja:old.pooja,samagri:old.samagri});
-await new Promise(r=>setTimeout(r,500));
+await new Promise(function(r){setTimeout(r,500)});
 await this.apiPost({action:'add',pooja:old.pooja,samagri:ns});
-await new Promise(r=>setTimeout(r,1000));
+await new Promise(function(r){setTimeout(r,1000)});
 this.unload();this.toast('Updated','"'+old.samagri+'" → "'+ns+'"','ok');
 this.logActivity('✏️','Updated: '+ns);await this.fetchMaster();
 }catch(e){this.unload();this.toast('Error',e.message,'err')}
@@ -1212,33 +1225,33 @@ this.logActivity('✏️','Updated: '+ns);await this.fetchMaster();
 
 async dbDel(i){
 if(i<0||i>=this.S.master.length)return;
-const r=this.S.master[i];
+var r=this.S.master[i];
 if(!await this.confirm('Delete "'+r.samagri+'" from "'+r.pooja+'"?','🗑️'))return;
 this.load('Deleting...');
 try{
 await this.apiPost({action:'deleteItem',pooja:r.pooja,samagri:r.samagri});
-await new Promise(r=>setTimeout(r,1000));
+await new Promise(function(r){setTimeout(r,1000)});
 this.unload();this.toast('Deleted',r.samagri,'ok');
 this.logActivity('🗑️','Deleted: '+r.samagri);await this.fetchMaster();
 }catch(e){this.unload();this.toast('Error',e.message,'err')}
 },
 
 syncStats(){
-const up=this._uniquePoojas();
-const eY=document.getElementById('stYaj'),eP=document.getElementById('stPooja'),eI=document.getElementById('stItems'),eC=document.getElementById('stCloud');
+var up=this._uniquePoojas();
+var eY=document.getElementById('stYaj'),eP=document.getElementById('stPooja'),eI=document.getElementById('stItems'),eC=document.getElementById('stCloud');
 if(eY)eY.textContent=this.S.templates.length;if(eP)eP.textContent=up.length;
 if(eI)eI.textContent=this.S.master.length;if(eC)eC.textContent=this.S.templates.length;
 },
 
 _fmtDate(d){
 if(!d)return'-';
-try{const dt=new Date(d);if(isNaN(dt.getTime()))return d;return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'/'+dt.getFullYear()}catch(e){return d}
+try{var dt=new Date(d);if(isNaN(dt.getTime()))return d;return String(dt.getDate()).padStart(2,'0')+'/'+String(dt.getMonth()+1).padStart(2,'0')+'/'+dt.getFullYear()}catch(e){return d}
 }
 };
 
-if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',()=>V.init());
+if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',function(){V.init()});
 else V.init();
-setInterval(()=>{try{V.saveState()}catch(e){}},30000);
+setInterval(function(){try{V.saveState()}catch(e){}},30000);
 </script>
 </body>
 </html>
