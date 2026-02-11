@@ -464,7 +464,7 @@ async init(){
 document.getElementById('inpDate').value=new Date().toISOString().split('T')[0];
 this.loadCfg();this.loadState();this.drawThemeGrid();this.calcPreviewScale();
 window.addEventListener('resize',()=>this.calcPreviewScale());
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(()=>{})}
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){})}
 try{await this.fetchMaster()}catch(e){console.error(e)}
 try{await this.fetchTemplates()}catch(e){console.error(e)}
 this.drawPandits();this.drawActivities();this.syncStats();
@@ -488,7 +488,7 @@ if(id==='pgRashi'&&!this.S.rashiLoaded){this.loadRashiPage();this.S.rashiLoaded=
 },
 
 loadRashiPage(){
-document.getElementById('rashiContainer').innerHTML='<iframe src="https://jaiminihome-ship-it.github.io/POOJASAMAGRI/Rashi.html" style="width:100%;height:calc(100vh - 250px);border:none;border-radius:12px;background:#050505;"></iframe>';
+document.getElementById('rashiContainer').innerHTML='<iframe src="https://jaiminihome-ship-it.github.io/POOJASAMAGRI/Rashi.html" style="width:100%;height:calc(100vh - 250px);border:none;border-radius:12px;background:#050505;" loading="lazy"></iframe>';
 },
 
 modal(id,show){var el=document.getElementById(id);if(el)el.classList.toggle('on',!!show)},
@@ -510,7 +510,7 @@ type=type||'info';var c=document.getElementById('toasts');
 var icos={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
 var d=document.createElement('div');d.className='toast-item '+type;
 d.innerHTML='<div class="toast-ico">'+(icos[type]||'ℹ️')+'</div><div class="toast-body"><div class="toast-ttl">'+title+'</div>'+(msg?'<div class="toast-msg">'+msg+'</div>':'')+'</div>';
-c.appendChild(d);setTimeout(function(){if(d.parentNode)d.remove()},4000);
+c.appendChild(d);setTimeout(function(){if(d.parentNode)d.remove()},3000);
 },
 
 load(txt){document.getElementById('loaderTxt').textContent=txt||'Processing...';document.getElementById('loader').classList.add('on')},
@@ -518,13 +518,13 @@ unload(){document.getElementById('loader').classList.remove('on')},
 
 logActivity(icon,title){
 this.S.activities.unshift({icon:icon,title:title,time:new Date().toLocaleString('hi-IN')});
-if(this.S.activities.length>50)this.S.activities.length=50;this.saveState();
+if(this.S.activities.length>30)this.S.activities.length=30;this.saveState();
 },
 
 drawActivities(){
 var el=document.getElementById('activityList');
 if(!this.S.activities||!this.S.activities.length){el.innerHTML='<div style="text-align:center;padding:1.5rem;color:var(--gray-500);">No recent activity</div>';return}
-el.innerHTML=this.S.activities.slice(0,15).map(function(a){return'<div class="activity-item"><div class="activity-ico">'+a.icon+'</div><div class="activity-text"><div class="act-title">'+a.title+'</div><div class="act-time">'+a.time+'</div></div></div>'}).join('');
+el.innerHTML=this.S.activities.slice(0,10).map(function(a){return'<div class="activity-item"><div class="activity-ico">'+a.icon+'</div><div class="activity-text"><div class="act-title">'+a.title+'</div><div class="act-time">'+a.time+'</div></div></div>'}).join('');
 },
 
 loadCfg(){
@@ -602,7 +602,7 @@ if(s.editData){this.S.editData=s.editData;this.S.editData.remark=''}
 
 async refreshAll(){
 this.load('Refreshing...');
-try{await this.fetchMaster();await this.fetchTemplates();this.syncStats();this.toast('Refreshed','All data updated','ok');this.logActivity('🔄','Refreshed')}
+try{await this.fetchMaster();await this.fetchTemplates();this.syncStats();this.toast('Refreshed','Data updated','ok');this.logActivity('🔄','Refreshed')}
 catch(e){this.toast('Error',e.message,'err')}
 this.unload();
 },
@@ -690,7 +690,7 @@ var temp=this.S.selPoojas[i];this.S.selPoojas[i]=this.S.selPoojas[j];this.S.selP
 this.drawPoojaList((document.getElementById('poojaSearch')||{}).value||'');this.saveState();
 },
 
-selAll(){var self=this;this.S.selPoojas=this._uniquePoojas().map(function(name,i){return{name:name,order:i}});this.drawPoojaList();this.saveState();this.toast('All Selected',this.S.selPoojas.length+' poojas','ok')},
+selAll(){this.S.selPoojas=this._uniquePoojas().map(function(name,i){return{name:name,order:i}});this.drawPoojaList();this.saveState();this.toast('All Selected',this.S.selPoojas.length+' poojas','ok')},
 selNone(){this.S.selPoojas=[];this.drawPoojaList();this.saveState()},
 
 stepPooja(){
@@ -713,7 +713,7 @@ address:this.S.address||'',poojas:this.S.selPoojas.map(function(p){return p.name
 remark:''
 };
 var self=this;
-this.go('pgPreview');setTimeout(function(){self.buildPreview()},400);
+this.go('pgPreview');setTimeout(function(){self.buildPreview()},300);
 },
 
 buildMats(){
@@ -792,7 +792,6 @@ async addCustomItem(poojaName){
 var sk=poojaName.replace(/\s/g,'_');var input=document.getElementById('addInput_'+sk);
 if(!input)return;var val=input.value.trim();
 if(!val){this.toast('Required','Enter item name','warn');return}
-var self=this;
 if(this.S.mats.some(function(m){return m.pooja===poojaName&&m.name===val})){this.toast('Duplicate','Already exists','warn');return}
 this.S.mats.push({pooja:poojaName,name:val,qty:'',unit:'',on:true,custom:true});
 input.value='';this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');this.saveState();
@@ -804,7 +803,7 @@ catch(e){this.toast('Warning','Local only','warn')}
 removeCustomItem(gi){
 var m=this.S.mats[gi];if(!m||!m.custom)return;
 this.S.mats.splice(gi,1);this.drawMats((document.getElementById('matSearchGlobal')||{}).value||'');
-this.saveState();this.toast('Removed','Custom item removed','ok');
+this.saveState();this.toast('Removed','Item removed','ok');
 },
 
 togAllMats(poojaName){
@@ -921,30 +920,38 @@ this.calcPreviewScale();this.unload();this.toast('Preview Ready',total+' page(s)
 }catch(e){this.unload();this.toast('Error','Preview failed: '+e.message,'err')}
 },
 
-_renderPages(){
-var self=this;
-document.querySelectorAll('.editable-inline').forEach(function(inp){if(inp.dataset.field)self.S.editData[inp.dataset.field]=inp.value});
-var rb=document.querySelector('.remark-box');if(rb)this.S.editData.remark=rb.value||'';
-var tc=this._themeClass();var pages=this._paginate();
-var zone=document.getElementById('renderZone');zone.innerHTML='';
-var total=pages.length;var elements=[];
-pages.forEach(function(pg,pi){
-var div=document.createElement('div');div.className='pdfpage render-mode'+tc;div.style.fontSize=self.CFG.fontSize+'px';
+// =====================================================
+// 🔥 OPTIMIZED RENDER - ONE PAGE AT A TIME (NO CRASH) 🔥
+// =====================================================
+
+_createRenderPage(pg,pi,total){
+var tc=this._themeClass();
+var div=document.createElement('div');
+div.className='pdfpage render-mode'+tc;
+div.style.fontSize=this.CFG.fontSize+'px';
 var content='';
-if(pg.isFirst)content+=self._headerHTML(false);
-content+=self._buildTableHTML(pg.pairs);
-if(pi===total-1)content+=self._remarkHTML(false);
-if(self.CFG.showFtr)content+='<div style="position:absolute;bottom:25px;left:30px;right:30px;">'+self._footerHTML()+'</div>';
-div.innerHTML=content;zone.appendChild(div);elements.push(div);
+if(pg.isFirst)content+=this._headerHTML(false);
+content+=this._buildTableHTML(pg.pairs);
+if(pi===total-1)content+=this._remarkHTML(false);
+if(this.CFG.showFtr)content+='<div style="position:absolute;bottom:25px;left:30px;right:30px;">'+this._footerHTML()+'</div>';
+div.innerHTML=content;
+return div;
+},
+
+_syncEditData(){
+var self=this;
+document.querySelectorAll('.editable-inline').forEach(function(inp){
+if(inp.dataset.field)self.S.editData[inp.dataset.field]=inp.value;
 });
-return elements;
+var rb=document.querySelector('.remark-box');
+if(rb)this.S.editData.remark=rb.value||'';
 },
 
 // =====================================================
-// 🔥 ANDROID DOWNLOAD - DIRECT SAVE (NO SHARE SHEET) 🔥
+// 🔥 FORCE DOWNLOAD - NO SHARE SHEET 🔥
 // =====================================================
 
-_forceDownload(blob, filename){
+_forceDownload(blob,filename){
 try{
     var url=URL.createObjectURL(blob);
     var a=document.createElement('a');
@@ -957,20 +964,20 @@ try{
         setTimeout(function(){
             if(a.parentNode)document.body.removeChild(a);
             URL.revokeObjectURL(url);
-        },3000);
-    },100);
+        },5000);
+    },200);
     return true;
 }catch(e){return false}
 },
 
-_downloadWithFallback(blob, filename, mimeType){
+_downloadWithFallback(blob,filename){
 var self=this;
-var ok=this._forceDownload(blob, filename);
+var ok=this._forceDownload(blob,filename);
 if(!ok){
     try{
         var url=URL.createObjectURL(blob);
         window.open(url,'_blank');
-        self.toast('Opened','Long press karke save karo','warn');
+        self.toast('Opened','Long press to save','warn');
         setTimeout(function(){URL.revokeObjectURL(url)},60000);
     }catch(e){
         self.toast('Error','Download failed','err');
@@ -978,102 +985,190 @@ if(!ok){
 }
 },
 
+// =====================================================
+// 🔥 PDF DOWNLOAD - OPTIMIZED FOR PHONE 🔥
+// =====================================================
+
 async dlPDF(){
-    this.load('Generating PDF...');
+    this.load('Preparing PDF...');
     var self=this;
     try{
-        var pages=this._renderPages();
-        if(!pages.length){this.unload();this.toast('Error','No pages','warn');return}
-        await new Promise(function(r){setTimeout(r,500)});
+        this._syncEditData();
+        var allPages=this._paginate();
+        if(!allPages.length){this.unload();this.toast('Error','No pages','warn');return}
+
+        var zone=document.getElementById('renderZone');
         var jsPDFLib=window.jspdf;
         var pdf=new jsPDFLib.jsPDF('p','mm','a4');
-        for(var i=0;i<pages.length;i++){
+        var total=allPages.length;
+
+        for(var i=0;i<total;i++){
+            self.load('Rendering page '+(i+1)+'/'+total+'...');
+
+            // Ek page banao
+            zone.innerHTML='';
+            var pageDiv=self._createRenderPage(allPages[i],i,total);
+            zone.appendChild(pageDiv);
+
+            // Thoda wait karo render hone do
+            await new Promise(function(r){setTimeout(r,300)});
+
+            // Canvas banao - LOW SCALE for phone
+            var canvas=await html2canvas(pageDiv,{
+                scale:2,
+                useCORS:true,
+                backgroundColor:'#ffffff',
+                logging:false,
+                allowTaint:true
+            });
+
             if(i>0)pdf.addPage();
-            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
-            pdf.addImage(canvas.toDataURL('image/jpeg',0.92),'JPEG',0,0,210,297);
+            pdf.addImage(canvas.toDataURL('image/jpeg',0.85),'JPEG',0,0,210,297);
+
+            // Memory cleanup
+            canvas=null;
+            zone.innerHTML='';
+            await new Promise(function(r){setTimeout(r,100)});
         }
+
         var name=(this.S.editData.yajman||this.S.yajman||'Pooja')+'_Samagri.pdf';
         var blob=pdf.output('blob');
-        document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        this._downloadWithFallback(blob,name,'application/pdf');
-        this.toast('PDF Downloading',name,'ok');
-        this.logActivity('📄','PDF: '+name);
+        pdf=null;
+        zone.innerHTML='';
+
+        self.unload();
+        self._downloadWithFallback(blob,name);
+        self.toast('PDF Downloaded',name,'ok');
+        self.logActivity('📄','PDF: '+name);
+
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        this.toast('Error','PDF failed: '+e.message,'err');
+        self.unload();
+        self.toast('Error','PDF failed: '+e.message,'err');
     }
 },
 
+// =====================================================
+// 🔥 IMAGES ZIP - OPTIMIZED FOR PHONE 🔥
+// =====================================================
+
 async dlImages(){
-    this.load('Generating images...');
+    this.load('Preparing images...');
     var self=this;
     try{
-        var pages=this._renderPages();
-        if(!pages.length){this.unload();return}
-        await new Promise(function(r){setTimeout(r,500)});
+        this._syncEditData();
+        var allPages=this._paginate();
+        if(!allPages.length){this.unload();return}
+
+        var zone=document.getElementById('renderZone');
         var zip=new JSZip();
         var fn=(this.S.editData.yajman||'Pooja')+'_Samagri';
         var folder=zip.folder(fn);
-        for(var i=0;i<pages.length;i++){
-            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
+        var total=allPages.length;
+
+        for(var i=0;i<total;i++){
+            self.load('Rendering image '+(i+1)+'/'+total+'...');
+
+            zone.innerHTML='';
+            var pageDiv=self._createRenderPage(allPages[i],i,total);
+            zone.appendChild(pageDiv);
+
+            await new Promise(function(r){setTimeout(r,300)});
+
+            var canvas=await html2canvas(pageDiv,{
+                scale:2,
+                useCORS:true,
+                backgroundColor:'#ffffff',
+                logging:false,
+                allowTaint:true
+            });
+
             var imgBlob=await new Promise(function(r){canvas.toBlob(r,'image/png')});
             folder.file('Page_'+(i+1)+'.png',imgBlob);
+
+            canvas=null;
+            imgBlob=null;
+            zone.innerHTML='';
+            await new Promise(function(r){setTimeout(r,100)});
         }
+
+        self.load('Creating ZIP...');
         var zipBlob=await zip.generateAsync({type:'blob'});
-        document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        this._downloadWithFallback(zipBlob,fn+'.zip','application/zip');
-        this.toast('ZIP Downloading',fn+'.zip','ok');
-        this.logActivity('🖼️','Images: '+fn);
+        zip=null;
+        zone.innerHTML='';
+
+        self.unload();
+        self._downloadWithFallback(zipBlob,fn+'.zip');
+        self.toast('ZIP Downloaded',fn+'.zip','ok');
+        self.logActivity('🖼️','Images: '+fn);
+
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        this.toast('Error',e.message,'err');
+        self.unload();
+        self.toast('Error',e.message,'err');
     }
 },
+
+// =====================================================
+// 🔥 SHARE - ONLY THIS USES SHARE SHEET 🔥
+// =====================================================
 
 async share(){
     this.load('Preparing...');
     var self=this;
     try{
-        var pages=this._renderPages();
-        if(!pages.length){this.unload();return}
-        await new Promise(function(r){setTimeout(r,500)});
+        this._syncEditData();
+        var allPages=this._paginate();
+        if(!allPages.length){this.unload();return}
+
+        var zone=document.getElementById('renderZone');
         var jsPDFLib=window.jspdf;
         var pdf=new jsPDFLib.jsPDF('p','mm','a4');
-        for(var i=0;i<pages.length;i++){
+        var total=allPages.length;
+
+        for(var i=0;i<total;i++){
+            self.load('Preparing '+(i+1)+'/'+total+'...');
+            zone.innerHTML='';
+            var pageDiv=self._createRenderPage(allPages[i],i,total);
+            zone.appendChild(pageDiv);
+            await new Promise(function(r){setTimeout(r,300)});
+            var canvas=await html2canvas(pageDiv,{scale:2,useCORS:true,backgroundColor:'#ffffff',logging:false,allowTaint:true});
             if(i>0)pdf.addPage();
-            var canvas=await html2canvas(pages[i],{scale:3,useCORS:true,backgroundColor:'#ffffff',logging:false});
-            pdf.addImage(canvas.toDataURL('image/jpeg',0.9),'JPEG',0,0,210,297);
+            pdf.addImage(canvas.toDataURL('image/jpeg',0.85),'JPEG',0,0,210,297);
+            canvas=null;
+            zone.innerHTML='';
+            await new Promise(function(r){setTimeout(r,100)});
         }
+
         var blob=pdf.output('blob');
         var fileName=(this.S.editData.yajman||'Pooja')+'_Samagri.pdf';
-        document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        // Share button pe SHARE sheet aayegi
+        pdf=null;
+        zone.innerHTML='';
+        self.unload();
+
         if(navigator.share&&navigator.canShare){
             try{
                 var file=new File([blob],fileName,{type:'application/pdf'});
                 if(navigator.canShare({files:[file]})){
-                    await navigator.share({files:[file],title:'पूजा सामग्री सूची',text:(this.S.editData.yajman||this.S.yajman)+' की सामग्री सूची'});
-                    this.logActivity('📤','Shared: '+fileName);
+                    await navigator.share({files:[file],title:'पूजा सामग्री सूची',text:(self.S.editData.yajman||self.S.yajman)+' की सामग्री सूची'});
+                    self.logActivity('📤','Shared: '+fileName);
                     return;
                 }
-            }catch(e){
-                if(e.name==='AbortError')return;
-            }
+            }catch(e){if(e.name==='AbortError')return}
         }
-        // Fallback: download kar do
-        this._downloadWithFallback(blob,fileName,'application/pdf');
-        this.toast('Downloaded','Share not supported','warn');
+        self._downloadWithFallback(blob,fileName);
+        self.toast('Downloaded','Share not available','warn');
+
     }catch(e){
         document.getElementById('renderZone').innerHTML='';
-        this.unload();
-        if(e.name!=='AbortError')this.toast('Error',e.message,'err');
+        self.unload();
+        if(e.name!=='AbortError')self.toast('Error',e.message,'err');
     }
 },
+
+// =====================================================
+// 🔥 BACKUP EXPORT 🔥
+// =====================================================
 
 exportAllData(){
     try{
@@ -1087,21 +1182,20 @@ exportAllData(){
         };
         var blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
         var name='ShubhArambh_Backup_'+new Date().toISOString().split('T')[0]+'.json';
-        this._downloadWithFallback(blob,name,'application/json');
-        this.toast('Backup','Downloading...','ok');
+        this._downloadWithFallback(blob,name);
+        this.toast('Backup','Downloaded','ok');
         this.logActivity('💾','Backup exported');
     }catch(e){this.toast('Error',e.message,'err')}
 },
 
 // =====================================================
-// END OF DOWNLOAD FUNCTIONS
+// CLOUD & LIBRARY FUNCTIONS
 // =====================================================
 
 async saveCloud(){
 var name=this.S.yajman||'Unnamed';
 if(!name||name==='Unnamed'){this.toast('Required','Set yajman name','warn');return}
 this.load('Saving...');
-var self=this;
 try{
 await this.apiPost({action:'saveTemplate',id:Date.now().toString(),name:name,date:this.S.date||new Date().toLocaleDateString('hi-IN'),poojas:this.S.selPoojas.map(function(p){return p.name}).join(', '),samagri:this.S.mats.filter(function(m){return m.on}),meta:{yajman:name,date:this.S.date,phone:this.S.phone}});
 this.unload();this.toast('Saved','Template saved','ok');this.logActivity('💾','Saved: '+name);await this.fetchTemplates();
@@ -1129,7 +1223,6 @@ return'<div class="tpl-card"><div class="tpl-name">'+t.name+'</div><div class="t
 },
 
 loadTpl(id){
-var self=this;
 var t=this.S.templates.find(function(x){return x.id.toString()===id.toString()});
 if(!t){this.toast('Error','Not found','err');return}
 this.S.yajman=t.name;this.S.date=t.date;
@@ -1141,7 +1234,6 @@ this.go('pgMats');this.saveState();this.toast('Loaded',t.name,'ok');this.logActi
 },
 
 async cloneTpl(id){
-var self=this;
 var t=this.S.templates.find(function(x){return x.id.toString()===id.toString()});if(!t)return;
 var nn=prompt('New name:',t.name+' (Copy)');if(!nn)return;
 this.load('Cloning...');
@@ -1155,6 +1247,10 @@ this.load('Deleting...');
 try{await this.apiPost({action:'deleteTemplate',id:id});this.unload();this.toast('Deleted','','ok');this.logActivity('🗑️','Template deleted');await this.fetchTemplates()}
 catch(e){this.unload();this.toast('Error',e.message,'err')}
 },
+
+// =====================================================
+// DATABASE FUNCTIONS
+// =====================================================
 
 drawDB(filter){
 var b=document.getElementById('dbBody');if(!b)return;
@@ -1191,12 +1287,12 @@ if(!items.length){this.toast('Required','Enter at least one item','warn');return
 this.modal('mAdd',0);this.load('Adding '+items.length+' items...');
 var ok=0,fail=0;
 for(var idx=0;idx<items.length;idx++){
-document.getElementById('loaderTxt').textContent='Adding '+(idx+1)+'/'+items.length+': '+items[idx];
+document.getElementById('loaderTxt').textContent='Adding '+(idx+1)+'/'+items.length;
 try{await this.apiPost({action:'add',pooja:pooja,samagri:items[idx]});ok++;if(idx<items.length-1)await new Promise(function(r){setTimeout(r,300)})}catch(e){fail++}
 }
 document.getElementById('mAddPooja').value='';document.getElementById('mAddItems').value='';document.getElementById('mAddSel').value='';
-await new Promise(function(r){setTimeout(r,1000)});this.unload();
-this.toast(fail>0?'Partial':'Added',ok+' added'+(fail?', '+fail+' failed':''),fail?'warn':'ok');
+await new Promise(function(r){setTimeout(r,800)});this.unload();
+this.toast(fail>0?'Partial':'Added',ok+' added','ok');
 this.logActivity('➕','Added '+ok+' items to '+pooja);await this.fetchMaster();
 },
 
@@ -1215,10 +1311,10 @@ if(i<0||i>=this.S.master.length)return;
 var old=this.S.master[i];this.modal('mEdit',0);this.load('Updating...');
 try{
 await this.apiPost({action:'delete',pooja:old.pooja,samagri:old.samagri});
-await new Promise(function(r){setTimeout(r,500)});
+await new Promise(function(r){setTimeout(r,400)});
 await this.apiPost({action:'add',pooja:old.pooja,samagri:ns});
-await new Promise(function(r){setTimeout(r,1000)});
-this.unload();this.toast('Updated','"'+old.samagri+'" → "'+ns+'"','ok');
+await new Promise(function(r){setTimeout(r,800)});
+this.unload();this.toast('Updated','Done','ok');
 this.logActivity('✏️','Updated: '+ns);await this.fetchMaster();
 }catch(e){this.unload();this.toast('Error',e.message,'err')}
 },
@@ -1226,11 +1322,11 @@ this.logActivity('✏️','Updated: '+ns);await this.fetchMaster();
 async dbDel(i){
 if(i<0||i>=this.S.master.length)return;
 var r=this.S.master[i];
-if(!await this.confirm('Delete "'+r.samagri+'" from "'+r.pooja+'"?','🗑️'))return;
+if(!await this.confirm('Delete "'+r.samagri+'"?','🗑️'))return;
 this.load('Deleting...');
 try{
 await this.apiPost({action:'deleteItem',pooja:r.pooja,samagri:r.samagri});
-await new Promise(function(r){setTimeout(r,1000)});
+await new Promise(function(r){setTimeout(r,800)});
 this.unload();this.toast('Deleted',r.samagri,'ok');
 this.logActivity('🗑️','Deleted: '+r.samagri);await this.fetchMaster();
 }catch(e){this.unload();this.toast('Error',e.message,'err')}
