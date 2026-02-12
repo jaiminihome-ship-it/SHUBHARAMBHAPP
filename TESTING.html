@@ -1262,6 +1262,355 @@ const ProfilePage={
   }
 };
 </script>
+   <!-- BLOCK 15: New Pooja Page Builder - ADD AFTER BLOCK 14 -->
+<script>
+// Override pgNew builder
+PG_BUILD.pgNew=function(){
+  UI.html('pgNew',`
+    <div class="pg-head"><h2 class="pg-title">➕ New Pooja Setup</h2>
+      <p class="pg-sub">Create samagri list for yajman</p></div>
+
+    <!-- Step 1: Yajman Details -->
+    <div class="card">
+      <div class="card-h">
+        <h3 class="card-t">👤 Yajman Details</h3>
+        <button class="btn btn-xs btn-s" onclick="NewPooja.pickYajman()">📋 Select Saved</button>
+      </div>
+      <div class="fi-row">
+        <div class="fg"><label class="fl">Yajman Name *</label>
+          <input class="fi" id="npYajman" placeholder="यजमान का नाम"></div>
+        <div class="fg"><label class="fl">Phone</label>
+          <input class="fi" id="npPhone" placeholder="Phone" type="tel"></div>
+      </div>
+      <div class="fg"><label class="fl">Address</label>
+        <input class="fi" id="npAddr" placeholder="पता"></div>
+      <div class="fi-row">
+        <div class="fg"><label class="fl">Date</label>
+          <input class="fi" id="npDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+        <div class="fg"><label class="fl">Pandit</label>
+          <input class="fi" id="npPandit" value="${App.esc((API.user.pandit&&API.user.pandit.name)||API.user.name||'')}" readonly style="opacity:.7"></div>
+      </div>
+    </div>
+
+    <!-- Step 2: Pooja Selection -->
+    <div class="card">
+      <div class="card-h">
+        <h3 class="card-t">🕉️ Select Poojas</h3>
+        <div style="display:flex;gap:4px">
+          <button class="btn btn-xs btn-s" onclick="NewPooja.selAll()">All</button>
+          <button class="btn btn-xs btn-s" onclick="NewPooja.selNone()">Clear</button>
+          <span style="font-size:.78rem;color:var(--bhagwa-light);padding:4px 8px" id="npSelCount">0 selected</span>
+        </div>
+      </div>
+      <input class="fi" id="npPSearch" placeholder="🔍 Search poojas..." oninput="NewPooja.drawPoojas()" style="margin-bottom:10px">
+      <div id="npPoojaList" style="max-height:40vh;overflow-y:auto">Loading...</div>
+    </div>
+
+    <button class="btn btn-p btn-w" onclick="NewPooja.goToMaterials()" id="npNextBtn">
+      Next: Manage Materials →
+    </button>
+
+    <!-- Step 3: Materials (hidden until Next) -->
+    <div id="npMatsWrap" class="hide" style="margin-top:14px">
+      <div class="card">
+        <div class="card-h">
+          <h3 class="card-t">📦 Material Management</h3>
+          <div style="display:flex;gap:4px">
+            <input class="fi" id="npMatSearch" placeholder="🔍 Search..." oninput="NewPooja.drawMats()" style="width:150px;padding:6px 10px;font-size:.8rem">
+          </div>
+        </div>
+        <div id="npMatSections"></div>
+      </div>
+
+      <div class="card">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button class="btn btn-g btn-w" onclick="NewPooja.saveCloud()">💾 Save to Cloud</button>
+          <button class="btn btn-p btn-w" onclick="NewPooja.goToPreview()">📄 Preview & Download →</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Step 4: Preview (hidden until Preview) -->
+    <div id="npPreviewWrap" class="hide" style="margin-top:14px">
+      <div class="card">
+        <div class="card-h">
+          <h3 class="card-t">📄 Preview</h3>
+          <div style="display:flex;gap:4px;flex-wrap:wrap">
+            <button class="btn btn-xs btn-s" onclick="NewPooja.buildPreview()">🔄 Refresh</button>
+          </div>
+        </div>
+        <div id="npPreview" style="background:#d0d0d0;border-radius:var(--r-md);padding:12px;max-height:60vh;overflow:auto">
+          <p style="color:#666;text-align:center;padding:20px">Click Refresh to generate</p>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-h"><h3 class="card-t">📥 Download</h3></div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <button class="btn btn-p btn-w" onclick="NewPooja.dlPDF()">📄 PDF</button>
+          <button class="btn btn-g btn-w" onclick="NewPooja.dlImages()">🖼️ Images ZIP</button>
+          <button class="btn btn-s btn-w" onclick="NewPooja.share()">📤 Share</button>
+          <button class="btn btn-s btn-w" onclick="NewPooja.addToHisab()">💰 Add to Hisab</button>
+        </div>
+      </div>
+    </div>
+  `);
+};
+
+// ===== NEW POOJA LOGIC =====
+const NewPooja={
+  _sel:[],    // selected poojas [{name,order}]
+  _mats:[],   // materials [{pooja,name,qty,unit,on,custom}]
+
+  // Pick from saved yajmans
+  pickYajman(){
+    let m=UI.$('mPickYaj');
+    if(!m){m=document.createElement('div');m.id='mPickYaj';m.className='modal';document.body.appendChild(m)}
+    const list=App.D.yajmans||[];
+    m.innerHTML=`<div class="modal-box">
+      <div class="modal-h"><h3 class="modal-t">📋 Select Yajman</h3><button class="modal-x" onclick="UI.modal('mPickYaj',0)">×</button></div>
+      <div class="modal-b">
+        <input class="fi" placeholder="🔍 Search..." oninput="NewPooja._filterPick(this.value)" style="margin-bottom:10px">
+        <div id="pickYajList" style="max-height:50vh;overflow:auto">
+          ${!list.length?'<p style="color:var(--g500);text-align:center;padding:16px">No saved yajmans</p>':
+            list.map(y=>`<div class="lrow" style="cursor:pointer" onclick="NewPooja._selectYajman('${y.id}')">
+              <div class="lrow-i" style="background:var(--grad-b);width:32px;height:32px;font-size:.85rem">👤</div>
+              <div class="lrow-b"><div class="lrow-n" style="font-size:.85rem">${App.esc(y.name)}</div>
+                <div class="lrow-m">${y.phone||''} ${y.city?'• '+y.city:''}</div></div>
+            </div>`).join('')}
+        </div>
+      </div>
+    </div>`;
+    UI.modal('mPickYaj',1);
+  },
+
+  _filterPick(q){
+    const list=App.D.yajmans.filter(y=>(y.name||'').toLowerCase().includes(q.toLowerCase()));
+    UI.html('pickYajList',list.map(y=>`<div class="lrow" style="cursor:pointer" onclick="NewPooja._selectYajman('${y.id}')">
+      <div class="lrow-i" style="background:var(--grad-b);width:32px;height:32px;font-size:.85rem">👤</div>
+      <div class="lrow-b"><div class="lrow-n" style="font-size:.85rem">${App.esc(y.name)}</div></div>
+    </div>`).join(''));
+  },
+
+  _selectYajman(id){
+    const y=App.D.yajmans.find(x=>x.id===id);if(!y)return;
+    UI.modal('mPickYaj',0);
+    UI.setVal('npYajman',y.name);
+    UI.setVal('npPhone',y.phone||'');
+    UI.setVal('npAddr',(y.address||'')+(y.city?', '+y.city:''));
+    App._selectedYajman=y;
+    UI.toast('Selected',y.name,'ok');
+  },
+
+  // Draw pooja list
+  drawPoojas(){
+    const el=UI.$('npPoojaList');if(!el)return;
+    let all=App.uPoojas();
+    const q=UI.val('npPSearch').toLowerCase();
+    if(q)all=all.filter(n=>n.toLowerCase().includes(q));
+
+    if(!all.length){el.innerHTML=`<p style="color:var(--g500);text-align:center;padding:16px">${q?'No match':'No poojas in database'}</p>`;return}
+
+    el.innerHTML=all.map(name=>{
+      const cnt=App.D.master.filter(x=>x.pooja===name).length;
+      const sel=this._sel.some(p=>p.name===name);
+      const idx=this._sel.findIndex(p=>p.name===name);
+
+      return`<div class="lrow" style="cursor:pointer;${sel?'background:rgba(255,111,0,0.06);border-left:3px solid var(--bhagwa)':''}" onclick="NewPooja.togPooja('${App.esc(name)}')">
+        <div style="width:22px;height:22px;border:2px solid ${sel?'var(--bhagwa)':'var(--g500)'};border-radius:5px;display:grid;place-items:center;flex-shrink:0;font-size:.7rem;${sel?'background:var(--grad-b);color:#fff':''}">
+          ${sel?'✓':''}
+        </div>
+        <div class="lrow-b">
+          <div class="lrow-n" style="font-size:.88rem">${sel?'<span style="background:rgba(255,111,0,0.2);color:var(--bhagwa-light);padding:1px 6px;border-radius:10px;font-size:.65rem;margin-right:4px">'+(idx+1)+'</span>':''}${name}</div>
+          <div class="lrow-m">${cnt} items</div>
+        </div>
+        ${sel?`<div style="display:flex;gap:3px" onclick="event.stopPropagation()">
+          <button class="btn btn-xs btn-s" onclick="NewPooja.moveP(${idx},-1)">▲</button>
+          <button class="btn btn-xs btn-s" onclick="NewPooja.moveP(${idx},1)">▼</button>
+        </div>`:''}
+      </div>`;
+    }).join('');
+
+    UI.html('npSelCount',this._sel.length+' selected');
+  },
+
+  togPooja(name){
+    const i=this._sel.findIndex(p=>p.name===name);
+    if(i>-1)this._sel.splice(i,1);
+    else this._sel.push({name,order:this._sel.length});
+    this.drawPoojas();
+  },
+
+  moveP(i,dir){
+    const j=i+dir;if(j<0||j>=this._sel.length)return;
+    [this._sel[i],this._sel[j]]=[this._sel[j],this._sel[i]];
+    this.drawPoojas();
+  },
+
+  selAll(){this._sel=App.uPoojas().map((n,i)=>({name:n,order:i}));this.drawPoojas()},
+  selNone(){this._sel=[];this.drawPoojas()},
+
+  // Go to materials step
+  goToMaterials(){
+    const yaj=UI.val('npYajman');
+    if(!yaj){UI.toast('Required','Enter yajman name','warn');UI.$('npYajman').focus();return}
+    if(!this._sel.length){UI.toast('Required','Select at least one pooja','warn');return}
+
+    this.buildMats();
+    this.drawMats();
+    UI.$('npMatsWrap').classList.remove('hide');
+    UI.$('npNextBtn').classList.add('hide');
+    window.scrollTo({top:UI.$('npMatsWrap').offsetTop-80,behavior:'smooth'});
+  },
+
+  buildMats(){
+    const existing=new Map();
+    this._mats.forEach(m=>existing.set(m.pooja+'||'+m.name,m));
+    const newMats=[];
+    this._sel.forEach(p=>{
+      const items=App.D.master.filter(d=>d.pooja===p.name);
+      items.forEach(item=>{
+        const key=p.name+'||'+item.samagri;
+        if(existing.has(key))newMats.push(existing.get(key));
+        else newMats.push({pooja:p.name,name:item.samagri,qty:'',unit:'',on:true,custom:false});
+      });
+      // Keep custom items
+      this._mats.filter(m=>m.pooja===p.name&&m.custom).forEach(cm=>{
+        if(!newMats.some(n=>n.pooja===cm.pooja&&n.name===cm.name))newMats.push(cm);
+      });
+    });
+    this._mats=newMats;
+  },
+
+  drawMats(){
+    const c=UI.$('npMatSections');if(!c)return;
+    const fq=UI.val('npMatSearch').toLowerCase();
+    const units=['ग्राम','किग्रा','नग','पैकेट','जोड़ा','रुपये','लीटर','लच्छा','मीटर','बण्डल','छोटी शीशी','बड़ी शीशी'];
+
+    c.innerHTML=this._sel.map(p=>{
+      let items=this._mats.filter(m=>m.pooja===p.name);
+      const total=items.length;
+      const onCnt=items.filter(m=>m.on).length;
+      if(fq)items=items.filter(m=>m.name.toLowerCase().includes(fq));
+
+      return`<div style="margin-bottom:12px">
+        <div class="sec-h">
+          🕉️ ${App.esc(p.name)}
+          <span class="sec-cnt">${onCnt}/${total} items</span>
+        </div>
+        ${items.map(m=>{
+          const gi=this._mats.indexOf(m);if(gi===-1)return'';
+          return`<div style="display:grid;grid-template-columns:22px 1fr 65px 80px ${m.custom?'26px':'0'};gap:5px;align-items:center;padding:4px 8px;border-bottom:1px solid rgba(255,255,255,0.03);${!m.on?'opacity:.4':''}${m.custom?';border-left:2px solid var(--gold)':''}">
+            <input type="checkbox" style="accent-color:var(--bhagwa);cursor:pointer" ${m.on?'checked':''} onchange="NewPooja._mats[${gi}].on=this.checked;NewPooja.drawMats()">
+            <div style="font-size:.82rem;color:#fff;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" title="${App.esc(m.name)}">${App.esc(m.name)}${m.custom?' ⭐':''}</div>
+            <input style="padding:4px;background:rgba(255,255,255,0.04);border:1px solid var(--card-border);border-radius:4px;color:#fff;font-size:.8rem;text-align:center;outline:none" placeholder="Qty" value="${m.qty||''}" oninput="NewPooja._mats[${gi}].qty=this.value">
+            <select style="padding:4px;background:rgba(255,255,255,0.04);border:1px solid var(--card-border);border-radius:4px;color:#fff;font-size:.78rem;outline:none" onchange="NewPooja._mats[${gi}].unit=this.value">
+              <option value="">Unit</option>
+              ${units.map(u=>`<option${m.unit===u?' selected':''}>${u}</option>`).join('')}
+            </select>
+            ${m.custom?`<button style="background:none;border:none;color:var(--err);cursor:pointer;font-size:.8rem" onclick="NewPooja._mats.splice(${gi},1);NewPooja.drawMats()">🗑️</button>`:''}
+          </div>`}).join('')}
+        <div style="display:flex;gap:4px;margin-top:4px;padding:4px 8px">
+          <input class="fi" id="npAdd_${p.name.replace(/\s/g,'_')}" placeholder="➕ Add custom item..." style="padding:6px 8px;font-size:.8rem;flex:1;border-style:dashed;border-color:rgba(255,111,0,0.3)"
+            onkeydown="if(event.key==='Enter')NewPooja.addCustom('${App.esc(p.name)}')">
+          <button class="btn btn-xs btn-p" onclick="NewPooja.addCustom('${App.esc(p.name)}')">Add</button>
+        </div>
+      </div>`;
+    }).join('');
+  },
+
+  addCustom(pooja){
+    const inpId='npAdd_'+pooja.replace(/\s/g,'_');
+    const inp=UI.$(inpId);if(!inp)return;
+    const val=inp.value.trim();if(!val)return;
+    if(this._mats.some(m=>m.pooja===pooja&&m.name===val)){UI.toast('Exists','Already added','warn');return}
+    this._mats.push({pooja,name:val,qty:'',unit:'',on:true,custom:true});
+    inp.value='';
+    this.drawMats();
+    // Also add to cloud DB
+    API.post({action:'addItem',pooja,samagri:val}).catch(()=>{});
+  },
+
+  // Preview & Download
+  goToPreview(){
+    UI.$('npPreviewWrap').classList.remove('hide');
+    window.scrollTo({top:UI.$('npPreviewWrap').offsetTop-80,behavior:'smooth'});
+    setTimeout(()=>this.buildPreview(),300);
+  },
+
+  buildPreview(){
+    UI.toast('Preview','Building preview... (PDF engine coming in next block)','info');
+    const el=UI.$('npPreview');
+    if(!el)return;
+    const enabled=this._mats.filter(m=>m.on);
+    el.innerHTML=`<div style="background:#fff;padding:20px;border-radius:8px;color:#000;font-family:'Noto Sans Devanagari',sans-serif">
+      <h2 style="text-align:center;color:#FF6F00;margin-bottom:10px">॥ श्री गणेशाय नमः ॥</h2>
+      <h3 style="text-align:center;margin-bottom:16px">पूजा सामग्री सूची</h3>
+      <p><b>यजमान:</b> ${App.esc(UI.val('npYajman'))}</p>
+      <p><b>तारीख:</b> ${UI.val('npDate')}</p>
+      <p><b>पूजा:</b> ${this._sel.map(p=>p.name).join(', ')}</p>
+      <hr style="margin:10px 0;border-color:#FF6F00">
+      <table style="width:100%;border-collapse:collapse;font-size:13px">
+        <tr style="background:#FFF3E0"><th style="border:1px solid #999;padding:4px">#</th><th style="border:1px solid #999;padding:4px">सामग्री</th><th style="border:1px solid #999;padding:4px">मात्रा</th></tr>
+        ${enabled.map((m,i)=>`<tr><td style="border:1px solid #ddd;padding:3px;text-align:center">${i+1}</td><td style="border:1px solid #ddd;padding:3px">${App.esc(m.name)}</td><td style="border:1px solid #ddd;padding:3px">${(m.qty||'')+' '+(m.unit||'')}</td></tr>`).join('')}
+      </table>
+      <p style="text-align:center;margin-top:12px;font-size:12px;color:#666">${(API.user.pandit&&API.user.pandit.name)||''} | ${(API.user.pandit&&API.user.pandit.phone)||''}</p>
+    </div>`;
+  },
+
+  async saveCloud(){
+    const name=UI.val('npYajman');
+    if(!name){UI.toast('Required','Enter yajman name','warn');return}
+    UI.load('Saving to cloud...');
+    try{
+      await API.post({
+        action:'saveTemplate',
+        name:name,
+        date:UI.val('npDate'),
+        poojas:this._sel.map(p=>p.name).join(', '),
+        samagri:this._mats.filter(m=>m.on),
+        phone:UI.val('npPhone'),
+        address:UI.val('npAddr')
+      });
+      UI.unload();
+      UI.toast('Saved!','Template saved to cloud','ok');
+      const t=await API.get('getTemplates');if(Array.isArray(t))App.D.templates=t;
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  dlPDF(){UI.toast('Coming Soon','Full PDF engine in next block','info')},
+  dlImages(){UI.toast('Coming Soon','Image export in next block','info')},
+  share(){UI.toast('Coming Soon','Share feature in next block','info')},
+
+  addToHisab(){
+    const yaj=App._selectedYajman;
+    const name=UI.val('npYajman');
+    Nav.go('pgHisab');
+    setTimeout(()=>{
+      HisabPage.showAdd('income',yaj?yaj.id:'');
+      setTimeout(()=>{
+        UI.setVal('hPj',NewPooja._sel.map(p=>p.name).join(', '));
+      },200);
+    },300);
+  }
+};
+
+// Override PG.pgNew
+PG.pgNew=function(){
+  NewPooja._sel=[];
+  NewPooja._mats=[];
+  NewPooja.drawPoojas();
+  // Check if yajman was pre-selected
+  if(App._selectedYajman){
+    const y=App._selectedYajman;
+    setTimeout(()=>{
+      UI.setVal('npYajman',y.name||'');
+      UI.setVal('npPhone',y.phone||'');
+      UI.setVal('npAddr',(y.address||'')+(y.city?', '+y.city:''));
+    },100);
+  }
+};
+</script>
 
 </body>
+
 </html>
