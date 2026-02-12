@@ -1,0 +1,1267 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+<meta name="theme-color" content="#FF6F00">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<title>शुभारंभ - Pooja Samagri Manager</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700&family=Noto+Serif+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ===========================
+   COMPLETE CSS - ORIGINAL DARK BHAGWA THEME
+   =========================== */
+:root{
+--bhagwa:#FF6F00;--bhagwa-dark:#E65100;--bhagwa-light:#FFB74D;--bhagwa-pale:#FFF3E0;
+--gold:#DAA520;--deep-black:#1A1A2E;--dark-bg:#0F0F23;
+--card-bg:rgba(255,255,255,0.04);--card-border:rgba(255,255,255,0.08);
+--white:#fff;--g100:#F5F5F5;--g300:#E0E0E0;--g400:#BDBDBD;--g500:#9E9E9E;--g600:#757575;
+--ok:#00C853;--err:#FF1744;--warn:#FFD600;--info:#2979FF;
+--grad-b:linear-gradient(135deg,#FF6F00,#FF8F00,#FFA726);
+--grad-d:linear-gradient(160deg,#0F0F23,#1A1A2E,#16213E);
+--shadow-glow:0 0 30px rgba(255,111,0,0.15);
+--r-sm:8px;--r-md:12px;--r-lg:16px;--r-xl:24px;--r-full:9999px;
+--ease:cubic-bezier(0.4,0,0.2,1);
+--f-ui:'Poppins',sans-serif;--f-hi:'Noto Sans Devanagari',sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{font-family:var(--f-ui);background:var(--grad-d);color:var(--white);
+overflow-x:hidden;min-height:100vh;line-height:1.6;-webkit-font-smoothing:antialiased}
+body::before{content:'';position:fixed;inset:0;
+background:radial-gradient(ellipse at 15% 50%,rgba(255,111,0,0.08),transparent 60%),
+radial-gradient(ellipse at 85% 20%,rgba(218,165,32,0.05),transparent 50%);
+pointer-events:none;z-index:0}
+::-webkit-scrollbar{width:5px}::-webkit-scrollbar-thumb{background:var(--grad-b);border-radius:3px}
+::selection{background:rgba(255,111,0,0.3);color:#fff}
+
+.hide{display:none!important}
+
+/* SHELL */
+.shell{position:relative;z-index:1;max-width:1400px;margin:0 auto;min-height:100vh}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:900;padding:10px 12px}
+.topbar-in{background:rgba(15,15,35,0.92);backdrop-filter:blur(24px) saturate(1.8);
+border-radius:var(--r-xl);padding:10px 16px;display:flex;align-items:center;
+justify-content:space-between;border:1px solid rgba(255,111,0,0.15);
+box-shadow:0 4px 20px rgba(0,0,0,0.15),var(--shadow-glow)}
+.brand{display:flex;align-items:center;gap:10px}
+.brand-icon{width:42px;height:42px;background:var(--grad-b);border-radius:var(--r-md);
+display:grid;place-items:center;font-size:1.35rem;box-shadow:0 4px 16px rgba(255,111,0,0.35);
+animation:bFloat 4s ease-in-out infinite}
+@keyframes bFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+.brand h1{font-size:1.15rem;font-weight:800;background:var(--grad-b);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1.2}
+.brand small{font-size:0.65rem;color:var(--g600);display:block}
+.top-right{display:flex;align-items:center;gap:6px}
+.ibtn{width:36px;height:36px;border-radius:var(--r-md);border:1px solid var(--card-border);
+background:var(--card-bg);color:var(--g400);cursor:pointer;display:grid;place-items:center;
+font-size:1.1rem;transition:all .25s var(--ease)}
+.ibtn:hover{background:rgba(255,111,0,0.15);color:#fff;transform:translateY(-1px)}
+.ibtn:active{transform:scale(.94)}
+.upill{display:flex;align-items:center;gap:6px;background:rgba(255,111,0,0.08);
+border:1px solid rgba(255,111,0,0.15);padding:3px 10px 3px 3px;border-radius:var(--r-full);
+cursor:pointer;transition:all .25s var(--ease)}
+.upill:hover{background:rgba(255,111,0,0.15)}
+.upill .ua{width:28px;height:28px;border-radius:50%;background:var(--grad-b);
+display:grid;place-items:center;font-size:.8rem}
+.upill .un{font-size:.75rem;font-weight:600;color:var(--bhagwa-light);max-width:80px;
+overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+/* TABBAR */
+.tabbar{position:fixed;bottom:0;left:0;right:0;z-index:900;padding:6px 10px;
+padding-bottom:max(6px,env(safe-area-inset-bottom))}
+.tabbar-in{background:rgba(7,7,15,0.96);backdrop-filter:blur(24px);
+border-radius:var(--r-xl);padding:5px;display:grid;grid-template-columns:repeat(7,1fr);
+gap:2px;border:1px solid rgba(255,111,0,0.12);box-shadow:0 -4px 30px rgba(0,0,0,0.4);
+max-width:660px;margin:0 auto}
+.tab{background:none;border:none;color:var(--g600);cursor:pointer;padding:6px 2px;
+border-radius:var(--r-md);display:flex;flex-direction:column;align-items:center;gap:1px;
+font-size:.58rem;font-weight:600;font-family:var(--f-ui);transition:all .25s var(--ease);
+position:relative;user-select:none;-webkit-tap-highlight-color:transparent}
+.tab .ti{font-size:1.15rem;transition:transform .3s var(--ease)}
+.tab.on{color:#fff}
+.tab.on::before{content:'';position:absolute;inset:0;background:var(--grad-b);
+border-radius:var(--r-md);z-index:-1}
+.tab:not(.on):hover{color:var(--bhagwa-light)}
+.tab:not(.on):hover .ti{transform:translateY(-2px)}
+
+/* MAIN */
+.main{padding:0 12px 80px}
+.page{display:none;animation:pgIn .35s var(--ease);max-width:900px;margin:0 auto}
+.page.on{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.pg-head{text-align:center;padding:6px 0 18px}
+.pg-title{font-size:1.6rem;font-weight:800;background:var(--grad-b);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.pg-sub{color:var(--g500);font-size:.85rem;margin-top:2px}
+
+/* CARD */
+.card{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid var(--card-border);
+border-radius:var(--r-lg);padding:18px;margin-bottom:14px;
+transition:border-color .3s var(--ease),box-shadow .3s var(--ease)}
+.card:hover{border-color:rgba(255,111,0,0.15)}
+.card-h{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;
+flex-wrap:wrap;gap:6px}
+.card-t{font-size:1rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:6px}
+
+/* FORM */
+.fg{margin-bottom:14px}.fg:last-child{margin-bottom:0}
+.fl{display:block;margin-bottom:4px;font-weight:600;color:var(--g300);font-size:.75rem;
+text-transform:uppercase;letter-spacing:.6px}
+.fi,.fsel,.ftx{width:100%;padding:10px 14px;background:rgba(255,255,255,0.04);
+border:1.5px solid var(--card-border);border-radius:var(--r-md);color:#fff;
+font-family:var(--f-ui);font-size:.9rem;transition:all .25s var(--ease);outline:none}
+.fi:focus,.fsel:focus,.ftx:focus{border-color:var(--bhagwa);background:rgba(255,111,0,0.04);
+box-shadow:0 0 0 3px rgba(255,111,0,0.1)}
+.fi::placeholder,.ftx::placeholder{color:var(--g600)}
+.ftx{min-height:90px;resize:vertical;font-family:var(--f-hi)}
+.fsel option{background:var(--deep-black);color:#fff}
+.fi-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+
+/* BUTTONS */
+.btn{padding:10px 16px;border:none;border-radius:var(--r-md);font-family:var(--f-ui);
+font-size:.85rem;font-weight:600;cursor:pointer;transition:all .25s var(--ease);
+display:inline-flex;align-items:center;justify-content:center;gap:5px;
+user-select:none;-webkit-tap-highlight-color:transparent}
+.btn:active{transform:scale(.96)}.btn:disabled{opacity:.4;pointer-events:none}
+.btn-p{background:var(--grad-b);color:#fff;box-shadow:0 4px 14px rgba(255,111,0,0.3)}
+.btn-p:hover:not(:disabled){box-shadow:0 6px 22px rgba(255,111,0,0.45);transform:translateY(-1px)}
+.btn-s{background:rgba(255,255,255,0.06);color:#fff;border:1.5px solid rgba(255,255,255,0.1)}
+.btn-s:hover:not(:disabled){background:rgba(255,255,255,0.1)}
+.btn-g{background:linear-gradient(135deg,#00C853,#00E676);color:#fff}
+.btn-d{background:linear-gradient(135deg,#FF1744,#FF5252);color:#fff}
+.btn-w{width:100%}
+.btn-sm{padding:6px 10px;font-size:.78rem}
+.btn-xs{padding:4px 8px;font-size:.7rem;border-radius:6px}
+
+/* STATS */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin-bottom:16px}
+.stat{background:var(--card-bg);border:1px solid var(--card-border);border-radius:var(--r-lg);
+padding:14px;text-align:center;cursor:pointer;transition:all .3s var(--ease)}
+.stat:hover{border-color:rgba(255,111,0,0.2);transform:translateY(-2px)}
+.stat-i{width:38px;height:38px;margin:0 auto 6px;background:var(--grad-b);border-radius:50%;
+display:grid;place-items:center;font-size:1.1rem}
+.stat-v{font-size:1.4rem;font-weight:800;color:#fff}
+.stat-l{font-size:.65rem;color:var(--g500);text-transform:uppercase;letter-spacing:.4px}
+
+/* MODAL */
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);
+backdrop-filter:blur(8px);z-index:9999;padding:14px;overflow-y:auto}
+.modal.on{display:flex;align-items:center;justify-content:center}
+.modal-box{background:var(--deep-black);border-radius:var(--r-xl);max-width:540px;width:100%;
+max-height:90vh;overflow-y:auto;border:1px solid rgba(255,111,0,0.2);
+animation:mPop .3s var(--ease)}
+@keyframes mPop{from{opacity:0;transform:scale(.94) translateY(16px)}to{opacity:1;transform:scale(1) translateY(0)}}
+.modal-h{padding:16px 18px;border-bottom:1px solid var(--card-border);display:flex;
+align-items:center;justify-content:space-between}
+.modal-t{font-size:1.1rem;font-weight:700;color:#fff}
+.modal-x{width:32px;height:32px;border-radius:50%;border:none;background:rgba(255,255,255,0.08);
+color:#fff;cursor:pointer;display:grid;place-items:center;font-size:1.2rem;transition:all .25s var(--ease)}
+.modal-x:hover{background:var(--err);transform:rotate(90deg)}
+.modal-b{padding:18px}
+.modal-f{padding:14px 18px;border-top:1px solid var(--card-border);display:flex;gap:8px;justify-content:flex-end}
+
+/* TOAST */
+.toast-box{position:fixed;top:12px;right:12px;z-index:99999;display:flex;flex-direction:column;
+gap:6px;max-width:360px;pointer-events:none}
+.tst{background:rgba(15,15,35,0.95);backdrop-filter:blur(20px);border-radius:var(--r-md);
+padding:10px 14px;display:flex;align-items:center;gap:8px;box-shadow:0 8px 40px rgba(0,0,0,0.3);
+border-left:4px solid var(--bhagwa);animation:tIn .35s var(--ease);pointer-events:all}
+.tst.ok{border-left-color:var(--ok)}.tst.err{border-left-color:var(--err)}.tst.warn{border-left-color:var(--warn)}
+@keyframes tIn{from{opacity:0;transform:translateX(100%)}to{opacity:1;transform:translateX(0)}}
+.tst-i{font-size:1.1rem;flex-shrink:0}
+.tst-t{font-weight:600;color:#fff;font-size:.8rem}
+.tst-m{font-size:.7rem;color:var(--g500);margin-top:1px}
+
+/* LOADER */
+.loader{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.85);backdrop-filter:blur(8px);z-index:99999}
+.loader.on{display:flex;align-items:center;justify-content:center;flex-direction:column;gap:14px}
+.lspin{width:40px;height:40px;border:3px solid rgba(255,255,255,0.08);
+border-top-color:var(--bhagwa);border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.ltxt{color:#fff;font-weight:600;font-size:.95rem}
+
+/* AUTH */
+.auth{position:fixed;inset:0;background:var(--grad-d);z-index:10000;
+display:flex;align-items:center;justify-content:center;padding:16px;overflow-y:auto}
+.auth::before{content:'';position:absolute;inset:0;
+background:radial-gradient(ellipse at 20% 30%,rgba(255,111,0,0.08),transparent),
+radial-gradient(ellipse at 80% 70%,rgba(218,165,32,0.05),transparent);pointer-events:none}
+.auth.hide{display:none}
+.auth-w{position:relative;max-width:420px;width:100%;z-index:1}
+.auth-logo{text-align:center;margin-bottom:28px}
+.auth-li{width:68px;height:68px;background:var(--grad-b);border-radius:var(--r-xl);
+display:grid;place-items:center;font-size:2rem;margin:0 auto 14px;
+box-shadow:0 8px 36px rgba(255,111,0,0.35);animation:bFloat 4s ease-in-out infinite}
+.auth-logo h1{font-size:2rem;font-weight:900;background:var(--grad-b);
+-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.auth-logo p{color:var(--g600);font-size:.82rem}
+.auth-card{background:var(--card-bg);backdrop-filter:blur(16px);border:1px solid var(--card-border);
+border-radius:var(--r-xl);padding:24px}
+.auth-card h3{text-align:center;color:#fff;font-size:1.1rem;margin-bottom:20px}
+.auth-sw{text-align:center;margin-top:14px;color:var(--g600);font-size:.82rem}
+.auth-sw a{color:var(--bhagwa);text-decoration:none;font-weight:700;cursor:pointer}
+.auth-ft{margin-top:24px;padding:14px;background:rgba(255,111,0,0.04);
+border-radius:var(--r-lg);border:1px solid rgba(255,111,0,0.1)}
+.auth-ft h4{color:var(--bhagwa);text-align:center;margin-bottom:8px;font-size:.82rem}
+.auth-ft-g{display:grid;grid-template-columns:1fr 1fr;gap:3px 10px;font-size:.72rem;color:var(--g400)}
+
+/* OTP INPUT */
+.otp-wrap{display:flex;gap:8px;justify-content:center;margin:16px 0}
+.otp-inp{width:44px;height:52px;text-align:center;font-size:1.4rem;font-weight:800;
+background:rgba(255,255,255,0.04);border:2px solid var(--card-border);border-radius:var(--r-md);
+color:var(--bhagwa-light);font-family:var(--f-ui);outline:none;transition:all .25s var(--ease)}
+.otp-inp:focus{border-color:var(--bhagwa);background:rgba(255,111,0,0.06);
+box-shadow:0 0 0 3px rgba(255,111,0,0.15)}
+
+/* HISAB SUMMARY CARDS */
+.h-summary{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:16px}
+.h-card{padding:14px;border-radius:var(--r-lg);text-align:center;cursor:pointer;
+transition:all .3s var(--ease)}
+.h-card:hover{transform:translateY(-2px)}
+.h-card.inc{background:rgba(0,200,83,0.06);border:1px solid rgba(0,200,83,0.15)}
+.h-card.exp{background:rgba(255,23,68,0.06);border:1px solid rgba(255,23,68,0.15)}
+.h-card.pend{background:rgba(255,214,0,0.06);border:1px solid rgba(255,214,0,0.15)}
+.h-card.prof{background:rgba(255,111,0,0.06);border:1px solid rgba(255,111,0,0.15)}
+.h-val{font-size:1.3rem;font-weight:800}
+.h-val.green{color:#00E676}.h-val.red{color:#FF5252}
+.h-val.yellow{color:#FFD740}.h-val.orange{color:var(--bhagwa-light)}
+.h-lbl{font-size:.68rem;color:var(--g500);text-transform:uppercase;margin-top:2px}
+
+/* LIST ROW */
+.lrow{display:flex;align-items:center;gap:10px;padding:12px 0;
+border-bottom:1px solid rgba(255,255,255,0.04);transition:background .2s var(--ease)}
+.lrow:hover{background:rgba(255,255,255,0.02)}
+.lrow:last-child{border-bottom:none}
+.lrow-i{width:38px;height:38px;border-radius:50%;display:grid;place-items:center;
+font-size:1rem;flex-shrink:0}
+.lrow-b{flex:1;min-width:0}
+.lrow-n{font-weight:600;color:#fff;font-size:.88rem}
+.lrow-m{font-size:.7rem;color:var(--g500)}
+.lrow-r{text-align:right;flex-shrink:0}
+.lrow-a{display:flex;gap:4px;flex-shrink:0}
+
+/* STATUS BADGE */
+.badge{display:inline-block;padding:1px 7px;border-radius:var(--r-full);font-size:.6rem;font-weight:700}
+.badge-ok{background:rgba(0,200,83,0.15);color:var(--ok)}
+.badge-err{background:rgba(255,23,68,0.15);color:var(--err)}
+.badge-warn{background:rgba(255,214,0,0.15);color:var(--warn)}
+
+/* SECTION HEADER */
+.sec-h{background:rgba(255,111,0,0.08);border-left:3px solid var(--bhagwa);
+padding:8px 12px;border-radius:var(--r-sm);margin-bottom:6px;
+font-weight:700;color:#fff;font-size:.88rem;display:flex;align-items:center;
+justify-content:space-between;cursor:pointer}
+.sec-h:hover{background:rgba(255,111,0,0.12)}
+.sec-cnt{font-size:.68rem;color:var(--bhagwa-light);font-weight:400}
+
+/* RESPONSIVE */
+@media(max-width:768px){
+.pg-title{font-size:1.3rem}.fi-row{grid-template-columns:1fr}
+.stats{grid-template-columns:repeat(2,1fr)}.h-summary{grid-template-columns:repeat(2,1fr)}
+.upill .un{display:none}.topbar{padding:6px 8px}.main{padding:0 8px 76px}
+.tab .ti{font-size:1.05rem}.tab{font-size:.52rem}
+}
+@media(min-width:1025px){.main{padding:0 20px 80px}.card{padding:22px}}
+</style>
+</head>
+<body>
+
+<!-- TOAST -->
+<div class="toast-box" id="toastBox"></div>
+
+<!-- LOADER -->
+<div class="loader" id="loader"><div class="lspin"></div><div class="ltxt" id="loaderMsg">Loading...</div></div>
+
+<!-- ==================
+     AUTH SCREEN
+     ================== -->
+<div class="auth" id="authScreen">
+<div class="auth-w">
+  <div class="auth-logo">
+    <div class="auth-li">🕉️</div>
+    <h1>शुभारंभ</h1>
+    <p>Professional Pooja Samagri Manager</p>
+  </div>
+
+  <!-- LOGIN -->
+  <div id="frmLogin" class="auth-card">
+    <h3>🔐 Login</h3>
+    <div class="fg"><label class="fl">Email</label>
+      <input class="fi" id="aEmail" type="email" placeholder="your@email.com" autocomplete="email"></div>
+    <div class="fg"><label class="fl">Password</label>
+      <input class="fi" id="aPass" type="password" placeholder="Password" autocomplete="current-password"></div>
+    <button class="btn btn-p btn-w" onclick="Auth.login()" style="margin-top:6px">Login →</button>
+    <div class="auth-sw">New here? <a onclick="Auth.showStep('signup')">Create Free Account</a></div>
+  </div>
+
+  <!-- SIGNUP STEP 1 -->
+  <div id="frmSignup" class="auth-card hide">
+    <h3>🆕 Create Account</h3>
+    <div class="fg"><label class="fl">Full Name *</label>
+      <input class="fi" id="rName" placeholder="आपका नाम" autocomplete="name"></div>
+    <div class="fg"><label class="fl">Email *</label>
+      <input class="fi" id="rEmail" type="email" placeholder="your@email.com" autocomplete="email"></div>
+    <div class="fi-row">
+      <div class="fg"><label class="fl">Phone</label>
+        <input class="fi" id="rPhone" type="tel" placeholder="+91" autocomplete="tel"></div>
+      <div class="fg"><label class="fl">City</label>
+        <input class="fi" id="rCity" placeholder="शहर"></div>
+    </div>
+    <div class="fg"><label class="fl">Password * (min 6)</label>
+      <input class="fi" id="rPass" type="password" placeholder="Password" autocomplete="new-password"></div>
+    <div class="fg"><label class="fl">Confirm Password *</label>
+      <input class="fi" id="rPass2" type="password" placeholder="Repeat" autocomplete="new-password"></div>
+    <button class="btn btn-p btn-w" onclick="Auth.sendOTP()" style="margin-top:6px">Send OTP →</button>
+    <div class="auth-sw">Have account? <a onclick="Auth.showStep('login')">Login</a></div>
+  </div>
+
+  <!-- OTP STEP -->
+  <div id="frmOTP" class="auth-card hide">
+    <h3>📩 Verify Email</h3>
+    <p style="text-align:center;color:var(--g400);font-size:.85rem;margin-bottom:14px">
+      OTP sent to <strong id="otpEmail" style="color:var(--bhagwa-light)">-</strong></p>
+    <div class="otp-wrap" id="otpWrap">
+      <input class="otp-inp" maxlength="1" data-idx="0" oninput="Auth.otpNext(this,0)" onkeydown="Auth.otpKey(event,0)">
+      <input class="otp-inp" maxlength="1" data-idx="1" oninput="Auth.otpNext(this,1)" onkeydown="Auth.otpKey(event,1)">
+      <input class="otp-inp" maxlength="1" data-idx="2" oninput="Auth.otpNext(this,2)" onkeydown="Auth.otpKey(event,2)">
+      <input class="otp-inp" maxlength="1" data-idx="3" oninput="Auth.otpNext(this,3)" onkeydown="Auth.otpKey(event,3)">
+      <input class="otp-inp" maxlength="1" data-idx="4" oninput="Auth.otpNext(this,4)" onkeydown="Auth.otpKey(event,4)">
+      <input class="otp-inp" maxlength="1" data-idx="5" oninput="Auth.otpNext(this,5)" onkeydown="Auth.otpKey(event,5)">
+    </div>
+    <button class="btn btn-p btn-w" onclick="Auth.verifyOTP()">Verify & Create Account →</button>
+    <div style="text-align:center;margin-top:10px">
+      <button class="btn btn-xs btn-s" onclick="Auth.resendOTP()" id="btnResend">Resend OTP</button>
+      <button class="btn btn-xs btn-s" onclick="Auth.showStep('signup')" style="margin-left:6px">← Back</button>
+    </div>
+  </div>
+
+  <div class="auth-ft">
+    <h4>🎉 Free Forever</h4>
+    <div class="auth-ft-g">
+      <span>✅ Unlimited PDFs</span><span>✅ 19 Themes</span>
+      <span>✅ Yajman Manager</span><span>✅ Hisab Book</span>
+      <span>✅ WhatsApp Share</span><span>✅ Cloud Backup</span>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ==================
+     APP SHELL
+     ================== -->
+<div class="shell" id="appShell" style="display:none">
+
+  <!-- TOPBAR -->
+  <div class="topbar"><div class="topbar-in">
+    <div class="brand">
+      <div class="brand-icon">🕉️</div>
+      <div><h1>शुभारंभ</h1><small id="topSub">Welcome</small></div>
+    </div>
+    <div class="top-right">
+      <button class="ibtn" onclick="App.refresh()" title="Refresh">🔄</button>
+      <div class="upill" onclick="Nav.go('pgProfile')">
+        <div class="ua">👤</div>
+        <span class="un" id="topUser">User</span>
+      </div>
+    </div>
+  </div></div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <section id="pgHome" class="page on"></section>
+    <section id="pgNew" class="page"></section>
+    <section id="pgYaj" class="page"></section>
+    <section id="pgHisab" class="page"></section>
+    <section id="pgLib" class="page"></section>
+    <section id="pgDB" class="page"></section>
+    <section id="pgProfile" class="page"></section>
+  </div>
+
+  <!-- TABBAR -->
+  <div class="tabbar"><div class="tabbar-in">
+    <button class="tab on" data-pg="pgHome" onclick="Nav.go('pgHome')"><span class="ti">🏠</span><span>Home</span></button>
+    <button class="tab" data-pg="pgNew" onclick="Nav.go('pgNew')"><span class="ti">➕</span><span>New</span></button>
+    <button class="tab" data-pg="pgYaj" onclick="Nav.go('pgYaj')"><span class="ti">👥</span><span>Yajman</span></button>
+    <button class="tab" data-pg="pgHisab" onclick="Nav.go('pgHisab')"><span class="ti">💰</span><span>Hisab</span></button>
+    <button class="tab" data-pg="pgLib" onclick="Nav.go('pgLib')"><span class="ti">📚</span><span>Library</span></button>
+    <button class="tab" data-pg="pgDB" onclick="Nav.go('pgDB')"><span class="ti">🗄️</span><span>Data</span></button>
+    <button class="tab" data-pg="pgProfile" onclick="Nav.go('pgProfile')"><span class="ti">👤</span><span>Profile</span></button>
+  </div></div>
+
+</div>
+
+<div id="renderZone" style="position:absolute;left:-9999px;top:0;z-index:-1"></div>
+
+<!-- ==========================================
+     JAVASCRIPT BLOCKS START HERE
+     Each block is independent
+     ========================================== -->
+
+<!-- BLOCK 2: Config -->
+<script>
+const CFG={
+  API:'https://script.google.com/macros/s/AKfycbyuINXuIq-r6wtQ98BoRkFI6SynSSxsNBNXBf8vcYdXDd4SGPSxmjKKYg361SrxPSfo/exec',
+  VER:'3.0'
+};
+</script>
+
+<!-- BLOCK 3: UI Helpers -->
+<script>
+const UI={
+  toast(t,m,type){
+    const b=document.getElementById('toastBox');
+    const ic={ok:'✅',err:'❌',warn:'⚠️',info:'ℹ️'};
+    const d=document.createElement('div');d.className='tst '+(type||'info');
+    d.innerHTML=`<div class="tst-i">${ic[type]||'ℹ️'}</div><div><div class="tst-t">${t}</div>${m?`<div class="tst-m">${m}</div>`:''}</div>`;
+    b.appendChild(d);setTimeout(()=>{if(d.parentNode)d.remove()},4500);
+  },
+  load(m){document.getElementById('loaderMsg').textContent=m||'Loading...';document.getElementById('loader').classList.add('on')},
+  unload(){document.getElementById('loader').classList.remove('on')},
+  modal(id,s){const e=document.getElementById(id);if(e)e.classList.toggle('on',!!s)},
+  $(id){return document.getElementById(id)},
+  val(id){const e=document.getElementById(id);return e?e.value.trim():''},
+  setVal(id,v){const e=document.getElementById(id);if(e)e.value=v||''},
+  html(id,h){const e=document.getElementById(id);if(e)e.innerHTML=h}
+};
+</script>
+
+<!-- BLOCK 4: API Helper -->
+<script>
+const API={
+  user:null,
+  async get(action,params){
+    let url=CFG.API+'?action='+action;
+    if(this.user)url+='&userId='+this.user.userId;
+    if(params)Object.keys(params).forEach(k=>{if(params[k]!=null)url+='&'+k+'='+encodeURIComponent(params[k])});
+    const r=await fetch(url);if(!r.ok)throw new Error('Network '+r.status);return r.json();
+  },
+  async post(payload){
+    if(this.user&&!payload.userId)payload.userId=this.user.userId;
+    try{
+      const r=await fetch(CFG.API,{method:'POST',redirect:'follow',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+      const t=await r.text();try{return JSON.parse(t)}catch(e){return{status:t}}
+    }catch(e){
+      try{await fetch(CFG.API,{method:'POST',mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+        return{status:'sent'}}catch(e2){throw e2}
+    }
+  }
+};
+</script>
+
+<!-- BLOCK 5: Auth -->
+<script>
+const Auth={
+  _signupData:{},
+
+  showStep(s){
+    ['frmLogin','frmSignup','frmOTP'].forEach(id=>UI.$(id).classList.add('hide'));
+    if(s==='login')UI.$('frmLogin').classList.remove('hide');
+    else if(s==='signup')UI.$('frmSignup').classList.remove('hide');
+    else if(s==='otp')UI.$('frmOTP').classList.remove('hide');
+  },
+
+  async login(){
+    const email=UI.val('aEmail'),pass=UI.val('aPass');
+    if(!email){UI.toast('Required','Enter email','warn');return}
+    if(!pass){UI.toast('Required','Enter password','warn');return}
+    UI.load('Logging in...');
+    try{
+      const r=await API.post({action:'login',email,password:pass});
+      if(r.error){UI.unload();UI.toast('Failed',r.error,'err');return}
+      API.user=r;localStorage.setItem('shubh_s',JSON.stringify(r));
+      UI.unload();App.enter();UI.toast('Welcome!','नमस्ते '+r.name,'ok');
+    }catch(e){UI.unload();UI.toast('Error','Connection failed','err')}
+  },
+
+  async sendOTP(){
+    const name=UI.val('rName'),email=UI.val('rEmail'),
+      phone=UI.val('rPhone'),pass=UI.val('rPass'),pass2=UI.val('rPass2');
+    if(!name){UI.toast('Required','Enter name','warn');return}
+    if(!email){UI.toast('Required','Enter email','warn');return}
+    if(!pass||pass.length<6){UI.toast('Weak','Min 6 characters','warn');return}
+    if(pass!==pass2){UI.toast('Mismatch','Passwords dont match','warn');return}
+
+    this._signupData={name,email,phone,password:pass};
+    UI.load('Sending OTP...');
+    try{
+      const r=await API.post({action:'sendOTP',name,email,phone,password:pass});
+      UI.unload();
+      if(r.error){UI.toast('Failed',r.error,'err');return}
+      UI.toast('OTP Sent!','Check your email','ok');
+      UI.html('otpEmail',email);
+      this.showStep('otp');
+      // Focus first OTP input
+      setTimeout(()=>{const f=document.querySelector('.otp-inp');if(f)f.focus()},300);
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  async resendOTP(){
+    if(!this._signupData.email){UI.toast('Error','Go back and fill form','err');return}
+    UI.load('Resending...');
+    try{
+      const r=await API.post({action:'sendOTP',...this._signupData});
+      UI.unload();
+      if(r.error){UI.toast('Failed',r.error,'err');return}
+      UI.toast('Resent!','New OTP sent','ok');
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  otpNext(inp,idx){
+    if(inp.value.length===1&&idx<5){
+      const next=document.querySelectorAll('.otp-inp')[idx+1];
+      if(next)next.focus();
+    }
+  },
+
+  otpKey(e,idx){
+    if(e.key==='Backspace'&&!e.target.value&&idx>0){
+      const prev=document.querySelectorAll('.otp-inp')[idx-1];
+      if(prev){prev.focus();prev.value=''}
+    }
+    if(e.key==='Enter')this.verifyOTP();
+  },
+
+  _getOTP(){
+    const inputs=document.querySelectorAll('.otp-inp');
+    let otp='';inputs.forEach(i=>otp+=i.value);return otp;
+  },
+
+  async verifyOTP(){
+    const otp=this._getOTP();
+    if(otp.length!==6){UI.toast('Required','Enter all 6 digits','warn');return}
+    UI.load('Verifying...');
+    try{
+      const r=await API.post({action:'verifyOTP',email:this._signupData.email,otp});
+      if(r.error){UI.unload();UI.toast('Failed',r.error,'err');
+        document.querySelectorAll('.otp-inp').forEach(i=>i.value='');
+        const f=document.querySelector('.otp-inp');if(f)f.focus();return}
+      // Account created + auto login
+      API.user=r;localStorage.setItem('shubh_s',JSON.stringify(r));
+      UI.unload();App.enter();
+      UI.toast('🎉 Welcome!','Account created successfully','ok');
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  checkSession(){
+    try{const d=JSON.parse(localStorage.getItem('shubh_s'));
+      if(d&&d.userId){API.user=d;return true}}catch(e){}return false;
+  },
+
+  logout(){
+    localStorage.removeItem('shubh_s');API.user=null;
+    UI.$('appShell').style.display='none';
+    UI.$('authScreen').classList.remove('hide');
+    UI.toast('Logged Out','See you! 🙏','ok');
+  }
+};
+</script>
+
+<!-- BLOCK 6: Navigation -->
+<script>
+const Nav={
+  cur:'pgHome',
+  go(pg){
+    document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+    const el=UI.$(pg);if(el)el.classList.add('on');
+    document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.dataset.pg===pg));
+    window.scrollTo({top:0,behavior:'smooth'});
+    this.cur=pg;
+    // Trigger page render
+    if(PG[pg])PG[pg]();
+  }
+};
+</script>
+
+<!-- BLOCK 7: App Core + Data -->
+<script>
+const App={
+  D:{master:[],templates:[],yajmans:[],hisab:[],stats:{},pending:[]},
+
+  init(){if(Auth.checkSession())this.enter()},
+
+  enter(){
+    UI.$('authScreen').classList.add('hide');
+    UI.$('appShell').style.display='block';
+    const u=API.user;
+    UI.html('topUser',u.name||'User');
+    UI.html('topSub',(u.pandit&&u.pandit.name)||u.name||'Welcome');
+    this.buildAll();this.loadAll();
+  },
+
+  buildAll(){
+    // Build static HTML for all pages
+    if(typeof PG_BUILD!=='undefined'){
+      Object.keys(PG_BUILD).forEach(k=>PG_BUILD[k]());
+    }
+  },
+
+  async loadAll(){
+    try{
+      const[m,t,y,s]=await Promise.allSettled([
+        API.get('getMaster'),API.get('getTemplates'),
+        API.get('getYajmans'),API.get('getStats')
+      ]);
+      if(m.status==='fulfilled'&&Array.isArray(m.value))this.D.master=m.value;
+      if(t.status==='fulfilled'&&Array.isArray(t.value))this.D.templates=t.value;
+      if(y.status==='fulfilled'&&Array.isArray(y.value))this.D.yajmans=y.value;
+      if(s.status==='fulfilled'&&s.value.status==='ok')this.D.stats=s.value;
+    }catch(e){console.error(e)}
+    Nav.go(Nav.cur);
+  },
+
+  async refresh(){UI.load('Refreshing...');await this.loadAll();UI.unload();UI.toast('Done','Refreshed','ok')},
+
+  // Helpers
+  esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;')},
+  fmt$(n){n=parseFloat(n)||0;if(n>=100000)return'₹'+(n/100000).toFixed(1)+'L';if(n>=1000)return'₹'+(n/1000).toFixed(1)+'K';return'₹'+n.toLocaleString('en-IN')},
+  fmtD(d){if(!d)return'-';try{const dt=new Date(d);if(isNaN(dt))return d;return dt.getDate().toString().padStart(2,'0')+'/'+(dt.getMonth()+1).toString().padStart(2,'0')+'/'+dt.getFullYear()}catch(e){return d}},
+  uPoojas(){const s=new Set();this.D.master.forEach(m=>{if(m.pooja)s.add(m.pooja.trim())});return[...s].sort()}
+};
+
+document.addEventListener('DOMContentLoaded',()=>App.init());
+document.addEventListener('keydown',e=>{
+  if(e.key==='Enter'&&UI.$('authScreen')&&!UI.$('authScreen').classList.contains('hide')){
+    if(!UI.$('frmLogin').classList.contains('hide'))Auth.login();
+  }
+});
+</script>
+
+<!-- BLOCK 8: Page Builders (Static HTML) -->
+<script>
+const PG_BUILD={
+
+  pgHome(){
+    UI.html('pgHome',`
+      <div class="pg-head"><h2 class="pg-title">🏠 Dashboard</h2><p class="pg-sub" id="hGreet">Welcome!</p></div>
+      <div class="stats" id="hStats">
+        <div class="stat" onclick="Nav.go('pgYaj')"><div class="stat-i">👥</div><div class="stat-v" id="sY">0</div><div class="stat-l">Yajmans</div></div>
+        <div class="stat" onclick="Nav.go('pgDB')"><div class="stat-i">🕉️</div><div class="stat-v" id="sP">0</div><div class="stat-l">Poojas</div></div>
+        <div class="stat" onclick="Nav.go('pgLib')"><div class="stat-i">📄</div><div class="stat-v" id="sT">0</div><div class="stat-l">Templates</div></div>
+        <div class="stat" onclick="Nav.go('pgHisab')"><div class="stat-i">💰</div><div class="stat-v" id="sM">₹0</div><div class="stat-l">This Month</div></div>
+      </div>
+      <div class="card"><div class="card-h"><h3 class="card-t">⚡ Quick Actions</h3></div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px">
+          <button class="btn btn-p" onclick="Nav.go('pgNew')">➕ New Pooja</button>
+          <button class="btn btn-s" onclick="Nav.go('pgYaj')">👥 Yajmans</button>
+          <button class="btn btn-s" onclick="Nav.go('pgHisab')">💰 Hisab</button>
+          <button class="btn btn-s" onclick="Nav.go('pgDB')">🗄️ Database</button>
+        </div>
+      </div>
+      <div class="card"><div class="card-h"><h3 class="card-t">📊 Monthly Overview</h3></div>
+        <div class="h-summary" style="margin-bottom:0">
+          <div class="h-card inc" onclick="HisabPage.filterType('income')"><div class="h-val green" id="hMI">₹0</div><div class="h-lbl">Income</div></div>
+          <div class="h-card exp" onclick="HisabPage.filterType('expense')"><div class="h-val red" id="hME">₹0</div><div class="h-lbl">Expense</div></div>
+          <div class="h-card pend" onclick="HisabPage.filterType('pending')"><div class="h-val yellow" id="hMP">₹0</div><div class="h-lbl">Pending</div></div>
+          <div class="h-card prof"><div class="h-val orange" id="hMPr">₹0</div><div class="h-lbl">Profit</div></div>
+        </div>
+      </div>
+      <div class="card" id="hPendCard" class="hide"><div class="card-h"><h3 class="card-t">⚠️ Pending Dues</h3>
+        <button class="btn btn-xs btn-s" onclick="Nav.go('pgHisab')">View All</button></div>
+        <div id="hPendList"></div></div>
+      <div class="card"><div class="card-h"><h3 class="card-t">👥 Recent Yajmans</h3>
+        <button class="btn btn-xs btn-s" onclick="Nav.go('pgYaj')">View All</button></div>
+        <div id="hRecent">Loading...</div></div>
+    `);
+  },
+
+  pgYaj(){
+    UI.html('pgYaj',`
+      <div class="pg-head"><h2 class="pg-title">👥 Yajman Management</h2><p class="pg-sub">Manage your clients</p></div>
+      <div class="card"><div class="card-h"><h3 class="card-t">📋 All Yajmans</h3>
+        <div style="display:flex;gap:4px"><button class="btn btn-sm btn-p" onclick="YajPage.showAdd()">➕ Add</button></div></div>
+        <input class="fi" id="yajSrch" placeholder="🔍 Search..." oninput="YajPage.render()" style="margin-bottom:10px">
+        <div id="yajList">Loading...</div></div>
+    `);
+  },
+
+  pgHisab(){
+    UI.html('pgHisab',`
+      <div class="pg-head"><h2 class="pg-title">💰 Hisab Book</h2><p class="pg-sub">Income, expense & tracking</p></div>
+      <div id="hSummary"></div>
+      <div class="card"><div class="card-h"><h3 class="card-t">🕉️ Pooja-wise Breakdown</h3></div><div id="hByPooja">Loading...</div></div>
+      <div class="card"><div class="card-h"><h3 class="card-t">📋 All Transactions</h3>
+        <div style="display:flex;gap:4px;flex-wrap:wrap">
+          <button class="btn btn-xs btn-g" onclick="HisabPage.showAdd('income')">➕ Income</button>
+          <button class="btn btn-xs btn-d" onclick="HisabPage.showAdd('expense')">➕ Expense</button>
+        </div></div>
+        <div style="display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px">
+          <select class="fsel" id="hFType" onchange="HisabPage.render()" style="width:auto;min-width:100px">
+            <option value="all">All Type</option><option value="income">Income</option><option value="expense">Expense</option></select>
+          <select class="fsel" id="hFStatus" onchange="HisabPage.render()" style="width:auto;min-width:100px">
+            <option value="all">All Status</option><option value="paid">Paid</option><option value="pending">Pending</option><option value="partial">Partial</option></select>
+          <input class="fi" id="hFSearch" placeholder="🔍 Search..." oninput="HisabPage.render()" style="flex:1;min-width:120px">
+        </div>
+        <div id="hList">Loading...</div></div>
+    `);
+  },
+
+  pgDB(){
+    UI.html('pgDB',`
+      <div class="pg-head"><h2 class="pg-title">🗄️ Database</h2><p class="pg-sub">Pooja & samagri master data</p></div>
+      <div class="card"><div class="card-h"><h3 class="card-t">📊 Stats</h3>
+        <button class="btn btn-sm btn-p" onclick="DBPage.showAdd()">➕ Add</button></div>
+        <div class="stats" style="margin-bottom:10px">
+          <div class="stat"><div class="stat-v" id="dbP">0</div><div class="stat-l">Poojas</div></div>
+          <div class="stat"><div class="stat-v" id="dbI">0</div><div class="stat-l">Items</div></div>
+          <div class="stat"><div class="stat-v" id="dbC">0</div><div class="stat-l">Custom</div></div>
+        </div>
+        <input class="fi" id="dbSrch" placeholder="🔍 Search..." oninput="DBPage.render()" style="margin-bottom:10px">
+        <div id="dbList" style="max-height:55vh;overflow:auto"></div></div>
+    `);
+  },
+
+  pgLib(){
+    UI.html('pgLib',`
+      <div class="pg-head"><h2 class="pg-title">📚 Saved Templates</h2><p class="pg-sub">Cloud-saved pooja lists</p></div>
+      <div class="card"><input class="fi" id="libSrch" placeholder="🔍 Search..." oninput="LibPage.render()"></div>
+      <div id="libGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:12px">Loading...</div>
+    `);
+  },
+
+  pgNew(){
+    UI.html('pgNew',`
+      <div class="pg-head"><h2 class="pg-title">➕ New Pooja</h2><p class="pg-sub">Create pooja samagri list</p></div>
+      <div class="card" style="text-align:center;padding:40px">
+        <div style="font-size:3rem;margin-bottom:10px">🕉️</div>
+        <h3 style="color:#fff;margin-bottom:6px">Coming in Next Block</h3>
+        <p style="color:var(--g500);font-size:.85rem">Pooja setup + Materials + PDF Generation</p>
+      </div>
+    `);
+  },
+
+  pgProfile(){
+    const u=API.user||{};const p=u.pandit||{};
+    UI.html('pgProfile',`
+      <div class="pg-head"><h2 class="pg-title">👤 Profile</h2><p class="pg-sub">Account & pandit settings</p></div>
+      <div class="card" style="text-align:center">
+        <div style="width:70px;height:70px;border-radius:50%;background:var(--grad-b);display:grid;place-items:center;font-size:2.2rem;margin:0 auto 10px">🙏</div>
+        <h3 style="color:#fff">${App.esc(u.name)}</h3>
+        <p style="color:var(--g500);font-size:.8rem">${App.esc(u.email)}</p>
+        <span class="badge badge-warn" style="margin-top:6px">${(u.plan||'free').toUpperCase()}</span>
+      </div>
+      <div class="card"><div class="card-h"><h3 class="card-t">🙏 Pandit Profile</h3></div>
+        <div class="fg"><label class="fl">Name</label><input class="fi" id="prN" value="${App.esc(p.name||u.name||'')}"></div>
+        <div class="fg"><label class="fl">Title</label><input class="fi" id="prT" value="${App.esc(p.title||'')}"></div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">Phone</label><input class="fi" id="prP" value="${App.esc(p.phone||u.phone||'')}"></div>
+          <div class="fg"><label class="fl">Website</label><input class="fi" id="prW" value="${App.esc(p.website||'')}"></div>
+        </div>
+        <div class="fg"><label class="fl">Address</label><input class="fi" id="prA" value="${App.esc(p.address||'')}"></div>
+        <button class="btn btn-p btn-w" onclick="ProfilePage.save()">💾 Save</button>
+      </div>
+      <div class="card">
+        <button class="btn btn-s btn-w" onclick="ProfilePage.backup()" style="margin-bottom:8px">💾 Export Backup</button>
+        <button class="btn btn-d btn-w" onclick="Auth.logout()">🚪 Logout</button>
+      </div>
+    `);
+  }
+};
+</script>
+
+<!-- BLOCK 9: Page Renderers (Dynamic Data) -->
+<script>
+const PG={
+
+  // ====== HOME ======
+  pgHome(){
+    const u=API.user||{},s=App.D.stats||{};
+    const hr=new Date().getHours();
+    let g=hr<12?'शुभ प्रभात 🌅':hr<17?'नमस्ते 🙏':'शुभ संध्या 🌆';
+    UI.html('hGreet',g+' '+(u.name||''));
+
+    UI.html('sY',s.totalYajmans||App.D.yajmans.length||0);
+    UI.html('sP',App.uPoojas().length||0);
+    UI.html('sT',s.totalTemplates||App.D.templates.length||0);
+    UI.html('sM',App.fmt$(s.monthIncome||0));
+    UI.html('hMI',App.fmt$(s.monthIncome||0));
+    UI.html('hME',App.fmt$(s.monthExpense||0));
+    UI.html('hMP',App.fmt$(s.totalPending||0));
+    UI.html('hMPr',App.fmt$(s.monthProfit||0));
+
+    // Pending dues
+    API.get('getPendingDues').then(list=>{
+      if(!Array.isArray(list))list=[];
+      App.D.pending=list;
+      const el=UI.$('hPendList');const card=UI.$('hPendCard');
+      if(!list.length){if(el)el.innerHTML='<p style="color:var(--g500);text-align:center;padding:10px">No pending dues 🎉</p>';return}
+      if(card)card.classList.remove('hide');
+      if(el)el.innerHTML=list.slice(0,5).map(h=>`
+        <div class="lrow">
+          <div class="lrow-i" style="background:rgba(255,214,0,0.1)">⚠️</div>
+          <div class="lrow-b">
+            <div class="lrow-n">${App.esc(h.yajmanName||h.poojaName)}</div>
+            <div class="lrow-m">${App.fmtD(h.date)} • ${h.poojaName||''}</div>
+          </div>
+          <div class="lrow-r">
+            <div style="font-weight:800;color:#FFD740">${App.fmt$(h.pendingAmount)}</div>
+            <button class="btn btn-xs btn-g" onclick="HisabPage.markPaid('${h.id}')">✅ Paid</button>
+          </div>
+        </div>`).join('');
+    }).catch(()=>{});
+
+    // Recent yajmans
+    const yaj=App.D.yajmans.slice(-5).reverse();
+    const re=UI.$('hRecent');
+    if(!yaj.length){if(re)re.innerHTML=`<div style="text-align:center;padding:20px"><p style="color:var(--g500);margin-bottom:10px">No yajmans yet</p>
+      <button class="btn btn-sm btn-p" onclick="Nav.go('pgYaj')">➕ Add First</button></div>`;return}
+    if(re)re.innerHTML=yaj.map(y=>`
+      <div class="lrow" style="cursor:pointer" onclick="YajPage.showDetail('${y.id}')">
+        <div class="lrow-i" style="background:var(--grad-b)">👤</div>
+        <div class="lrow-b">
+          <div class="lrow-n">${App.esc(y.name)} <span class="badge ${y.status==='active'?'badge-ok':'badge-err'}">${y.status}</span></div>
+          <div class="lrow-m">${y.phone||''} ${y.city?'• '+y.city:''}</div>
+        </div>
+        <div class="lrow-r">
+          <div style="font-weight:800;color:var(--bhagwa-light)">${App.fmt$(y.totalAmount)}</div>
+          <div style="font-size:.65rem;color:var(--g500)">${y.totalPoojas||0} poojas</div>
+        </div>
+      </div>`).join('');
+  },
+
+  pgYaj(){YajPage.render()},
+  pgHisab(){HisabPage.render()},
+  pgDB(){DBPage.render()},
+  pgLib(){LibPage.render()},
+  pgNew(){},
+  pgProfile(){PG_BUILD.pgProfile()}
+};
+</script>
+
+<!-- BLOCK 10: Yajman Page Logic -->
+<script>
+const YajPage={
+  render(){
+    const el=UI.$('yajList');if(!el)return;
+    let list=App.D.yajmans||[];
+    const q=UI.val('yajSrch').toLowerCase();
+    if(q)list=list.filter(y=>(y.name||'').toLowerCase().includes(q)||(y.phone||'').includes(q)||(y.city||'').toLowerCase().includes(q));
+
+    if(!list.length){el.innerHTML=`<div style="text-align:center;padding:24px">
+      <div style="font-size:2.5rem;margin-bottom:8px">👥</div>
+      <p style="color:var(--g500);margin-bottom:10px">${q?'No matches':'No yajmans yet'}</p>
+      ${!q?'<button class="btn btn-sm btn-p" onclick="YajPage.showAdd()">➕ Add</button>':''}
+    </div>`;return}
+
+    el.innerHTML=list.map(y=>`
+      <div class="lrow" style="cursor:pointer" onclick="YajPage.showDetail('${y.id}')">
+        <div class="lrow-i" style="background:var(--grad-b)">👤</div>
+        <div class="lrow-b">
+          <div class="lrow-n">${App.esc(y.name)} <span class="badge ${y.status==='active'?'badge-ok':'badge-err'}">${y.status}</span></div>
+          <div class="lrow-m">${y.phone?'📞 '+y.phone:''} ${y.city?'• 📍 '+y.city:''} ${y.gotra?'• 🔱 '+y.gotra:''}</div>
+        </div>
+        <div class="lrow-r">
+          <div style="font-weight:800;color:var(--bhagwa-light)">${App.fmt$(y.totalAmount)}</div>
+          <div style="font-size:.65rem;color:var(--g500)">${y.totalPoojas||0} poojas</div>
+        </div>
+        <div class="lrow-a" onclick="event.stopPropagation()">
+          ${y.phone?`<button class="btn btn-xs btn-s" onclick="window.open('tel:${y.phone}')">📞</button>`:''}
+          ${y.phone?`<button class="btn btn-xs btn-g" onclick="window.open('https://wa.me/91${(y.whatsapp||y.phone||'').replace(/\\D/g,'')}')">💬</button>`:''}
+        </div>
+      </div>`).join('');
+  },
+
+  showAdd(editData){
+    let m=UI.$('mYaj');
+    if(!m){m=document.createElement('div');m.id='mYaj';m.className='modal';document.body.appendChild(m)}
+    const d=editData||{};
+    m.innerHTML=`<div class="modal-box">
+      <div class="modal-h"><h3 class="modal-t">${d.id?'✏️ Edit':'➕ Add'} Yajman</h3><button class="modal-x" onclick="UI.modal('mYaj',0)">×</button></div>
+      <div class="modal-b">
+        <input type="hidden" id="yId" value="${d.id||''}">
+        <div class="fg"><label class="fl">Name *</label><input class="fi" id="yN" value="${App.esc(d.name||'')}" placeholder="यजमान का नाम"></div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">Phone</label><input class="fi" id="yP" value="${d.phone||''}" type="tel"></div>
+          <div class="fg"><label class="fl">WhatsApp</label><input class="fi" id="yW" value="${d.whatsapp||''}" type="tel"></div>
+        </div>
+        <div class="fg"><label class="fl">Address</label><input class="fi" id="yAddr" value="${App.esc(d.address||'')}"></div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">City</label><input class="fi" id="yCity" value="${App.esc(d.city||'')}"></div>
+          <div class="fg"><label class="fl">Gotra</label><input class="fi" id="yG" value="${App.esc(d.gotra||'')}"></div>
+        </div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">Rashi</label><select class="fsel" id="yR"><option value="">-</option>
+            ${['मेष','वृषभ','मिथुन','कर्क','सिंह','कन्या','तुला','वृश्चिक','धनु','मकर','कुंभ','मीन'].map(r=>`<option${d.rashi===r?' selected':''}>${r}</option>`).join('')}</select></div>
+          <div class="fg"><label class="fl">Status</label><select class="fsel" id="ySt"><option value="active"${d.status==='active'?' selected':''}>Active</option><option value="inactive"${d.status==='inactive'?' selected':''}>Inactive</option></select></div>
+        </div>
+        <div class="fg"><label class="fl">Notes</label><textarea class="ftx" id="yNt">${App.esc(d.notes||'')}</textarea></div>
+      </div>
+      <div class="modal-f"><button class="btn btn-s" onclick="UI.modal('mYaj',0)">Cancel</button>
+        <button class="btn btn-p" onclick="YajPage.save()">💾 Save</button></div>
+    </div>`;UI.modal('mYaj',1);
+  },
+
+  async save(){
+    const name=UI.val('yN');if(!name){UI.toast('Required','Enter name','warn');return}
+    const id=UI.val('yId');
+    UI.modal('mYaj',0);UI.load('Saving...');
+    try{
+      const payload={
+        action:id?'updateYajman':'addYajman',name,
+        phone:UI.val('yP'),whatsapp:UI.val('yW'),address:UI.val('yAddr'),
+        city:UI.val('yCity'),gotra:UI.val('yG'),rashi:UI.val('yR'),
+        notes:UI.val('yNt'),status:UI.val('ySt')
+      };
+      if(id)payload.id=id;
+      const r=await API.post(payload);UI.unload();
+      if(r.error){UI.toast('Error',r.error,'err');return}
+      UI.toast('Saved!',name,'ok');
+      const yaj=await API.get('getYajmans');if(Array.isArray(yaj))App.D.yajmans=yaj;
+      this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  showDetail(id){
+    const y=App.D.yajmans.find(x=>x.id===id);if(!y)return;
+    let m=UI.$('mYajDetail');
+    if(!m){m=document.createElement('div');m.id='mYajDetail';m.className='modal';document.body.appendChild(m)}
+    m.innerHTML=`<div class="modal-box" style="max-width:600px">
+      <div class="modal-h"><h3 class="modal-t">👤 ${App.esc(y.name)}</h3><button class="modal-x" onclick="UI.modal('mYajDetail',0)">×</button></div>
+      <div class="modal-b">
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:14px">
+          <div class="stat"><div class="stat-v">${y.totalPoojas||0}</div><div class="stat-l">Poojas</div></div>
+          <div class="stat"><div class="stat-v">${App.fmt$(y.totalAmount)}</div><div class="stat-l">Total</div></div>
+        </div>
+        <div style="margin-bottom:14px;font-size:.85rem;color:var(--g300)">
+          ${y.phone?`<div style="margin-bottom:4px">📞 ${y.phone}</div>`:''}
+          ${y.address?`<div style="margin-bottom:4px">📍 ${y.address}${y.city?', '+y.city:''}</div>`:''}
+          ${y.gotra?`<div style="margin-bottom:4px">🔱 गोत्र: ${y.gotra}</div>`:''}
+          ${y.rashi?`<div style="margin-bottom:4px">⭐ राशि: ${y.rashi}</div>`:''}
+          ${y.notes?`<div style="margin-bottom:4px">📝 ${y.notes}</div>`:''}
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr 1fr;gap:6px;margin-bottom:14px">
+          <button class="btn btn-xs btn-p" onclick="UI.modal('mYajDetail',0);YajPage.newPooja('${y.id}')">🕉️ Pooja</button>
+          <button class="btn btn-xs btn-s" onclick="UI.modal('mYajDetail',0);HisabPage.filterYajman('${y.id}')">💰 Hisab</button>
+          ${y.phone?`<button class="btn btn-xs btn-s" onclick="window.open('tel:${y.phone}')">📞 Call</button>`:'<div></div>'}
+          ${y.phone?`<button class="btn btn-xs btn-g" onclick="window.open('https://wa.me/91${(y.whatsapp||y.phone||'').replace(/\\D/g,'')}')">💬 WhatsApp</button>`:'<div></div>'}
+        </div>
+        <h4 style="color:var(--bhagwa);font-size:.85rem;margin-bottom:8px">📋 Pooja History</h4>
+        <div id="yajHistory">Loading...</div>
+      </div>
+      <div class="modal-f">
+        <button class="btn btn-s" onclick="UI.modal('mYajDetail',0);YajPage.showAdd(App.D.yajmans.find(x=>x.id==='${y.id}'))">✏️ Edit</button>
+        <button class="btn btn-d" onclick="YajPage.del('${y.id}')">🗑️ Delete</button>
+        <button class="btn btn-s" onclick="UI.modal('mYajDetail',0)">Close</button>
+      </div>
+    </div>`;UI.modal('mYajDetail',1);
+    // Load history
+    API.get('getYajmanDetail',{yajmanId:id}).then(r=>{
+      const el=UI.$('yajHistory');if(!el)return;
+      if(r.error||!r.hisab||!r.hisab.length){el.innerHTML='<p style="color:var(--g500);font-size:.82rem">No history yet</p>';return}
+      el.innerHTML=r.hisab.map(h=>`<div class="lrow">
+        <div class="lrow-b"><div class="lrow-n">${App.esc(h.poojaName||'Pooja')}</div>
+        <div class="lrow-m">${App.fmtD(h.date)} • <span class="badge ${h.paymentStatus==='paid'?'badge-ok':h.paymentStatus==='partial'?'badge-warn':'badge-err'}">${h.paymentStatus}</span></div></div>
+        <div style="font-weight:700;color:var(--bhagwa-light)">${App.fmt$(h.amount)}</div>
+      </div>`).join('');
+    }).catch(()=>{});
+  },
+
+  newPooja(yajId){
+    const y=App.D.yajmans.find(x=>x.id===yajId);
+    if(y){Nav.go('pgNew');UI.toast('Yajman Selected',y.name,'ok')}
+  },
+
+  async del(id){
+    if(!confirm('Delete this yajman?'))return;
+    UI.modal('mYajDetail',0);UI.load('Deleting...');
+    try{await API.post({action:'deleteYajman',id});UI.unload();UI.toast('Deleted','','ok');
+      const yaj=await API.get('getYajmans');if(Array.isArray(yaj))App.D.yajmans=yaj;this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  }
+};
+</script>
+
+<!-- BLOCK 11: Hisab Page Logic -->
+<script>
+const HisabPage={
+  _data:[],
+
+  async render(){
+    await this.loadData();
+    this.renderSummary();
+    this.renderByPooja();
+    this.renderList();
+  },
+
+  async loadData(){
+    try{const d=await API.get('getHisab');if(Array.isArray(d))this._data=d;App.D.hisab=this._data}catch(e){}
+  },
+
+  renderSummary(){
+    const el=UI.$('hSummary');if(!el)return;
+    let inc=0,exp=0,pend=0;
+    this._data.forEach(h=>{if(h.type==='income')inc+=h.amount;else exp+=h.amount;pend+=h.pendingAmount||0});
+    el.innerHTML=`<div class="h-summary">
+      <div class="h-card inc"><div class="h-val green">${App.fmt$(inc)}</div><div class="h-lbl">Total Income</div></div>
+      <div class="h-card exp"><div class="h-val red">${App.fmt$(exp)}</div><div class="h-lbl">Total Expense</div></div>
+      <div class="h-card pend"><div class="h-val yellow">${App.fmt$(pend)}</div><div class="h-lbl">Pending</div></div>
+      <div class="h-card prof"><div class="h-val orange">${App.fmt$(inc-exp)}</div><div class="h-lbl">Net Profit</div></div>
+    </div>`;
+  },
+
+  renderByPooja(){
+    const el=UI.$('hByPooja');if(!el)return;
+    const groups={};
+    this._data.forEach(h=>{
+      const k=h.poojaName||'अन्य';
+      if(!groups[k])groups[k]={pooja:k,count:0,income:0,expense:0};
+      groups[k].count++;
+      if(h.type==='income')groups[k].income+=h.amount;else groups[k].expense+=h.amount;
+    });
+    const arr=Object.values(groups).sort((a,b)=>b.income-a.income);
+    if(!arr.length){el.innerHTML='<p style="color:var(--g500);text-align:center;padding:10px">No data yet</p>';return}
+    el.innerHTML=arr.map(g=>`
+      <div class="lrow">
+        <div class="lrow-i" style="background:rgba(255,111,0,0.1)">🕉️</div>
+        <div class="lrow-b">
+          <div class="lrow-n">${App.esc(g.pooja)}</div>
+          <div class="lrow-m">${g.count} times done</div>
+        </div>
+        <div class="lrow-r">
+          <div style="font-weight:800;color:#00E676">${App.fmt$(g.income)}</div>
+          ${g.expense?`<div style="font-size:.65rem;color:var(--err)">-${App.fmt$(g.expense)} expense</div>`:''}
+        </div>
+      </div>`).join('');
+  },
+
+  renderList(){
+    const el=UI.$('hList');if(!el)return;
+    let list=[...this._data];
+
+    // Filters
+    const ft=UI.val('hFType'),fs=UI.val('hFStatus'),fq=UI.val('hFSearch').toLowerCase();
+    if(ft&&ft!=='all')list=list.filter(h=>h.type===ft);
+    if(fs&&fs!=='all')list=list.filter(h=>h.paymentStatus===fs);
+    if(fq)list=list.filter(h=>(h.yajmanName||'').toLowerCase().includes(fq)||(h.poojaName||'').toLowerCase().includes(fq)||(h.description||'').toLowerCase().includes(fq));
+
+    list=list.reverse();
+    if(!list.length){el.innerHTML='<div style="text-align:center;padding:24px"><p style="color:var(--g500)">No entries</p></div>';return}
+
+    el.innerHTML=list.map(h=>{
+      const isI=h.type==='income';
+      const stC={paid:'badge-ok',pending:'badge-err',partial:'badge-warn'};
+      return`<div class="lrow">
+        <div class="lrow-i" style="background:${isI?'rgba(0,200,83,0.1)':'rgba(255,23,68,0.1)'}">${isI?'💰':'📤'}</div>
+        <div class="lrow-b">
+          <div class="lrow-n">${App.esc(h.yajmanName||h.poojaName||h.description||'Entry')}</div>
+          <div class="lrow-m">${App.fmtD(h.date)} • ${h.paymentMode||'cash'} • <span class="badge ${stC[h.paymentStatus]||'badge-warn'}">${h.paymentStatus||'pending'}</span></div>
+        </div>
+        <div class="lrow-r">
+          <div style="font-weight:800;color:${isI?'#00E676':'#FF5252'}">${isI?'+':'-'}${App.fmt$(h.amount)}</div>
+          ${h.pendingAmount>0?`<div style="font-size:.65rem;color:#FFD740">₹${h.pendingAmount} due</div>`:''}
+        </div>
+        <div class="lrow-a">
+          ${h.pendingAmount>0?`<button class="btn btn-xs btn-g" onclick="HisabPage.markPaid('${h.id}')">✅</button>`:''}
+          <button class="btn btn-xs btn-d" onclick="HisabPage.del('${h.id}')">🗑️</button>
+        </div>
+      </div>`}).join('');
+  },
+
+  filterType(t){Nav.go('pgHisab');setTimeout(()=>{UI.setVal('hFType',t==='pending'?'income':t);if(t==='pending')UI.setVal('hFStatus','pending');this.renderList()},300)},
+  filterYajman(yajId){Nav.go('pgHisab');setTimeout(()=>{const y=App.D.yajmans.find(x=>x.id===yajId);if(y)UI.setVal('hFSearch',y.name);this.renderList()},300)},
+
+  showAdd(type){
+    let m=UI.$('mHisab');
+    if(!m){m=document.createElement('div');m.id='mHisab';m.className='modal';document.body.appendChild(m)}
+    const yOpts=App.D.yajmans.map(y=>`<option value="${y.id}">${App.esc(y.name)}</option>`).join('');
+    m.innerHTML=`<div class="modal-box">
+      <div class="modal-h"><h3 class="modal-t">${type==='expense'?'📤 Expense':'💰 Income'}</h3><button class="modal-x" onclick="UI.modal('mHisab',0)">×</button></div>
+      <div class="modal-b">
+        <input type="hidden" id="hType" value="${type||'income'}">
+        <div class="fi-row">
+          <div class="fg"><label class="fl">Date *</label><input class="fi" id="hDate" type="date" value="${new Date().toISOString().split('T')[0]}"></div>
+          <div class="fg"><label class="fl">Amount ₹ *</label><input class="fi" id="hAmt" type="number" placeholder="₹"></div>
+        </div>
+        <div class="fg"><label class="fl">Yajman</label><select class="fsel" id="hYaj"><option value="">—</option>${yOpts}</select></div>
+        <div class="fg"><label class="fl">Pooja / Description</label><input class="fi" id="hPj" placeholder="पूजा / विवरण"></div>
+        <div class="fi-row">
+          <div class="fg"><label class="fl">Received ₹</label><input class="fi" id="hRec" type="number" placeholder="₹"></div>
+          <div class="fg"><label class="fl">Mode</label><select class="fsel" id="hMode"><option value="cash">💵 Cash</option><option value="upi">📱 UPI</option><option value="bank">🏦 Bank</option></select></div>
+        </div>
+        <div class="fg"><label class="fl">Notes</label><input class="fi" id="hNotes" placeholder="Notes"></div>
+      </div>
+      <div class="modal-f"><button class="btn btn-s" onclick="UI.modal('mHisab',0)">Cancel</button>
+        <button class="btn btn-p" onclick="HisabPage.save()">💾 Save</button></div>
+    </div>`;UI.modal('mHisab',1);
+  },
+
+  async save(){
+    const amt=UI.val('hAmt');if(!amt){UI.toast('Required','Enter amount','warn');return}
+    const ySel=UI.$('hYaj');const yId=ySel?ySel.value:'';
+    const yName=yId&&ySel?ySel.options[ySel.selectedIndex].text:'';
+    UI.modal('mHisab',0);UI.load('Saving...');
+    try{
+      const r=await API.post({action:'addHisab',date:UI.val('hDate'),type:UI.val('hType'),
+        amount:parseFloat(amt),receivedAmount:parseFloat(UI.val('hRec'))||0,
+        yajmanId:yId,yajmanName:yName,poojaName:UI.val('hPj'),
+        paymentMode:UI.val('hMode'),notes:UI.val('hNotes')});
+      UI.unload();if(r.error){UI.toast('Error',r.error,'err');return}
+      UI.toast('Saved!','Entry added','ok');this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  async markPaid(id){
+    UI.load('Updating...');
+    try{await API.post({action:'markPaid',id});UI.unload();UI.toast('Done','Marked paid ✅','ok');this.render()}
+    catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  async del(id){
+    if(!confirm('Delete?'))return;UI.load('Deleting...');
+    try{await API.post({action:'deleteHisab',id});UI.unload();UI.toast('Deleted','','ok');this.render()}
+    catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  }
+};
+</script>
+
+<!-- BLOCK 12: Database Page Logic -->
+<script>
+const DBPage={
+  render(){
+    const data=App.D.master||[];
+    const poojas=new Set(data.map(d=>d.pooja));
+    const custom=data.filter(d=>d.source==='user').length;
+    UI.html('dbP',poojas.size);UI.html('dbI',data.length);UI.html('dbC',custom);
+
+    const el=UI.$('dbList');if(!el)return;
+    const q=UI.val('dbSrch').toLowerCase();
+    let filtered=data;
+    if(q)filtered=data.filter(d=>(d.pooja||'').toLowerCase().includes(q)||(d.samagri||'').toLowerCase().includes(q));
+
+    if(!filtered.length){el.innerHTML=`<p style="color:var(--g500);text-align:center;padding:20px">${q?'No matches':'No data'}</p>`;return}
+
+    const groups={};filtered.forEach(d=>{if(!groups[d.pooja])groups[d.pooja]=[];groups[d.pooja].push(d)});
+
+    el.innerHTML=Object.keys(groups).sort().map(pooja=>`
+      <div class="sec-h" onclick="this.nextElementSibling.classList.toggle('hide')">
+        🕉️ ${App.esc(pooja)} <span class="sec-cnt">${groups[pooja].length} items</span>
+      </div>
+      <div>${groups[pooja].map(d=>`
+        <div style="display:flex;align-items:center;gap:6px;padding:5px 10px;border-bottom:1px solid rgba(255,255,255,0.03);font-size:.82rem">
+          <span style="flex:1;color:var(--g300)">${App.esc(d.samagri)}</span>
+          <span style="font-size:.6rem;color:${d.source==='user'?'var(--bhagwa)':'var(--g600)'}">${d.source==='user'?'⭐Custom':'Master'}</span>
+          <button class="btn btn-xs btn-d" onclick="DBPage.del('${App.esc(d.pooja)}','${App.esc(d.samagri)}')" style="padding:2px 5px">🗑️</button>
+        </div>`).join('')}
+      </div>`).join('');
+  },
+
+  showAdd(){
+    let m=UI.$('mDB');
+    if(!m){m=document.createElement('div');m.id='mDB';m.className='modal';document.body.appendChild(m)}
+    const opts=App.uPoojas().map(p=>`<option value="${App.esc(p)}">${App.esc(p)}</option>`).join('');
+    m.innerHTML=`<div class="modal-box">
+      <div class="modal-h"><h3 class="modal-t">➕ Add Items</h3><button class="modal-x" onclick="UI.modal('mDB',0)">×</button></div>
+      <div class="modal-b">
+        <div class="fg"><label class="fl">Pooja Name</label><input class="fi" id="dbPj" placeholder="Enter or select">
+          <select class="fsel" id="dbPjSel" onchange="UI.setVal('dbPj',this.value)" style="margin-top:6px"><option value="">— Select —</option>${opts}</select></div>
+        <div class="fg"><label class="fl">Items (one per line)</label><textarea class="ftx" id="dbItms" placeholder="रोली&#10;मौली&#10;चावल"></textarea></div>
+      </div>
+      <div class="modal-f"><button class="btn btn-s" onclick="UI.modal('mDB',0)">Cancel</button>
+        <button class="btn btn-p" onclick="DBPage.add()">➕ Add</button></div>
+    </div>`;UI.modal('mDB',1);
+  },
+
+  async add(){
+    const pooja=UI.val('dbPj'),txt=UI.val('dbItms');
+    if(!pooja){UI.toast('Required','Enter pooja','warn');return}
+    if(!txt){UI.toast('Required','Enter items','warn');return}
+    const items=txt.split('\n').map(s=>s.trim()).filter(Boolean);
+    if(!items.length)return;
+    UI.modal('mDB',0);UI.load(`Adding ${items.length} items...`);
+    try{
+      const r=await API.post({action:'addBulkItems',items:items.map(s=>({pooja,samagri:s}))});
+      UI.unload();UI.toast('Added',`${r.added||items.length} items`,'ok');
+      const master=await API.get('getMaster');if(Array.isArray(master))App.D.master=master;this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  async del(pooja,samagri){
+    if(!confirm(`Remove "${samagri}"?`))return;UI.load('Removing...');
+    try{await API.post({action:'deleteItem',pooja,samagri});UI.unload();UI.toast('Removed','','ok');
+      const master=await API.get('getMaster');if(Array.isArray(master))App.D.master=master;this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  }
+};
+</script>
+
+<!-- BLOCK 13: Library Page Logic -->
+<script>
+const LibPage={
+  render(){
+    const el=UI.$('libGrid');if(!el)return;
+    let list=App.D.templates||[];
+    const q=UI.val('libSrch').toLowerCase();
+    if(q)list=list.filter(t=>(t.name||'').toLowerCase().includes(q)||(t.poojas||'').toLowerCase().includes(q));
+
+    if(!list.length){el.innerHTML=`<div class="card" style="text-align:center;padding:24px;grid-column:1/-1">
+      <div style="font-size:2.5rem;margin-bottom:8px">📚</div>
+      <p style="color:var(--g500)">${q?'No matches':'No templates yet'}</p></div>`;return}
+
+    el.innerHTML=list.slice().reverse().map(t=>`
+      <div class="card" style="margin:0">
+        <div style="font-weight:700;color:#fff;margin-bottom:3px">${App.esc(t.name)}</div>
+        <div style="font-size:.75rem;color:var(--g500);margin-bottom:10px">
+          📅 ${App.fmtD(t.date)} • 🕉️ ${(t.poojas||'').split(',').length} poojas</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">
+          <button class="btn btn-xs btn-p" onclick="LibPage.load('${t.id}')">📂 Open</button>
+          <button class="btn btn-xs btn-d" onclick="LibPage.del('${t.id}')">🗑️ Delete</button>
+        </div>
+      </div>`).join('');
+  },
+
+  load(id){
+    const t=App.D.templates.find(x=>x.id===id);
+    if(t)UI.toast('Loaded',t.name+' (Pooja page coming next block)','ok');
+  },
+
+  async del(id){
+    if(!confirm('Delete template?'))return;UI.load('Deleting...');
+    try{await API.post({action:'deleteTemplate',id});UI.unload();UI.toast('Deleted','','ok');
+      const t=await API.get('getTemplates');if(Array.isArray(t))App.D.templates=t;this.render();
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  }
+};
+</script>
+
+<!-- BLOCK 14: Profile Page Logic -->
+<script>
+const ProfilePage={
+  async save(){
+    UI.load('Saving...');
+    try{
+      await API.post({action:'updateProfile',panditName:UI.val('prN'),panditTitle:UI.val('prT'),
+        panditPhone:UI.val('prP'),panditWebsite:UI.val('prW'),panditAddress:UI.val('prA')});
+      if(API.user){
+        API.user.pandit={name:UI.val('prN'),title:UI.val('prT'),phone:UI.val('prP'),
+          website:UI.val('prW'),address:UI.val('prA')};
+        localStorage.setItem('shubh_s',JSON.stringify(API.user));
+        UI.html('topSub',API.user.pandit.name||API.user.name)
+      }
+      UI.unload();UI.toast('Saved!','Profile updated','ok');
+    }catch(e){UI.unload();UI.toast('Error',e.message,'err')}
+  },
+
+  backup(){
+    try{
+      const d={date:new Date().toISOString(),ver:CFG.VER,
+        user:{name:API.user.name,email:API.user.email},
+        master:App.D.master,templates:App.D.templates,
+        yajmans:App.D.yajmans,hisab:App.D.hisab};
+      const b=new Blob([JSON.stringify(d,null,2)],{type:'application/json'});
+      const a=document.createElement('a');a.href=URL.createObjectURL(b);
+      a.download=`ShubhArambh_Backup_${new Date().toISOString().split('T')[0]}.json`;
+      a.click();URL.revokeObjectURL(a.href);UI.toast('Done','Backup exported','ok');
+    }catch(e){UI.toast('Error',e.message,'err')}
+  }
+};
+</script>
+
+</body>
+</html>
