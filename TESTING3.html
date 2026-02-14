@@ -2494,13 +2494,11 @@ body::before {
      HTML BLOCK 3: APP SHELL
      Topbar, Main content area, Tab bar
      ============================================================ -->
-<div class="shell" id="appShell" style="display:none">
-
   <!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="brand">
-        <div class="brand-icon">🕉️</div>
+      <div class="brand" style="gap:var(--sp-sm)">
+        <button class="menu-btn" onclick="Drawer.toggle()" aria-label="Menu">☰</button>
         <div class="brand-text">
           <h1>शुभारंभ</h1>
           <small id="topSubtitle">Welcome</small>
@@ -2508,13 +2506,163 @@ body::before {
       </div>
       <div class="top-actions">
         <span class="plan-badge free" id="topPlanBadge">FREE</span>
-        <div class="user-pill" onclick="Nav.go('profile')">
-          <div class="avatar">👤</div>
-          <span class="name" id="topUserName">User</span>
+        <div class="topbar-photo" id="topbarPhoto" onclick="Drawer.toggle()">
+          <span id="topbarPhotoInner">👤</span>
         </div>
       </div>
     </div>
   </div>
+
+  <!-- Drawer Menu -->
+  <div class="drawer-overlay" id="drawerOverlay" onclick="Drawer.close()"></div>
+  <div class="drawer" id="drawerMenu">
+
+    <!-- Drawer Header -->
+    <div class="drawer-header">
+      <div class="drawer-photo" id="drawerPhoto" onclick="PhotoUpload.show()">
+        <span id="drawerPhotoInner">👤</span>
+        <div class="drawer-photo-edit">📷</div>
+      </div>
+      <div class="drawer-name" id="drawerName">User</div>
+      <div class="drawer-email" id="drawerEmail">email@example.com</div>
+      <div class="drawer-plan">
+        <span class="plan-badge free" id="drawerPlanBadge">FREE</span>
+      </div>
+    </div>
+
+    <!-- Drawer Body -->
+    <div class="drawer-body">
+
+      <!-- Main Navigation -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Navigation</div>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('home')">
+        <span class="drawer-icon">🏠</span>
+        <span class="drawer-label">Home Dashboard</span>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('new')">
+        <span class="drawer-icon">➕</span>
+        <span class="drawer-label">New Pooja</span>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('hisab')">
+        <span class="drawer-icon">💰</span>
+        <span class="drawer-label">Hisab Book</span>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <!-- Management -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Management</div>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('yajman')">
+        <span class="drawer-icon">👥</span>
+        <span class="drawer-label">Yajman Manager</span>
+        <span class="drawer-badge badge-brand" id="drawerYajCount">0</span>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('database')">
+        <span class="drawer-icon">🗄️</span>
+        <span class="drawer-label">Pooja Database</span>
+        <span class="drawer-badge badge-brand" id="drawerDBCount">0</span>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('library')">
+        <span class="drawer-icon">📚</span>
+        <span class="drawer-label">Saved Templates</span>
+        <span class="drawer-badge badge-brand" id="drawerTplCount">0</span>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <!-- PDF & Settings -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Customization</div>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('pdfSettings')">
+        <span class="drawer-icon">🎨</span>
+        <span class="drawer-label">PDF Settings</span>
+        <span style="font-size:.6rem;color:var(--text-muted)">▸</span>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <!-- Account -->
+      <div class="drawer-section">
+        <div class="drawer-section-title">Account</div>
+      </div>
+      <div class="drawer-item" onclick="Drawer.goTo('profile')">
+        <span class="drawer-icon">👤</span>
+        <span class="drawer-label">Profile & Pandit Info</span>
+      </div>
+      <div class="drawer-item" onclick="Subscription.showUpgrade()">
+        <span class="drawer-icon">⭐</span>
+        <span class="drawer-label">Upgrade to Pro</span>
+        <span class="drawer-badge badge-warning" id="drawerProBadge">PRO</span>
+      </div>
+      <div class="drawer-item" onclick="ProfileUI.backup()">
+        <span class="drawer-icon">💾</span>
+        <span class="drawer-label">Backup & Export</span>
+      </div>
+      <div class="drawer-item" onclick="App.refresh()">
+        <span class="drawer-icon">🔄</span>
+        <span class="drawer-label">Refresh Data</span>
+      </div>
+
+      <div class="drawer-divider"></div>
+
+      <div class="drawer-item danger" onclick="Auth.logout()">
+        <span class="drawer-icon">🚪</span>
+        <span class="drawer-label">Logout</span>
+      </div>
+    </div>
+
+    <!-- Drawer Footer -->
+    <div class="drawer-footer">
+      शुभारंभ v4.0 • Made with 🙏 for Pandits
+    </div>
+  </div>
+
+  <!-- Refresh Indicator -->
+  <div class="refresh-indicator" id="refreshIndicator">
+    <div class="refresh-indicator-inner">
+      <div class="mini-spinner"></div>
+      <span id="refreshText">Refreshing...</span>
+    </div>
+  </div>
+
+  <!-- Main Content Area -->
+  <div class="main">
+    <section id="pgHome"       class="page active"></section>
+    <section id="pgNew"        class="page"></section>
+    <section id="pgHisab"      class="page"></section>
+    <section id="pgYajman"     class="page"></section>
+    <section id="pgDatabase"   class="page"></section>
+    <section id="pgLib"        class="page"></section>
+    <section id="pgProfile"    class="page"></section>
+    <section id="pgPdfSettings" class="page"></section>
+  </div>
+
+  <!-- Bottom Tab Bar - 3 tabs only -->
+  <div class="tabbar">
+    <div class="tabbar-inner three-tabs">
+      <button class="tab-btn active" data-page="pgHome"
+              onclick="Nav.go('home')">
+        <span class="tab-icon">🏠</span>
+        <span>Home</span>
+      </button>
+      <button class="tab-btn" data-page="pgNew"
+              onclick="Nav.go('new')">
+        <span class="tab-icon">➕</span>
+        <span>New Pooja</span>
+      </button>
+      <button class="tab-btn" data-page="pgProfile"
+              onclick="Nav.go('profile')">
+        <span class="tab-icon">👤</span>
+        <span>More</span>
+      </button>
+    </div>
+  </div>
+</div>
 
   <!-- Refresh Indicator (auto, no pull needed) -->
   <div class="refresh-indicator" id="refreshIndicator">
