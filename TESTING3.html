@@ -8,9 +8,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="format-detection" content="telephone=no">
+<link rel="manifest" href="data:application/json;base64,ewogICJuYW1lIjogIuCktuClgeCkreCkvuCksOCkguCkreCkrCAtIFBvb2phIE1hbmFnZXIiLAogICJzaG9ydF9uYW1lIjogIuCktuClgeCkreCkvuCksOCkguCkreCkrCIsCiAgInN0YXJ0X3VybCI6ICIuLyIsCiAgImRpc3BsYXkiOiAic3RhbmRhbG9uZSIsCiAgImJhY2tncm91bmRfY29sb3IiOiAiIzBhMGExYSIsCiAgInRoZW1lX2NvbG9yIjogIiNGRjZGMDAiLAogICJvcmllbnRhdGlvbiI6ICJwb3J0cmFpdCIsCiAgImljb25zIjogWwogICAgewogICAgICAic3JjIjogImRhdGE6aW1hZ2Uvc3ZnK3htbCwlM0NzdmclMjB4bWxucyUzRCdodHRwJTNBJTJGJTJGd3d3LnczLm9yZyUyRjIwMDAlMkZzdmcnJTIwd2lkdGglM0QnMTkyJyUyMGhlaWdodCUzRCcxOTInJTNFJTNDcmVjdCUyMHdpZHRoJTNEJzE5MiclMjBoZWlnaHQlM0QnMTkyJyUyMGZpbGwlM0QnJTIzRkY2RjAwJyUyRiUzRSUzQ3RleHQlMjB4JTNEJzk2JyUyMHklM0QnMTEwJyUyMGZvbnQtc2l6ZSUzRCc5MCclMjBmaWxsJTNEJyUyM2ZmZiclMjB0ZXh0LWFuY2hvciUzRCdtaWRkbGUnJTNFJUYwJTlGJTk1JTg5JUVGJUI4JThGJTNDJTJGdGV4dCUzRSUzQyUyRnN2ZyUzRSIsCiAgICAgICJzaXplcyI6ICIxOTJ4MTkyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0sCiAgICB7CiAgICAgICJzcmMiOiAiZGF0YTppbWFnZS9zdmcreG1sLCUzQ3N2ZyUyMHhtbG5zJTNEJ2h0dHAlM0ElMkYlMkZ3d3cudzMub3JnJTJGMjAwMCUyRnN2ZyclMjB3aWR0aCUzRCc1MTInMjBoZWlnaHQlM0QnNTEyJyUzRSUzQ3JlY3QlMjB3aWR0aCUzRCc1MTInMjBoZWlnaHQlM0QnNTEyJyUyMGZpbGwlM0QnJTIzRkY2RjAwJyUyRiUzRSUzQ3RleHQlMjB4JTNEJzI1NicyMHklM0QnMzAwJyUyMGZvbnQtc2l6ZSUzRCcyNDAnMjBmaWxsJTNEJyUyM2ZmZiclMjB0ZXh0LWFuY2hvciUzRCdtaWRkbGUnJTNFJUYwJTlGJTk1JTg5JUVGJUI4JThGJTNDJTJGdGV4dCUzRSUzQyUyRnN2ZyUzRSIsCiAgICAgICJzaXplcyI6ICI1MTJ4NTEyIiwKICAgICAgInR5cGUiOiAiaW1hZ2Uvc3ZnK3htbCIsCiAgICAgICJwdXJwb3NlIjogImFueSBtYXNrYWJsZSIKICAgIH0KICBdLAogICJkZXNjcmlwdGlvbiI6ICJQcm9mZXNzaW9uYWwgUG9vamEgU2FtYWdyaSBNYW5hZ2VtZW50IFN5c3RlbSBmb3IgUGFuZGl0cyIsCiAgImNhdGVnb3JpZXMiOiBbImJ1c2luZXNzIiwgInByb2R1Y3Rpdml0eSJdCn0=">
 <title>शुभारंभ - Pooja Samagri Manager</title>
 
 <!-- External Libraries -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
@@ -1721,188 +1724,192 @@ body::before {
   border-radius: 50%;
   animation: spin 0.6s linear infinite;
 }
-   /* ============================================================
-   BLOCK 27: DRAWER MENU
+/* ============================================================
+   ENHANCED FEATURES CSS - v4.5
+   Drawer, Profile Photo, Voice Input, PDF Customizer, etc.
    ============================================================ */
-.drawer-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(4px);
-  -webkit-backdrop-filter: blur(4px);
-  z-index: 800;
-  transition: opacity var(--dur) var(--ease);
-  opacity: 0;
+
+/* Hamburger Menu Button */
+.hamburger-btn {
+  width: 40px;
+  height: 40px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  padding: 8px;
+  margin-right: 8px;
+  border-radius: var(--r-sm);
+  transition: background var(--dur) var(--ease);
 }
 
-.drawer-overlay.open {
-  display: block;
-  opacity: 1;
+.hamburger-btn:hover {
+  background: rgba(255, 255, 255, 0.05);
 }
 
+.hamburger-btn span {
+  width: 24px;
+  height: 3px;
+  background: var(--text-brand);
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.hamburger-btn:active span {
+  background: var(--brand);
+}
+
+/* Drawer Menu */
 .drawer {
   position: fixed;
   top: 0;
   left: 0;
-  width: 280px;
-  max-width: 85vw;
+  width: 100%;
   height: 100%;
-  height: 100dvh;
+  z-index: 9999;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  opacity: 0;
+}
+
+.drawer.active {
+  pointer-events: all;
+  opacity: 1;
+}
+
+.drawer-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.drawer-content {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
   background: var(--bg-secondary);
-  border-right: 1px solid var(--border-brand);
-  z-index: 850;
+  box-shadow: 4px 0 20px rgba(0, 0, 0, 0.3);
   transform: translateX(-100%);
-  transition: transform 0.3s var(--ease);
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch;
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
 }
 
-.drawer.open {
+.drawer.active .drawer-content {
   transform: translateX(0);
 }
 
 .drawer-header {
-  padding: var(--sp-xl) var(--sp-lg);
-  padding-top: calc(var(--sp-xl) + var(--safe-top));
-  background: rgba(255, 111, 0, 0.04);
-  border-bottom: 1px solid var(--border);
-  text-align: center;
-  flex-shrink: 0;
+  padding: var(--sp-lg);
+  background: var(--grad-brand);
+  position: relative;
+}
+
+.drawer-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-md);
 }
 
 .drawer-photo {
-  width: 72px;
-  height: 72px;
+  width: 60px;
+  height: 60px;
   border-radius: 50%;
-  margin: 0 auto var(--sp-sm);
-  background: var(--grad-brand);
+  background: rgba(255, 255, 255, 0.2);
   display: grid;
   place-items: center;
   font-size: 2rem;
-  border: 3px solid rgba(255, 111, 0, 0.3);
-  overflow: hidden;
   cursor: pointer;
-  transition: transform var(--dur) var(--ease),
-              box-shadow var(--dur) var(--ease);
-  position: relative;
+  transition: transform 0.3s ease;
+  overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.3);
 }
 
 .drawer-photo:hover {
   transform: scale(1.05);
-  box-shadow: 0 0 20px rgba(255, 111, 0, 0.3);
 }
 
 .drawer-photo img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  border-radius: 50%;
 }
 
-.drawer-photo-edit {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  width: 24px;
-  height: 24px;
-  background: var(--grad-brand);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  font-size: 0.6rem;
-  border: 2px solid var(--bg-secondary);
-  cursor: pointer;
+.drawer-info {
+  flex: 1;
+  color: white;
 }
 
 .drawer-name {
-  font-size: 1rem;
   font-weight: 700;
-  color: var(--text-primary);
+  font-size: 1.1rem;
   margin-bottom: 2px;
 }
 
 .drawer-email {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+  font-size: 0.75rem;
+  opacity: 0.9;
 }
 
-.drawer-plan {
-  display: inline-block;
-  margin-top: var(--sp-xs);
+.drawer-close {
+  position: absolute;
+  top: var(--sp-md);
+  right: var(--sp-md);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: white;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all 0.3s ease;
 }
 
-.drawer-body {
+.drawer-close:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: rotate(90deg);
+}
+
+.drawer-nav {
   flex: 1;
-  padding: var(--sp-sm) 0;
   overflow-y: auto;
-}
-
-.drawer-section {
-  padding: var(--sp-xs) var(--sp-lg);
-  margin-top: var(--sp-xs);
-}
-
-.drawer-section-title {
-  font-size: 0.6rem;
-  font-weight: 700;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  padding: var(--sp-xs) 0;
+  padding: var(--sp-sm) 0;
 }
 
 .drawer-item {
   display: flex;
   align-items: center;
-  gap: var(--sp-sm);
-  padding: 10px var(--sp-lg);
+  gap: var(--sp-md);
+  padding: var(--sp-md) var(--sp-lg);
   color: var(--text-secondary);
-  font-size: 0.85rem;
-  font-weight: 500;
+  text-decoration: none;
   cursor: pointer;
-  transition: all var(--dur-fast) var(--ease);
-  border-radius: var(--r-sm);
-  margin: 1px var(--sp-sm);
-  min-height: 44px;
+  transition: all var(--dur) var(--ease);
+  font-size: 0.9rem;
   user-select: none;
 }
 
-.drawer-item:hover,
-.drawer-item:active {
+.drawer-item:hover {
   background: rgba(255, 111, 0, 0.08);
-  color: var(--text-primary);
+  color: var(--text-brand);
 }
 
-.drawer-item .drawer-icon {
-  font-size: 1.1rem;
+.drawer-icon {
+  font-size: 1.3rem;
   width: 28px;
   text-align: center;
-  flex-shrink: 0;
-}
-
-.drawer-item .drawer-label {
-  flex: 1;
-}
-
-.drawer-item .drawer-badge {
-  font-size: 0.55rem;
-  padding: 1px 6px;
-  border-radius: var(--r-full);
-  font-weight: 700;
-}
-
-.drawer-item.danger {
-  color: var(--error);
-}
-
-.drawer-item.danger:hover {
-  background: var(--error-bg);
 }
 
 .drawer-divider {
@@ -1913,41 +1920,75 @@ body::before {
 
 .drawer-footer {
   padding: var(--sp-md) var(--sp-lg);
-  padding-bottom: calc(var(--sp-md) + var(--safe-bottom));
   border-top: 1px solid var(--border);
-  text-align: center;
-  font-size: 0.6rem;
-  color: var(--text-muted);
-  flex-shrink: 0;
 }
 
-/* ============================================================
-   BLOCK 28: PHOTO UPLOAD
-   ============================================================ */
-.photo-upload-area {
-  display: flex;
-  flex-direction: column;
+.drawer-version {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* Profile Photo Modal */
+.photo-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.9);
+  z-index: 10000;
+  display: none;
   align-items: center;
-  gap: var(--sp-md);
+  justify-content: center;
   padding: var(--sp-lg);
 }
 
-.photo-preview {
-  width: 120px;
-  height: 120px;
-  border-radius: 50%;
-  background: var(--bg-card);
-  border: 3px dashed var(--border-brand);
-  display: grid;
-  place-items: center;
-  overflow: hidden;
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
+.photo-modal.active {
+  display: flex;
 }
 
-.photo-preview:hover {
+.photo-modal-content {
+  background: var(--bg-secondary);
+  border-radius: var(--r-lg);
+  padding: var(--sp-xl);
+  max-width: 400px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.photo-upload-area {
+  border: 2px dashed var(--border-brand);
+  border-radius: var(--r-md);
+  padding: var(--sp-2xl);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  margin-bottom: var(--sp-md);
+}
+
+.photo-upload-area:hover {
+  background: rgba(255, 111, 0, 0.05);
   border-color: var(--brand);
-  box-shadow: 0 0 20px rgba(255, 111, 0, 0.2);
+}
+
+.photo-upload-icon {
+  font-size: 3rem;
+  margin-bottom: var(--sp-sm);
+}
+
+.photo-preview {
+  width: 200px;
+  height: 200px;
+  margin: 0 auto var(--sp-md);
+  border-radius: 50%;
+  overflow: hidden;
+  display: none;
+}
+
+.photo-preview.active {
+  display: block;
 }
 
 .photo-preview img {
@@ -1956,132 +1997,179 @@ body::before {
   object-fit: cover;
 }
 
-.photo-preview-placeholder {
-  text-align: center;
-  color: var(--text-muted);
-  font-size: 0.75rem;
+/* Voice Input UI */
+.voice-btn {
+  position: relative;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--grad-brand);
+  border: none;
+  color: white;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: all var(--dur) var(--ease);
+  box-shadow: var(--shadow-brand);
 }
 
-.photo-preview-placeholder .photo-icon {
-  font-size: 2rem;
-  display: block;
-  margin-bottom: var(--sp-xs);
+.voice-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 24px rgba(255, 111, 0, 0.4);
 }
 
-.photo-actions {
-  display: flex;
-  gap: var(--sp-sm);
-  flex-wrap: wrap;
-  justify-content: center;
+.voice-btn.listening {
+  animation: pulse 1.5s infinite;
+  background: var(--grad-error);
 }
 
-/* Hidden file input */
-.photo-file-input {
+@keyframes pulse {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(255, 111, 0, 0.7); }
+  50% { transform: scale(1.05); box-shadow: 0 0 0 10px rgba(255, 111, 0, 0); }
+}
+
+.voice-indicator {
+  position: fixed;
+  bottom: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--bg-elevated);
+  padding: var(--sp-md) var(--sp-xl);
+  border-radius: var(--r-full);
+  box-shadow: var(--shadow-lg);
   display: none;
+  align-items: center;
+  gap: var(--sp-sm);
+  z-index: 1000;
 }
 
-/* ============================================================
-   BLOCK 29: PDF THEME CUSTOMIZATION
-   ============================================================ */
-.pdf-theme-grid {
+.voice-indicator.active {
+  display: flex;
+}
+
+.voice-wave {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+}
+
+.voice-wave span {
+  width: 3px;
+  height: 16px;
+  background: var(--brand);
+  border-radius: 2px;
+  animation: wave 1s infinite ease-in-out;
+}
+
+.voice-wave span:nth-child(2) { animation-delay: 0.1s; }
+.voice-wave span:nth-child(3) { animation-delay: 0.2s; }
+.voice-wave span:nth-child(4) { animation-delay: 0.3s; }
+
+@keyframes wave {
+  0%, 100% { height: 16px; }
+  50% { height: 6px; }
+}
+
+/* PDF Customizer Panel */
+.pdf-customizer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 340px;
+  height: 100%;
+  background: var(--bg-secondary);
+  box-shadow: -4px 0 20px rgba(0, 0, 0, 0.3);
+  transform: translateX(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 9998;
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-customizer.active {
+  transform: translateX(0);
+}
+
+.pdf-customizer-header {
+  padding: var(--sp-lg);
+  background: var(--grad-brand);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdf-customizer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--sp-lg);
+}
+
+.pdf-option {
+  margin-bottom: var(--sp-lg);
+}
+
+.pdf-option-label {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  margin-bottom: var(--sp-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.theme-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: var(--sp-sm);
-  margin-bottom: var(--sp-md);
 }
 
-.pdf-theme-card {
+.theme-card {
+  padding: var(--sp-md);
   border: 2px solid var(--border);
   border-radius: var(--r-md);
-  padding: var(--sp-sm);
   cursor: pointer;
   transition: all var(--dur) var(--ease);
   text-align: center;
-  position: relative;
-  overflow: hidden;
-  min-height: 80px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-xs);
 }
 
-.pdf-theme-card:hover {
+.theme-card:hover {
   border-color: var(--brand);
-  transform: translateY(-2px);
+  background: rgba(255, 111, 0, 0.05);
 }
 
-.pdf-theme-card.selected {
+.theme-card.selected {
   border-color: var(--brand);
-  background: rgba(255, 111, 0, 0.06);
-  box-shadow: 0 0 15px rgba(255, 111, 0, 0.15);
+  background: var(--brand-glow);
 }
 
-.pdf-theme-card.selected::after {
-  content: '✓';
-  position: absolute;
-  top: 4px;
-  right: 6px;
-  background: var(--grad-brand);
-  color: #fff;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
+.theme-preview {
+  width: 100%;
+  height: 80px;
+  border-radius: var(--r-sm);
+  margin-bottom: var(--sp-xs);
   display: grid;
   place-items: center;
-  font-size: 0.6rem;
-  font-weight: 700;
-}
-
-.pdf-theme-name {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-primary);
-}
-
-.pdf-theme-preview {
   font-size: 1.5rem;
 }
 
-.pdf-theme-desc {
-  font-size: 0.58rem;
-  color: var(--text-muted);
-}
-
-/* Color picker row */
 .color-picker-row {
   display: flex;
-  align-items: center;
   gap: var(--sp-sm);
-  padding: var(--sp-sm) 0;
-  border-bottom: 1px solid var(--border);
-}
-
-.color-picker-row:last-child {
-  border-bottom: none;
-}
-
-.color-picker-label {
-  flex: 1;
-  font-size: 0.78rem;
-  color: var(--text-secondary);
+  align-items: center;
 }
 
 .color-picker-input {
-  width: 40px;
-  height: 34px;
+  width: 60px;
+  height: 40px;
   border: 2px solid var(--border);
   border-radius: var(--r-sm);
-  background: none;
   cursor: pointer;
-  padding: 2px;
-  -webkit-appearance: none;
-  appearance: none;
 }
 
 .color-picker-input::-webkit-color-swatch-wrapper {
-  padding: 0;
+  padding: 2px;
 }
 
 .color-picker-input::-webkit-color-swatch {
@@ -2089,253 +2177,242 @@ body::before {
   border-radius: 4px;
 }
 
-/* Toggle switch for show/hide options */
-.toggle-row {
-  display: flex;
+/* Toggle Switch */
+.toggle-switch {
+  position: relative;
+  width: 50px;
+  height: 26px;
+  background: var(--bg-input);
+  border-radius: var(--r-full);
+  cursor: pointer;
+  transition: background var(--dur) var(--ease);
+}
+
+.toggle-switch.active {
+  background: var(--grad-brand);
+}
+
+.toggle-knob {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  background: white;
+  border-radius: 50%;
+  transition: transform var(--dur) var(--ease);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.toggle-switch.active .toggle-knob {
+  transform: translateX(24px);
+}
+
+/* Auto-save Indicator */
+.autosave-indicator {
+  position: fixed;
+  top: 70px;
+  right: var(--sp-md);
+  background: var(--success-bg);
+  color: var(--success);
+  padding: 6px 12px;
+  border-radius: var(--r-full);
+  font-size: 0.7rem;
+  font-weight: 600;
+  display: none;
   align-items: center;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid var(--border);
-  min-height: 40px;
+  gap: 5px;
+  z-index: 999;
+  animation: slideInRight 0.3s ease;
 }
 
-.toggle-row:last-child {
-  border-bottom: none;
+.autosave-indicator.active {
+  display: flex;
 }
 
-.toggle-label {
-  font-size: 0.8rem;
-  color: var(--text-secondary);
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to { transform: translateX(0); opacity: 1; }
+}
+
+/* Favorite Star */
+.favorite-star {
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--dur) var(--ease);
+  font-size: 1.2rem;
+}
+
+.favorite-star.favorited {
+  color: #FFD700;
+  animation: starPop 0.3s ease;
+}
+
+@keyframes starPop {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+}
+
+/* Enhanced Charts */
+.chart-container {
+  position: relative;
+  height: 250px;
+  margin-bottom: var(--sp-lg);
+}
+
+.chart-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-md);
+  justify-content: center;
+  margin-top: var(--sp-md);
+  font-size: 0.75rem;
+}
+
+.legend-item {
   display: flex;
   align-items: center;
   gap: var(--sp-xs);
 }
 
-.toggle-switch {
-  position: relative;
-  width: 44px;
-  height: 24px;
-  flex-shrink: 0;
+.legend-color {
+  width: 12px;
+  height: 12px;
+  border-radius: 2px;
 }
 
-.toggle-switch input {
-  opacity: 0;
-  width: 0;
-  height: 0;
-}
-
-.toggle-slider {
-  position: absolute;
-  inset: 0;
-  background: var(--bg-elevated);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-full);
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-}
-
-.toggle-slider::before {
-  content: '';
-  position: absolute;
-  left: 3px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 16px;
-  height: 16px;
-  background: var(--text-muted);
-  border-radius: 50%;
-  transition: all var(--dur) var(--ease);
-}
-
-.toggle-switch input:checked + .toggle-slider {
-  background: rgba(255, 111, 0, 0.15);
-  border-color: var(--brand);
-}
-
-.toggle-switch input:checked + .toggle-slider::before {
-  left: calc(100% - 19px);
-  background: var(--grad-brand);
-}
-
-/* Font selector */
-.font-option {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-sm);
-  padding: 8px var(--sp-md);
-  border: 1.5px solid var(--border);
-  border-radius: var(--r-sm);
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-  margin-bottom: var(--sp-xs);
-}
-
-.font-option:hover {
-  border-color: var(--brand);
-}
-
-.font-option.selected {
-  border-color: var(--brand);
-  background: rgba(255, 111, 0, 0.06);
-}
-
-.font-option-radio {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--text-muted);
-  border-radius: 50%;
-  display: grid;
-  place-items: center;
-  flex-shrink: 0;
-  transition: all var(--dur) var(--ease);
-}
-
-.font-option.selected .font-option-radio {
-  border-color: var(--brand);
-  background: var(--grad-brand);
-}
-
-.font-option.selected .font-option-radio::after {
-  content: '';
-  width: 6px;
-  height: 6px;
-  background: #fff;
-  border-radius: 50%;
-}
-
-.font-option-name {
-  font-size: 0.8rem;
-  color: var(--text-primary);
-  font-weight: 600;
-}
-
-.font-option-sample {
-  font-size: 0.68rem;
-  color: var(--text-muted);
-}
-
-/* ============================================================
-   BLOCK 30: A4 PREVIEW CONTAINER
-   ============================================================ */
-.a4-preview-container {
-  background: #666;
-  border-radius: var(--r-md);
+/* Backup Manager */
+.backup-card {
+  background: var(--bg-card);
   padding: var(--sp-md);
-  overflow: auto;
-  -webkit-overflow-scrolling: touch;
-  max-height: 70vh;
-  position: relative;
-}
-
-.a4-page {
-  width: 794px;
-  min-height: 1123px;
-  max-height: 1123px;
-  background: #fff;
-  margin: 0 auto var(--sp-md);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-  position: relative;
-  overflow: hidden;
-  transform-origin: top center;
-}
-
-/* Scale for mobile */
-@media (max-width: 840px) {
-  .a4-page {
-    transform: scale(0.42);
-    margin-bottom: calc(-1123px * 0.58 + 16px);
-  }
-  .a4-preview-container {
-    max-height: none;
-  }
-}
-
-@media (min-width: 841px) and (max-width: 1024px) {
-  .a4-page {
-    transform: scale(0.7);
-    margin-bottom: calc(-1123px * 0.3 + 16px);
-  }
-}
-
-.a4-page-number {
-  position: absolute;
-  bottom: 8px;
-  right: 12px;
-  font-size: 0.6rem;
-  color: #999;
-  background: rgba(255,255,255,0.9);
-  padding: 2px 8px;
-  border-radius: var(--r-full);
-}
-
-/* Preview zoom controls */
-.preview-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--sp-sm);
-  padding: var(--sp-sm);
+  border-radius: var(--r-md);
+  border: 1px solid var(--border);
   margin-bottom: var(--sp-sm);
 }
 
-/* ============================================================
-   BLOCK 31: UPDATED TABBAR (3 tabs)
-   ============================================================ */
-.tabbar-inner.three-tabs {
-  grid-template-columns: repeat(3, 1fr);
+.backup-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--sp-sm);
 }
 
-.tabbar-inner.three-tabs .tab-btn {
-  padding: 8px 2px 7px;
-  font-size: 0.65rem;
+.backup-date {
+  font-size: 0.75rem;
+  color: var(--text-muted);
 }
 
-.tabbar-inner.three-tabs .tab-btn .tab-icon {
-  font-size: 1.3rem;
-}
-
-/* Menu button in topbar */
-.menu-btn {
-  width: 38px;
-  height: 38px;
-  border-radius: var(--r-md);
-  border: 1px solid var(--border);
-  background: var(--bg-card);
+.backup-size {
+  font-size: 0.7rem;
   color: var(--text-brand);
-  display: grid;
-  place-items: center;
-  font-size: 1.2rem;
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
-  flex-shrink: 0;
+  font-weight: 600;
 }
 
-.menu-btn:hover,
-.menu-btn:active {
-  background: rgba(255, 111, 0, 0.1);
-  border-color: var(--border-brand);
-  transform: scale(0.95);
+/* QR Code Display */
+.qr-code-container {
+  text-align: center;
+  padding: var(--sp-lg);
+  background: white;
+  border-radius: var(--r-md);
+  margin: var(--sp-md) 0;
 }
 
-/* Topbar photo */
-.topbar-photo {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  overflow: hidden;
+.qr-code-canvas {
+  margin: 0 auto;
+}
+
+/* Responsive Drawer */
+@media (max-width: 768px) {
+  .pdf-customizer {
+    width: 100%;
+  }
+  
+  .drawer-content {
+    width: 280px;
+  }
+}
+
+/* Enhanced Mobile Optimizations */
+@media (max-width: 480px) {
+  .drawer-content {
+    width: 260px;
+  }
+  
+  .theme-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Install Prompt Styles */
+.install-prompt {
+  position: fixed;
+  bottom: 80px;
+  left: var(--sp-md);
+  right: var(--sp-md);
   background: var(--grad-brand);
-  display: grid;
-  place-items: center;
-  font-size: 0.85rem;
-  flex-shrink: 0;
-  border: 2px solid rgba(255, 111, 0, 0.2);
+  color: white;
+  padding: var(--sp-md);
+  border-radius: var(--r-lg);
+  box-shadow: var(--shadow-lg);
+  display: none;
+  align-items: center;
+  gap: var(--sp-md);
+  z-index: 1000;
+  animation: slideUp 0.4s ease;
 }
 
-.topbar-photo img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+.install-prompt.active {
+  display: flex;
 }
+
+@keyframes slideUp {
+  from { transform: translateY(100%); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.install-prompt-icon {
+  font-size: 2rem;
+}
+
+.install-prompt-content {
+  flex: 1;
+}
+
+.install-prompt-title {
+  font-weight: 700;
+  margin-bottom: 2px;
+}
+
+.install-prompt-text {
+  font-size: 0.75rem;
+  opacity: 0.9;
+}
+
+.install-prompt-actions {
+  display: flex;
+  gap: var(--sp-sm);
+}
+
+.install-btn {
+  padding: 8px 16px;
+  background: white;
+  color: var(--brand);
+  border: none;
+  border-radius: var(--r-sm);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.install-dismiss {
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: none;
+  border-radius: var(--r-sm);
+  cursor: pointer;
+}
+
 </style>
 </head>
 <body>
@@ -2494,11 +2571,76 @@ body::before {
      HTML BLOCK 3: APP SHELL
      Topbar, Main content area, Tab bar
      ============================================================ -->
+<div class="shell" id="appShell" style="display:none">
+
+  <!-- Drawer Menu -->
+  <div class="drawer" id="drawerMenu">
+    <div class="drawer-overlay" onclick="DrawerMenu.close()"></div>
+    <div class="drawer-content">
+      <div class="drawer-header">
+        <div class="drawer-profile">
+          <div class="drawer-photo" id="drawerPhoto" onclick="ProfilePhoto.show()">
+            <div id="drawerPhotoImg">📸</div>
+          </div>
+          <div class="drawer-info">
+            <div class="drawer-name" id="drawerName">User</div>
+            <div class="drawer-email" id="drawerEmail">user@example.com</div>
+          </div>
+        </div>
+        <button class="drawer-close" onclick="DrawerMenu.close()">✕</button>
+      </div>
+      <nav class="drawer-nav">
+        <a onclick="DrawerMenu.goTo('home')" class="drawer-item">
+          <span class="drawer-icon">🏠</span>
+          <span>Home</span>
+        </a>
+        <a onclick="DrawerMenu.goTo('new')" class="drawer-item">
+          <span class="drawer-icon">➕</span>
+          <span>New Pooja</span>
+        </a>
+        <a onclick="DrawerMenu.goTo('hisab')" class="drawer-item">
+          <span class="drawer-icon">💰</span>
+          <span>Hisab Book</span>
+        </a>
+        <a onclick="DrawerMenu.goTo('library')" class="drawer-item">
+          <span class="drawer-icon">📚</span>
+          <span>Library</span>
+        </a>
+        <div class="drawer-divider"></div>
+        <a onclick="PDFCustomizer.show()" class="drawer-item">
+          <span class="drawer-icon">🎨</span>
+          <span>PDF Settings</span>
+        </a>
+        <a onclick="BackupManager.show()" class="drawer-item">
+          <span class="drawer-icon">💾</span>
+          <span>Backup & Restore</span>
+        </a>
+        <div class="drawer-divider"></div>
+        <a onclick="DrawerMenu.goTo('profile')" class="drawer-item">
+          <span class="drawer-icon">⚙️</span>
+          <span>Settings</span>
+        </a>
+        <a onclick="Auth.logout()" class="drawer-item">
+          <span class="drawer-icon">🚪</span>
+          <span>Logout</span>
+        </a>
+      </nav>
+      <div class="drawer-footer">
+        <div class="drawer-version">शुभारंभ v4.5 Enhanced</div>
+      </div>
+    </div>
+  </div>
+
   <!-- Top Bar -->
   <div class="topbar">
     <div class="topbar-inner">
-      <div class="brand" style="gap:var(--sp-sm)">
-        <button class="menu-btn" onclick="Drawer.toggle()" aria-label="Menu">☰</button>
+      <button class="hamburger-btn" onclick="DrawerMenu.toggle()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+      <div class="brand">
+        <div class="brand-icon">🕉️</div>
         <div class="brand-text">
           <h1>शुभारंभ</h1>
           <small id="topSubtitle">Welcome</small>
@@ -2506,163 +2648,13 @@ body::before {
       </div>
       <div class="top-actions">
         <span class="plan-badge free" id="topPlanBadge">FREE</span>
-        <div class="topbar-photo" id="topbarPhoto" onclick="Drawer.toggle()">
-          <span id="topbarPhotoInner">👤</span>
+        <div class="user-pill" onclick="ProfilePhoto.show()">
+          <div class="avatar" id="topAvatar">👤</div>
+          <span class="name" id="topUserName">User</span>
         </div>
       </div>
     </div>
   </div>
-
-  <!-- Drawer Menu -->
-  <div class="drawer-overlay" id="drawerOverlay" onclick="Drawer.close()"></div>
-  <div class="drawer" id="drawerMenu">
-
-    <!-- Drawer Header -->
-    <div class="drawer-header">
-      <div class="drawer-photo" id="drawerPhoto" onclick="PhotoUpload.show()">
-        <span id="drawerPhotoInner">👤</span>
-        <div class="drawer-photo-edit">📷</div>
-      </div>
-      <div class="drawer-name" id="drawerName">User</div>
-      <div class="drawer-email" id="drawerEmail">email@example.com</div>
-      <div class="drawer-plan">
-        <span class="plan-badge free" id="drawerPlanBadge">FREE</span>
-      </div>
-    </div>
-
-    <!-- Drawer Body -->
-    <div class="drawer-body">
-
-      <!-- Main Navigation -->
-      <div class="drawer-section">
-        <div class="drawer-section-title">Navigation</div>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('home')">
-        <span class="drawer-icon">🏠</span>
-        <span class="drawer-label">Home Dashboard</span>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('new')">
-        <span class="drawer-icon">➕</span>
-        <span class="drawer-label">New Pooja</span>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('hisab')">
-        <span class="drawer-icon">💰</span>
-        <span class="drawer-label">Hisab Book</span>
-      </div>
-
-      <div class="drawer-divider"></div>
-
-      <!-- Management -->
-      <div class="drawer-section">
-        <div class="drawer-section-title">Management</div>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('yajman')">
-        <span class="drawer-icon">👥</span>
-        <span class="drawer-label">Yajman Manager</span>
-        <span class="drawer-badge badge-brand" id="drawerYajCount">0</span>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('database')">
-        <span class="drawer-icon">🗄️</span>
-        <span class="drawer-label">Pooja Database</span>
-        <span class="drawer-badge badge-brand" id="drawerDBCount">0</span>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('library')">
-        <span class="drawer-icon">📚</span>
-        <span class="drawer-label">Saved Templates</span>
-        <span class="drawer-badge badge-brand" id="drawerTplCount">0</span>
-      </div>
-
-      <div class="drawer-divider"></div>
-
-      <!-- PDF & Settings -->
-      <div class="drawer-section">
-        <div class="drawer-section-title">Customization</div>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('pdfSettings')">
-        <span class="drawer-icon">🎨</span>
-        <span class="drawer-label">PDF Settings</span>
-        <span style="font-size:.6rem;color:var(--text-muted)">▸</span>
-      </div>
-
-      <div class="drawer-divider"></div>
-
-      <!-- Account -->
-      <div class="drawer-section">
-        <div class="drawer-section-title">Account</div>
-      </div>
-      <div class="drawer-item" onclick="Drawer.goTo('profile')">
-        <span class="drawer-icon">👤</span>
-        <span class="drawer-label">Profile & Pandit Info</span>
-      </div>
-      <div class="drawer-item" onclick="Subscription.showUpgrade()">
-        <span class="drawer-icon">⭐</span>
-        <span class="drawer-label">Upgrade to Pro</span>
-        <span class="drawer-badge badge-warning" id="drawerProBadge">PRO</span>
-      </div>
-      <div class="drawer-item" onclick="ProfileUI.backup()">
-        <span class="drawer-icon">💾</span>
-        <span class="drawer-label">Backup & Export</span>
-      </div>
-      <div class="drawer-item" onclick="App.refresh()">
-        <span class="drawer-icon">🔄</span>
-        <span class="drawer-label">Refresh Data</span>
-      </div>
-
-      <div class="drawer-divider"></div>
-
-      <div class="drawer-item danger" onclick="Auth.logout()">
-        <span class="drawer-icon">🚪</span>
-        <span class="drawer-label">Logout</span>
-      </div>
-    </div>
-
-    <!-- Drawer Footer -->
-    <div class="drawer-footer">
-      शुभारंभ v4.0 • Made with 🙏 for Pandits
-    </div>
-  </div>
-
-  <!-- Refresh Indicator -->
-  <div class="refresh-indicator" id="refreshIndicator">
-    <div class="refresh-indicator-inner">
-      <div class="mini-spinner"></div>
-      <span id="refreshText">Refreshing...</span>
-    </div>
-  </div>
-
-  <!-- Main Content Area -->
-  <div class="main">
-    <section id="pgHome"       class="page active"></section>
-    <section id="pgNew"        class="page"></section>
-    <section id="pgHisab"      class="page"></section>
-    <section id="pgYajman"     class="page"></section>
-    <section id="pgDatabase"   class="page"></section>
-    <section id="pgLib"        class="page"></section>
-    <section id="pgProfile"    class="page"></section>
-    <section id="pgPdfSettings" class="page"></section>
-  </div>
-
-  <!-- Bottom Tab Bar - 3 tabs only -->
-  <div class="tabbar">
-    <div class="tabbar-inner three-tabs">
-      <button class="tab-btn active" data-page="pgHome"
-              onclick="Nav.go('home')">
-        <span class="tab-icon">🏠</span>
-        <span>Home</span>
-      </button>
-      <button class="tab-btn" data-page="pgNew"
-              onclick="Nav.go('new')">
-        <span class="tab-icon">➕</span>
-        <span>New Pooja</span>
-      </button>
-      <button class="tab-btn" data-page="pgProfile"
-              onclick="Nav.go('profile')">
-        <span class="tab-icon">👤</span>
-        <span>More</span>
-      </button>
-    </div>
-  </div>
-</div>
 
   <!-- Refresh Indicator (auto, no pull needed) -->
   <div class="refresh-indicator" id="refreshIndicator">
@@ -5146,90 +5138,223 @@ PageBuilder.profile = function() {
         'style="margin-top:var(--sp-sm)">⭐ Upgrade to Pro</button>' : '') +
     '</div>' +
 
-    /* ---- Menu-Based Settings ---- */
+    /* ---- Quick Navigation Grid ---- */
     '<div class="card">' +
       '<div class="card-header">' +
-        '<h3 class="card-title">⚙️ Settings</h3>' +
+        '<h3 class="card-title">🧭 Quick Access</h3>' +
       '</div>' +
-      
-      /* Menu Item: Pandit Details */
-      '<div class="menu-item" onclick="ProfileUI.showPanditDetails()" ' +
-        'style="display:flex;align-items:center;padding:var(--sp-md);' +
-        'border-bottom:1px solid var(--border);cursor:pointer;' +
-        'transition:background .15s ease" ' +
-        'onmouseover="this.style.background=\'rgba(255,255,255,0.02)\'" ' +
-        'onmouseout="this.style.background=\'transparent\'">' +
-        '<div style="width:36px;height:36px;border-radius:8px;' +
-          'background:rgba(255,111,0,0.1);display:grid;place-items:center;' +
-          'margin-right:var(--sp-md);flex-shrink:0">🙏</div>' +
-        '<div style="flex:1">' +
-          '<div style="font-weight:600;color:var(--text-primary);font-size:.88rem">' +
-            'Pandit Details</div>' +
-          '<div style="color:var(--text-muted);font-size:.72rem">' +
-            'PDF header/footer info</div>' +
-        '</div>' +
-        '<div style="color:var(--text-muted);font-size:1.1rem">›</div>' +
-      '</div>' +
-      
-      /* Menu Item: Change Password */
-      '<div class="menu-item" onclick="ProfileUI.showChangePassword()" ' +
-        'style="display:flex;align-items:center;padding:var(--sp-md);' +
-        'border-bottom:1px solid var(--border);cursor:pointer;' +
-        'transition:background .15s ease" ' +
-        'onmouseover="this.style.background=\'rgba(255,255,255,0.02)\'" ' +
-        'onmouseout="this.style.background=\'transparent\'">' +
-        '<div style="width:36px;height:36px;border-radius:8px;' +
-          'background:rgba(41,121,255,0.1);display:grid;place-items:center;' +
-          'margin-right:var(--sp-md);flex-shrink:0">🔐</div>' +
-        '<div style="flex:1">' +
-          '<div style="font-weight:600;color:var(--text-primary);font-size:.88rem">' +
-            'Change Password</div>' +
-          '<div style="color:var(--text-muted);font-size:.72rem">' +
-            'Update your security</div>' +
-        '</div>' +
-        '<div style="color:var(--text-muted);font-size:1.1rem">›</div>' +
-      '</div>' +
-      
-      /* Menu Item: Yajman Management */
-      '<div class="menu-item" onclick="ProfileUI.showYajmanManagement()" ' +
-        'style="display:flex;align-items:center;padding:var(--sp-md);' +
-        'border-bottom:1px solid var(--border);cursor:pointer;' +
-        'transition:background .15s ease" ' +
-        'onmouseover="this.style.background=\'rgba(255,255,255,0.02)\'" ' +
-        'onmouseout="this.style.background=\'transparent\'">' +
-        '<div style="width:36px;height:36px;border-radius:8px;' +
-          'background:rgba(0,200,83,0.1);display:grid;place-items:center;' +
-          'margin-right:var(--sp-md);flex-shrink:0">👥</div>' +
-        '<div style="flex:1">' +
-          '<div style="font-weight:600;color:var(--text-primary);font-size:.88rem">' +
-            'Yajman Management</div>' +
-          '<div style="color:var(--text-muted);font-size:.72rem">' +
-            'Manage your clients</div>' +
-        '</div>' +
-        '<div style="color:var(--text-muted);font-size:1.1rem">›</div>' +
-      '</div>' +
-      
-      /* Menu Item: Pooja Database */
-      '<div class="menu-item" onclick="ProfileUI.showDatabase()" ' +
-        'style="display:flex;align-items:center;padding:var(--sp-md);' +
-        'cursor:pointer;transition:background .15s ease" ' +
-        'onmouseover="this.style.background=\'rgba(255,255,255,0.02)\'" ' +
-        'onmouseout="this.style.background=\'transparent\'">' +
-        '<div style="width:36px;height:36px;border-radius:8px;' +
-          'background:rgba(218,165,32,0.1);display:grid;place-items:center;' +
-          'margin-right:var(--sp-md);flex-shrink:0">🗄️</div>' +
-        '<div style="flex:1">' +
-          '<div style="font-weight:600;color:var(--text-primary);font-size:.88rem">' +
-            'Pooja Database</div>' +
-          '<div style="color:var(--text-muted);font-size:.72rem">' +
-            'Manage samagri items</div>' +
-        '</div>' +
-        '<div style="color:var(--text-muted);font-size:1.1rem">›</div>' +
+      '<div class="quick-actions">' +
+        '<button class="btn btn-ghost btn-sm" onclick="ProfileUI.scrollTo(\'prYajSection\')">' +
+          '👥 Yajmans</button>' +
+        '<button class="btn btn-ghost btn-sm" onclick="ProfileUI.scrollTo(\'prDBSection\')">' +
+          '🗄️ Database</button>' +
+        '<button class="btn btn-ghost btn-sm" onclick="ProfileUI.scrollTo(\'prPanditSection\')">' +
+          '🙏 Pandit Info</button>' +
+        '<button class="btn btn-ghost btn-sm" onclick="ProfileUI.scrollTo(\'prSecuritySection\')">' +
+          '🔐 Security</button>' +
       '</div>' +
     '</div>' +
 
-    /* Content Area for Menu Items */
-    '<div id="prMenuContent"></div>' +
+    /* ---- Yajman Management Section ---- */
+    '<div id="prYajSection">' +
+      '<div class="card">' +
+        '<div class="card-header">' +
+          '<h3 class="card-title">👥 Yajman Management</h3>' +
+          '<div class="card-actions">' +
+            '<button class="btn btn-xs btn-primary" ' +
+              'onclick="YajmanUI.showAddModal()">➕ Add</button>' +
+            '<button class="btn btn-xs btn-ghost" ' +
+              'onclick="YajmanUI.exportList()">📤 Export</button>' +
+          '</div>' +
+        '</div>' +
+
+        /* Stats row */
+        '<div class="stats-grid" style="margin-bottom:var(--sp-md)">' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem" id="prYajTotal">0</div>' +
+            '<div class="stat-label">Total</div></div>' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem;color:var(--success)" ' +
+              'id="prYajActive">0</div>' +
+            '<div class="stat-label">Active</div></div>' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem;color:var(--text-brand)" ' +
+              'id="prYajRevenue">₹0</div>' +
+            '<div class="stat-label">Revenue</div></div>' +
+        '</div>' +
+
+        /* Search & Filters */
+        '<div style="display:flex;gap:var(--sp-sm);margin-bottom:var(--sp-md);flex-wrap:wrap">' +
+          '<div class="search-input" style="flex:1;min-width:150px">' +
+            '<input class="form-input" id="prYajSearch" placeholder="Search yajmans..." ' +
+              'oninput="YajmanUI.renderList()">' +
+          '</div>' +
+          '<select class="form-select" id="prYajFilter" onchange="YajmanUI.renderList()" ' +
+            'style="width:auto;min-width:90px">' +
+            '<option value="all">All</option>' +
+            '<option value="active">Active</option>' +
+            '<option value="inactive">Inactive</option>' +
+          '</select>' +
+        '</div>' +
+
+        /* Yajman List */
+        '<div id="prYajList"></div>' +
+      '</div>' +
+    '</div>' +
+
+    /* ---- Database Section ---- */
+    '<div id="prDBSection">' +
+      '<div class="card">' +
+        '<div class="card-header">' +
+          '<h3 class="card-title">🗄️ Pooja Database</h3>' +
+          '<button class="btn btn-xs btn-primary" onclick="DBPage.showAdd()">' +
+            '➕ Add Items</button>' +
+        '</div>' +
+
+        /* DB Stats */
+        '<div class="stats-grid" style="margin-bottom:var(--sp-md)">' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem" id="prDBPoojas">0</div>' +
+            '<div class="stat-label">Poojas</div></div>' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem" id="prDBItems">0</div>' +
+            '<div class="stat-label">Items</div></div>' +
+          '<div class="stat-card" style="padding:var(--sp-sm)">' +
+            '<div class="stat-value" style="font-size:1.1rem;color:var(--text-brand)" ' +
+              'id="prDBCustom">0</div>' +
+            '<div class="stat-label">Custom</div></div>' +
+        '</div>' +
+
+        /* Search */
+        '<div class="search-input" style="margin-bottom:var(--sp-md)">' +
+          '<input class="form-input" id="prDBSearch" placeholder="Search items..." ' +
+            'oninput="DBPage.render()">' +
+        '</div>' +
+
+        /* DB List */
+        '<div id="prDBList" style="max-height:50vh;overflow-y:auto;' +
+          '-webkit-overflow-scrolling:touch"></div>' +
+      '</div>' +
+    '</div>' +
+
+    /* ---- Pandit Profile Section ---- */
+    '<div id="prPanditSection">' +
+      '<div class="card">' +
+        '<div class="card-header">' +
+          '<h3 class="card-title">🙏 Pandit Profile (PDF Header/Footer)</h3>' +
+        '</div>' +
+        '<div class="info-banner">' +
+          '📌 This information appears on your PDF header and footer. ' +
+          'Fill it completely for professional-looking PDFs.' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Name (PDF में नाम)</label>' +
+          '<input class="form-input" id="prPanditName" ' +
+            'value="' + UI.esc(p.name || u.name || '') + '" ' +
+            'placeholder="पंडित जी का नाम">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Title / उपाधि</label>' +
+          '<input class="form-input" id="prPanditTitle" ' +
+            'value="' + UI.esc(p.title || '') + '" ' +
+            'placeholder="e.g. शास्त्री, आचार्य, पुरोहित">' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label class="form-label">Phone</label>' +
+            '<input class="form-input" id="prPanditPhone" ' +
+              'value="' + UI.esc(p.phone || u.phone || '') + '" ' +
+              'type="tel" placeholder="📞 Phone">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label class="form-label">Website</label>' +
+            '<input class="form-input" id="prPanditWeb" ' +
+              'value="' + UI.esc(p.website || '') + '" ' +
+              'placeholder="🌐 Website">' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Address (PDF footer)</label>' +
+          '<input class="form-input" id="prPanditAddr" ' +
+            'value="' + UI.esc(p.address || '') + '" ' +
+            'placeholder="📍 Full address">' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Tagline / टैगलाइन</label>' +
+          '<input class="form-input" id="prPanditTag" ' +
+            'value="' + UI.esc(p.tagline || '') + '" ' +
+            'placeholder="e.g. सभी प्रकार के धार्मिक कार्य">' +
+        '</div>' +
+        '<div class="form-row">' +
+          '<div class="form-group">' +
+            '<label class="form-label">UPI ID (for payments)</label>' +
+            '<input class="form-input" id="prPanditUPI" ' +
+              'value="' + UI.esc(p.upiId || '') + '" ' +
+              'placeholder="yourname@paytm">' +
+          '</div>' +
+          '<div class="form-group">' +
+            '<label class="form-label">UPI Name</label>' +
+            '<input class="form-input" id="prPanditUPIName" ' +
+              'value="' + UI.esc(p.upiName || '') + '" ' +
+              'placeholder="Display name">' +
+          '</div>' +
+        '</div>' +
+        '<button class="btn btn-primary btn-w" onclick="ProfileUI.savePandit()">' +
+          '💾 Save Pandit Profile</button>' +
+      '</div>' +
+
+      /* PDF Preview */
+      '<div class="card">' +
+        '<div class="card-header">' +
+          '<h3 class="card-title">📄 PDF Preview</h3>' +
+          '<button class="btn btn-xs btn-ghost" ' +
+            'onclick="ProfileUI.previewPDF()">👁️ Preview</button>' +
+        '</div>' +
+        '<div id="prPDFPreview" style="background:rgba(255,255,255,0.02);' +
+          'border-radius:var(--r-md);padding:var(--sp-lg);min-height:60px">' +
+          '<p style="color:var(--text-muted);font-size:.8rem;text-align:center">' +
+            'Click 👁️ Preview to see how your PDF will look</p>' +
+        '</div>' +
+      '</div>' +
+    '</div>' +
+
+    /* ---- Security Section ---- */
+    '<div id="prSecuritySection">' +
+      '<div class="card">' +
+        '<div class="card-header">' +
+          '<h3 class="card-title">🔐 Change Password</h3>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Current Password</label>' +
+          '<div class="input-wrapper">' +
+            '<input class="form-input" id="prCurPass" type="password" ' +
+              'placeholder="Current password">' +
+            '<button type="button" class="pass-toggle" ' +
+              'onclick="togglePassword(\'prCurPass\',this)">👁️</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">New Password (min 6)</label>' +
+          '<div class="input-wrapper">' +
+            '<input class="form-input" id="prNewPass" type="password" ' +
+              'placeholder="New password">' +
+            '<button type="button" class="pass-toggle" ' +
+              'onclick="togglePassword(\'prNewPass\',this)">👁️</button>' +
+          '</div>' +
+        '</div>' +
+        '<div class="form-group">' +
+          '<label class="form-label">Confirm New Password</label>' +
+          '<div class="input-wrapper">' +
+            '<input class="form-input" id="prConfirmPass" type="password" ' +
+              'placeholder="Confirm new password">' +
+            '<button type="button" class="pass-toggle" ' +
+              'onclick="togglePassword(\'prConfirmPass\',this)">👁️</button>' +
+          '</div>' +
+        '</div>' +
+        '<button class="btn btn-primary btn-w" onclick="ProfileUI.changePassword()">' +
+          '🔑 Change Password</button>' +
+      '</div>' +
+    '</div>' +
 
     /* ---- Backup & Logout ---- */
     '<div class="card">' +
@@ -5486,232 +5611,6 @@ var ProfileUI = {
     } catch(e) {
       UI.toast('Error', e.message, 'error');
     }
-  },
-
-  /* ===== NEW MENU-BASED FUNCTIONS ===== */
-
-  showPanditDetails: function() {
-    var u = API.user || {};
-    var p = u.pandit || {};
-    
-    var content = '<div class="card">' +
-      '<div class="card-header">' +
-        '<h3 class="card-title">🙏 Pandit Profile</h3>' +
-      '</div>' +
-      '<div class="info-banner">' +
-        '📌 This information appears on your PDF header and footer. ' +
-        'Fill it completely for professional-looking PDFs.' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Name (PDF में नाम)</label>' +
-        '<input class="form-input" id="prPanditName" ' +
-          'value="' + UI.esc(p.name || u.name || '') + '" ' +
-          'placeholder="पंडित जी का नाम">' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Title / उपाधि</label>' +
-        '<input class="form-input" id="prPanditTitle" ' +
-          'value="' + UI.esc(p.title || '') + '" ' +
-          'placeholder="e.g. शास्त्री, आचार्य, पुरोहित">' +
-      '</div>' +
-      '<div class="form-row">' +
-        '<div class="form-group">' +
-          '<label class="form-label">Phone</label>' +
-          '<input class="form-input" id="prPanditPhone" ' +
-            'value="' + UI.esc(p.phone || u.phone || '') + '" ' +
-            'type="tel" placeholder="📞 Phone">' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label class="form-label">Website</label>' +
-          '<input class="form-input" id="prPanditWeb" ' +
-            'value="' + UI.esc(p.website || '') + '" ' +
-            'placeholder="🌐 Website">' +
-        '</div>' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Address (PDF footer)</label>' +
-        '<input class="form-input" id="prPanditAddr" ' +
-          'value="' + UI.esc(p.address || '') + '" ' +
-          'placeholder="📍 Full address">' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Tagline / टैगलाइन</label>' +
-        '<input class="form-input" id="prPanditTag" ' +
-          'value="' + UI.esc(p.tagline || '') + '" ' +
-          'placeholder="e.g. सभी प्रकार के धार्मिक कार्य">' +
-      '</div>' +
-      '<div class="form-row">' +
-        '<div class="form-group">' +
-          '<label class="form-label">UPI ID (for payments)</label>' +
-          '<input class="form-input" id="prPanditUPI" ' +
-            'value="' + UI.esc(p.upiId || '') + '" ' +
-            'placeholder="yourname@paytm">' +
-        '</div>' +
-        '<div class="form-group">' +
-          '<label class="form-label">UPI Name</label>' +
-          '<input class="form-input" id="prPanditUPIName" ' +
-            'value="' + UI.esc(p.upiName || '') + '" ' +
-            'placeholder="Display name">' +
-        '</div>' +
-      '</div>' +
-      '<button class="btn btn-primary btn-w" onclick="ProfileUI.savePandit()">' +
-        '💾 Save Pandit Profile</button>' +
-    '</div>' +
-    
-    '<div class="card">' +
-      '<div class="card-header">' +
-        '<h3 class="card-title">📄 PDF Preview</h3>' +
-        '<button class="btn btn-xs btn-ghost" ' +
-          'onclick="ProfileUI.previewPDF()">👁️ Preview</button>' +
-      '</div>' +
-      '<div id="prPDFPreview" style="background:rgba(255,255,255,0.02);' +
-        'border-radius:var(--r-md);padding:var(--sp-lg);min-height:60px">' +
-        '<p style="color:var(--text-muted);font-size:.8rem;text-align:center">' +
-          'Click 👁️ Preview to see how your PDF will look</p>' +
-      '</div>' +
-    '</div>' +
-    
-    '<button class="btn btn-ghost btn-w" onclick="ProfileUI.closeMenuContent()">' +
-      '← Back to Profile</button>';
-    
-    UI.html('prMenuContent', content);
-    this.scrollTo('prMenuContent');
-  },
-
-  showChangePassword: function() {
-    var content = '<div class="card">' +
-      '<div class="card-header">' +
-        '<h3 class="card-title">🔐 Change Password</h3>' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Current Password</label>' +
-        '<div class="input-wrapper">' +
-          '<input class="form-input" id="prCurPass" type="password" ' +
-            'placeholder="Current password">' +
-          '<button type="button" class="pass-toggle" ' +
-            'onclick="togglePassword(\'prCurPass\',this)">👁️</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">New Password (min 6)</label>' +
-        '<div class="input-wrapper">' +
-          '<input class="form-input" id="prNewPass" type="password" ' +
-            'placeholder="New password">' +
-          '<button type="button" class="pass-toggle" ' +
-            'onclick="togglePassword(\'prNewPass\',this)">👁️</button>' +
-        '</div>' +
-      '</div>' +
-      '<div class="form-group">' +
-        '<label class="form-label">Confirm New Password</label>' +
-        '<div class="input-wrapper">' +
-          '<input class="form-input" id="prConfirmPass" type="password" ' +
-            'placeholder="Confirm new password">' +
-          '<button type="button" class="pass-toggle" ' +
-            'onclick="togglePassword(\'prConfirmPass\',this)">👁️</button>' +
-        '</div>' +
-      '</div>' +
-      '<button class="btn btn-primary btn-w" onclick="ProfileUI.changePassword()">' +
-        '🔑 Change Password</button>' +
-    '</div>' +
-    
-    '<button class="btn btn-ghost btn-w" onclick="ProfileUI.closeMenuContent()">' +
-      '← Back to Profile</button>';
-    
-    UI.html('prMenuContent', content);
-    this.scrollTo('prMenuContent');
-  },
-
-  showYajmanManagement: function() {
-    var content = '<div class="card">' +
-      '<div class="card-header">' +
-        '<h3 class="card-title">👥 Yajman Management</h3>' +
-        '<div class="card-actions">' +
-          '<button class="btn btn-xs btn-primary" ' +
-            'onclick="YajmanUI.showAddModal()">➕ Add</button>' +
-          '<button class="btn btn-xs btn-ghost" ' +
-            'onclick="YajmanUI.exportList()">📤 Export</button>' +
-        '</div>' +
-      '</div>' +
-
-      '<div class="stats-grid" style="margin-bottom:var(--sp-md)">' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem" id="prYajTotal">0</div>' +
-          '<div class="stat-label">Total</div></div>' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem;color:var(--success)" ' +
-            'id="prYajActive">0</div>' +
-          '<div class="stat-label">Active</div></div>' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem;color:var(--text-brand)" ' +
-            'id="prYajRevenue">₹0</div>' +
-          '<div class="stat-label">Revenue</div></div>' +
-      '</div>' +
-
-      '<div style="display:flex;gap:var(--sp-sm);margin-bottom:var(--sp-md);flex-wrap:wrap">' +
-        '<div class="search-input" style="flex:1;min-width:150px">' +
-          '<input class="form-input" id="prYajSearch" placeholder="Search yajmans..." ' +
-            'oninput="YajmanUI.renderList()">' +
-        '</div>' +
-        '<select class="form-select" id="prYajFilter" onchange="YajmanUI.renderList()" ' +
-          'style="width:auto;min-width:90px">' +
-          '<option value="all">All</option>' +
-          '<option value="active">Active</option>' +
-          '<option value="inactive">Inactive</option>' +
-        '</select>' +
-      '</div>' +
-
-      '<div id="prYajList"></div>' +
-    '</div>' +
-    
-    '<button class="btn btn-ghost btn-w" onclick="ProfileUI.closeMenuContent()">' +
-      '← Back to Profile</button>';
-    
-    UI.html('prMenuContent', content);
-    YajmanUI.renderList();
-    this.scrollTo('prMenuContent');
-  },
-
-  showDatabase: function() {
-    var content = '<div class="card">' +
-      '<div class="card-header">' +
-        '<h3 class="card-title">🗄️ Pooja Database</h3>' +
-        '<button class="btn btn-xs btn-primary" onclick="DBPage.showAdd()">' +
-          '➕ Add Items</button>' +
-      '</div>' +
-
-      '<div class="stats-grid" style="margin-bottom:var(--sp-md)">' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem" id="prDBPoojas">0</div>' +
-          '<div class="stat-label">Poojas</div></div>' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem" id="prDBItems">0</div>' +
-          '<div class="stat-label">Items</div></div>' +
-        '<div class="stat-card" style="padding:var(--sp-sm)">' +
-          '<div class="stat-value" style="font-size:1.1rem;color:var(--text-brand)" ' +
-            'id="prDBCustom">0</div>' +
-          '<div class="stat-label">Custom</div></div>' +
-      '</div>' +
-
-      '<div class="search-input" style="margin-bottom:var(--sp-md)">' +
-        '<input class="form-input" id="prDBSearch" placeholder="Search items..." ' +
-          'oninput="DBPage.render()">' +
-      '</div>' +
-
-      '<div id="prDBList" style="max-height:50vh;overflow-y:auto;' +
-        '-webkit-overflow-scrolling:touch"></div>' +
-    '</div>' +
-    
-    '<button class="btn btn-ghost btn-w" onclick="ProfileUI.closeMenuContent()">' +
-      '← Back to Profile</button>';
-    
-    UI.html('prMenuContent', content);
-    DBPage.render();
-    this.scrollTo('prMenuContent');
-  },
-
-  closeMenuContent: function() {
-    UI.html('prMenuContent', '');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 };
 </script>
@@ -8036,6 +7935,15 @@ PageBuilder.new = function() {
 };
 
 /* Page Controller - runs when user navigates to New tab */
+PageController.new = function() {
+  console.log('=== PageController.new called ===');
+  console.log('App.D.master length:', (App.D.master || []).length);
+  console.log('App.D.master sample:', App.D.master ? App.D.master[0] : 'EMPTY');
+
+  NewPoojaUI._initPoojaList();
+};
+</script>
+
 <!-- ============================================================
      PART E - BLOCK 2: NEW POOJA LOGIC (COMPLETE REWRITE v3)
      Fixed: Data loading, pooja rendering, all edge cases
@@ -8598,7 +8506,8 @@ var NewPoojaUI = {
     inp.value = '';
     this.renderMaterials();
     API.post({ action: 'addItem', pooja: pooja, samagri: val }).catch(function() {});
-  },
+  }
+  };
 </script>
 
 <!-- ============================================================
@@ -8829,19 +8738,6 @@ var NewPoojaUI = {
 </script>
 
 <!-- ============================================================
-     PART E - BLOCK 3: NEW POOJA PAGE CONTROLLER
-     ============================================================ -->
-<script>
-PageController.new = function() {
-  console.log('=== PageController.new called ===');
-  console.log('App.D.master length:', (App.D.master || []).length);
-  console.log('App.D.master sample:', App.D.master ? App.D.master[0] : 'EMPTY');
-
-  NewPoojaUI._initPoojaList();
-};
-</script>
-
-<!-- ============================================================
      PART E - BLOCK 5: LIBRARY PAGE (COMPLETE)
      ============================================================ -->
 <script>
@@ -8904,8 +8800,1085 @@ var LibUI = {
 window.LibPage = LibUI;
 </script>
 
+
+<!-- ============================================================
+     ENHANCED FEATURES JAVASCRIPT - v4.5
+     New modules for drawer, voice, photos, PDF themes, etc.
+     ============================================================ -->
+
+<!-- Service Worker Registration for PWA -->
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', function() {
+    navigator.serviceWorker.register('data:text/javascript;base64,' + btoa(`
+      const CACHE_NAME = 'shubharambh-v4.5';
+      const urlsToCache = ['/'];
+      
+      self.addEventListener('install', event => {
+        event.waitUntil(
+          caches.open(CACHE_NAME)
+            .then(cache => cache.addAll(urlsToCache))
+        );
+      });
+      
+      self.addEventListener('fetch', event => {
+        event.respondWith(
+          caches.match(event.request)
+            .then(response => response || fetch(event.request))
+        );
+      });
+    `)).catch(err => console.log('SW registration failed:', err));
+  });
+}
+
+// PWA Install Prompt
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  
+  // Show install prompt after 30 seconds
+  setTimeout(() => {
+    if (localStorage.getItem('installDismissed') !== 'true') {
+      showInstallPrompt();
+    }
+  }, 30000);
+});
+
+function showInstallPrompt() {
+  const prompt = document.createElement('div');
+  prompt.className = 'install-prompt active';
+  prompt.innerHTML = `
+    <div class="install-prompt-icon">📱</div>
+    <div class="install-prompt-content">
+      <div class="install-prompt-title">Install App</div>
+      <div class="install-prompt-text">Add to home screen for better experience</div>
+    </div>
+    <div class="install-prompt-actions">
+      <button class="install-btn" onclick="installApp()">Install</button>
+      <button class="install-dismiss" onclick="dismissInstall()">Later</button>
+    </div>
+  `;
+  document.body.appendChild(prompt);
+}
+
+function installApp() {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then((choiceResult) => {
+      deferredPrompt = null;
+      document.querySelector('.install-prompt')?.remove();
+    });
+  }
+}
+
+function dismissInstall() {
+  localStorage.setItem('installDismissed', 'true');
+  document.querySelector('.install-prompt')?.remove();
+}
+</script>
+
+<!-- Drawer Menu Controller -->
+<script>
+var DrawerMenu = {
+  isOpen: false,
+  
+  toggle: function() {
+    this.isOpen ? this.close() : this.open();
+  },
+  
+  open: function() {
+    const drawer = document.getElementById('drawerMenu');
+    if (drawer) {
+      drawer.classList.add('active');
+      this.isOpen = true;
+      document.body.style.overflow = 'hidden';
+      this.updateInfo();
+    }
+  },
+  
+  close: function() {
+    const drawer = document.getElementById('drawerMenu');
+    if (drawer) {
+      drawer.classList.remove('active');
+      this.isOpen = false;
+      document.body.style.overflow = '';
+    }
+  },
+  
+  goTo: function(page) {
+    this.close();
+    setTimeout(() => Nav.go(page), 300);
+  },
+  
+  updateInfo: function() {
+    const user = API.user || {};
+    const pandit = user.pandit || {};
+    
+    UI.text('drawerName', pandit.name || user.name || 'User');
+    UI.text('drawerEmail', user.email || '');
+    
+    // Update photo
+    const photoData = localStorage.getItem('profilePhoto');
+    if (photoData) {
+      const photoImg = document.getElementById('drawerPhotoImg');
+      if (photoImg) {
+        photoImg.innerHTML = `<img src="${photoData}" alt="Profile">`;
+      }
+    }
+  }
+};
+</script>
+
+<!-- Profile Photo Manager -->
+<script>
+var ProfilePhoto = {
+  currentPhoto: null,
+  
+  show: function() {
+    DrawerMenu.close();
+    
+    const modal = document.createElement('div');
+    modal.className = 'photo-modal active';
+    modal.id = 'photoModal';
+    modal.innerHTML = `
+      <div class="photo-modal-content">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--sp-lg)">
+          <h3 style="margin:0">Profile Photo</h3>
+          <button class="btn btn-xs btn-ghost" onclick="ProfilePhoto.close()">✕</button>
+        </div>
+        
+        <div class="photo-preview" id="photoPreview">
+          <img id="photoPreviewImg" src="" alt="Preview">
+        </div>
+        
+        <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+          <div class="photo-upload-icon">📸</div>
+          <div style="color:var(--text-secondary);font-size:0.85rem">Click to upload photo</div>
+          <div style="color:var(--text-muted);font-size:0.7rem;margin-top:4px">Camera or Gallery</div>
+        </div>
+        
+        <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="ProfilePhoto.handleFile(event)">
+        
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-sm)">
+          <button class="btn btn-ghost" onclick="ProfilePhoto.remove()">🗑️ Remove</button>
+          <button class="btn btn-primary" onclick="ProfilePhoto.save()">💾 Save</button>
+        </div>
+      </div>
+    `;
+    document.body.appendChild(modal);
+    
+    // Load existing photo
+    const photoData = localStorage.getItem('profilePhoto');
+    if (photoData) {
+      this.currentPhoto = photoData;
+      document.getElementById('photoPreviewImg').src = photoData;
+      document.getElementById('photoPreview').classList.add('active');
+    }
+  },
+  
+  close: function() {
+    const modal = document.getElementById('photoModal');
+    if (modal) modal.remove();
+  },
+  
+  handleFile: function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        // Resize and crop to square
+        const canvas = document.createElement('canvas');
+        const size = Math.min(img.width, img.height);
+        canvas.width = 200;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        const offsetX = (img.width - size) / 2;
+        const offsetY = (img.height - size) / 2;
+        
+        ctx.drawImage(img, offsetX, offsetY, size, size, 0, 0, 200, 200);
+        
+        this.currentPhoto = canvas.toDataURL('image/jpeg', 0.8);
+        document.getElementById('photoPreviewImg').src = this.currentPhoto;
+        document.getElementById('photoPreview').classList.add('active');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  },
+  
+  save: function() {
+    if (!this.currentPhoto) {
+      UI.toast('No Photo', 'Please select a photo first', 'warn');
+      return;
+    }
+    
+    localStorage.setItem('profilePhoto', this.currentPhoto);
+    
+    // Update all photo displays
+    const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+    avatars.forEach(el => {
+      el.innerHTML = `<img src="${this.currentPhoto}" alt="Profile">`;
+    });
+    
+    UI.toast('Saved!', 'Photo updated', 'ok');
+    this.close();
+  },
+  
+  remove: function() {
+    UI.confirm('Remove Photo?', 'This will delete your profile photo', () => {
+      localStorage.removeItem('profilePhoto');
+      this.currentPhoto = null;
+      
+      const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+      avatars.forEach(el => {
+        el.innerHTML = '👤';
+      });
+      
+      UI.toast('Removed', 'Photo deleted', 'ok');
+      this.close();
+    });
+  },
+  
+  init: function() {
+    // Load photo on app start
+    const photoData = localStorage.getItem('profilePhoto');
+    if (photoData) {
+      setTimeout(() => {
+        const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+        avatars.forEach(el => {
+          el.innerHTML = `<img src="${photoData}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+        });
+      }, 500);
+    }
+  }
+};
+
+// Initialize photo on app load
+setTimeout(() => ProfilePhoto.init(), 1000);
+</script>
+
+<!-- Voice Input System -->
+<script>
+var VoiceInput = {
+  recognition: null,
+  isListening: false,
+  callback: null,
+  
+  init: function() {
+    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      this.recognition = new SpeechRecognition();
+      this.recognition.continuous = false;
+      this.recognition.interimResults = false;
+      this.recognition.lang = 'hi-IN'; // Hindi
+      
+      this.recognition.onresult = (event) => {
+        const transcript = event.results[0][0].transcript;
+        if (this.callback) {
+          this.callback(transcript);
+        }
+        this.stop();
+      };
+      
+      this.recognition.onerror = () => {
+        this.stop();
+      };
+      
+      this.recognition.onend = () => {
+        this.isListening = false;
+        this.updateUI();
+      };
+    }
+  },
+  
+  start: function(callback) {
+    if (!this.recognition) {
+      UI.toast('Not Supported', 'Voice input not available', 'warn');
+      return;
+    }
+    
+    this.callback = callback;
+    this.isListening = true;
+    this.updateUI();
+    
+    try {
+      this.recognition.start();
+    } catch(e) {
+      this.stop();
+    }
+  },
+  
+  stop: function() {
+    if (this.recognition && this.isListening) {
+      this.recognition.stop();
+    }
+    this.isListening = false;
+    this.updateUI();
+  },
+  
+  toggle: function(callback) {
+    if (this.isListening) {
+      this.stop();
+    } else {
+      this.start(callback);
+    }
+  },
+  
+  updateUI: function() {
+    const indicator = document.getElementById('voiceIndicator');
+    if (!indicator) return;
+    
+    if (this.isListening) {
+      indicator.classList.add('active');
+      indicator.innerHTML = `
+        <div class="voice-wave">
+          <span></span><span></span><span></span><span></span>
+        </div>
+        <span>Listening...</span>
+      `;
+    } else {
+      indicator.classList.remove('active');
+    }
+  },
+  
+  addToInput: function(inputId) {
+    this.start((text) => {
+      const input = document.getElementById(inputId);
+      if (input) {
+        const current = input.value;
+        input.value = current ? current + ', ' + text : text;
+        UI.toast('Added', text, 'ok');
+      }
+    });
+  }
+};
+
+// Initialize voice on load
+VoiceInput.init();
+
+// Add voice indicator to DOM
+setTimeout(() => {
+  if (!document.getElementById('voiceIndicator')) {
+    const indicator = document.createElement('div');
+    indicator.id = 'voiceIndicator';
+    indicator.className = 'voice-indicator';
+    document.body.appendChild(indicator);
+  }
+}, 1000);
+</script>
+
+<!-- PDF Customizer -->
+<script>
+var PDFCustomizer = {
+  settings: {
+    theme: 'classic',
+    headerColor: '#FF6F00',
+    accentColor: '#FFB74D',
+    showPhoto: true,
+    showQR: true,
+    showNotes: true,
+    showWatermark: false,
+    fontFamily: 'Noto Sans Devanagari'
+  },
+  
+  themes: {
+    classic: {
+      name: 'Classic',
+      emoji: '🕉️',
+      colors: { header: '#FF6F00', accent: '#FFB74D', bg: '#FFF3E0' }
+    },
+    royal: {
+      name: 'Royal',
+      emoji: '👑',
+      colors: { header: '#8B4513', accent: '#DAA520', bg: '#FFF8DC' }
+    },
+    modern: {
+      name: 'Modern',
+      emoji: '✨',
+      colors: { header: '#2C3E50', accent: '#3498DB', bg: '#ECF0F1' }
+    },
+    devotional: {
+      name: 'Devotional',
+      emoji: '🙏',
+      colors: { header: '#D32F2F', accent: '#FF9800', bg: '#FFECB3' }
+    },
+    minimal: {
+      name: 'Minimal',
+      emoji: '⚪',
+      colors: { header: '#37474F', accent: '#607D8B', bg: '#FAFAFA' }
+    },
+    festival: {
+      name: 'Festival',
+      emoji: '🎊',
+      colors: { header: '#E91E63', accent: '#FFC107', bg: '#FCE4EC' }
+    }
+  },
+  
+  show: function() {
+    DrawerMenu.close();
+    
+    this.loadSettings();
+    
+    const panel = document.createElement('div');
+    panel.className = 'pdf-customizer active';
+    panel.id = 'pdfCustomizer';
+    panel.innerHTML = `
+      <div class="pdf-customizer-header">
+        <h3>🎨 PDF Settings</h3>
+        <button class="drawer-close" onclick="PDFCustomizer.close()">✕</button>
+      </div>
+      <div class="pdf-customizer-body">
+        
+        <div class="pdf-option">
+          <div class="pdf-option-label">Theme</div>
+          <div class="theme-grid" id="themeGrid"></div>
+        </div>
+        
+        <div class="pdf-option">
+          <div class="pdf-option-label">Header Color</div>
+          <div class="color-picker-row">
+            <input type="color" class="color-picker-input" id="headerColorPicker" value="${this.settings.headerColor}" onchange="PDFCustomizer.updateColor('headerColor', this.value)">
+            <span style="flex:1;font-size:0.75rem;color:var(--text-muted)">${this.settings.headerColor}</span>
+          </div>
+        </div>
+        
+        <div class="pdf-option">
+          <div class="pdf-option-label">Accent Color</div>
+          <div class="color-picker-row">
+            <input type="color" class="color-picker-input" id="accentColorPicker" value="${this.settings.accentColor}" onchange="PDFCustomizer.updateColor('accentColor', this.value)">
+            <span style="flex:1;font-size:0.75rem;color:var(--text-muted)">${this.settings.accentColor}</span>
+          </div>
+        </div>
+        
+        <div class="pdf-option">
+          <div class="pdf-option-label">Display Options</div>
+          <div style="display:flex;flex-direction:column;gap:var(--sp-sm)">
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="PDFCustomizer.toggleOption('showPhoto')">
+              <span style="font-size:0.85rem">Show Profile Photo</span>
+              <div class="toggle-switch ${this.settings.showPhoto ? 'active' : ''}" id="togglePhoto">
+                <div class="toggle-knob"></div>
+              </div>
+            </label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="PDFCustomizer.toggleOption('showQR')">
+              <span style="font-size:0.85rem">Show QR Code</span>
+              <div class="toggle-switch ${this.settings.showQR ? 'active' : ''}" id="toggleQR">
+                <div class="toggle-knob"></div>
+              </div>
+            </label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="PDFCustomizer.toggleOption('showNotes')">
+              <span style="font-size:0.85rem">Show Notes Section</span>
+              <div class="toggle-switch ${this.settings.showNotes ? 'active' : ''}" id="toggleNotes">
+                <div class="toggle-knob"></div>
+              </div>
+            </label>
+            <label style="display:flex;justify-content:space-between;align-items:center;cursor:pointer" onclick="PDFCustomizer.toggleOption('showWatermark')">
+              <span style="font-size:0.85rem">Add Watermark</span>
+              <div class="toggle-switch ${this.settings.showWatermark ? 'active' : ''}" id="toggleWatermark">
+                <div class="toggle-knob"></div>
+              </div>
+            </label>
+          </div>
+        </div>
+        
+        <button class="btn btn-primary btn-w" onclick="PDFCustomizer.save()">💾 Save Settings</button>
+        <button class="btn btn-ghost btn-w" onclick="PDFCustomizer.reset()">🔄 Reset to Default</button>
+      </div>
+    `;
+    document.body.appendChild(panel);
+    
+    this.renderThemes();
+  },
+  
+  close: function() {
+    const panel = document.getElementById('pdfCustomizer');
+    if (panel) panel.remove();
+  },
+  
+  renderThemes: function() {
+    const grid = document.getElementById('themeGrid');
+    if (!grid) return;
+    
+    let html = '';
+    Object.keys(this.themes).forEach(key => {
+      const theme = this.themes[key];
+      const selected = this.settings.theme === key ? 'selected' : '';
+      html += `
+        <div class="theme-card ${selected}" onclick="PDFCustomizer.selectTheme('${key}')">
+          <div class="theme-preview" style="background:${theme.colors.bg};color:${theme.colors.header}">
+            ${theme.emoji}
+          </div>
+          <div style="font-size:0.75rem;font-weight:600">${theme.name}</div>
+        </div>
+      `;
+    });
+    grid.innerHTML = html;
+  },
+  
+  selectTheme: function(key) {
+    this.settings.theme = key;
+    const theme = this.themes[key];
+    this.settings.headerColor = theme.colors.header;
+    this.settings.accentColor = theme.colors.accent;
+    
+    document.getElementById('headerColorPicker').value = theme.colors.header;
+    document.getElementById('accentColorPicker').value = theme.colors.accent;
+    
+    this.renderThemes();
+  },
+  
+  updateColor: function(type, value) {
+    this.settings[type] = value;
+  },
+  
+  toggleOption: function(option) {
+    this.settings[option] = !this.settings[option];
+    const toggle = document.getElementById('toggle' + option.charAt(0).toUpperCase() + option.slice(1));
+    if (toggle) {
+      toggle.classList.toggle('active', this.settings[option]);
+    }
+  },
+  
+  save: function() {
+    localStorage.setItem('pdfSettings', JSON.stringify(this.settings));
+    UI.toast('Saved!', 'PDF settings updated', 'ok');
+    this.close();
+  },
+  
+  reset: function() {
+    UI.confirm('Reset Settings?', 'This will restore default PDF settings', () => {
+      localStorage.removeItem('pdfSettings');
+      this.settings = {
+        theme: 'classic',
+        headerColor: '#FF6F00',
+        accentColor: '#FFB74D',
+        showPhoto: true,
+        showQR: true,
+        showNotes: true,
+        showWatermark: false,
+        fontFamily: 'Noto Sans Devanagari'
+      };
+      UI.toast('Reset', 'Settings restored', 'ok');
+      this.close();
+    });
+  },
+  
+  loadSettings: function() {
+    const saved = localStorage.getItem('pdfSettings');
+    if (saved) {
+      try {
+        this.settings = JSON.parse(saved);
+      } catch(e) {}
+    }
+  },
+  
+  getSettings: function() {
+    this.loadSettings();
+    return this.settings;
+  }
+};
+</script>
+
+<!-- UPI QR Code Generator -->
+<script>
+var UPIManager = {
+  generateQR: function(upiId, name, amount) {
+    if (!window.QRCode) {
+      console.error('QRCode library not loaded');
+      return null;
+    }
+    
+    const upiString = `upi://pay?pa=${upiId}&pn=${encodeURIComponent(name)}&am=${amount}&cu=INR`;
+    
+    const canvas = document.createElement('canvas');
+    QRCode.toCanvas(canvas, upiString, {
+      width: 200,
+      margin: 2,
+      color: {
+        dark: '#000000',
+        light: '#FFFFFF'
+      }
+    }, (error) => {
+      if (error) console.error('QR Error:', error);
+    });
+    
+    return canvas.toDataURL();
+  },
+  
+  showQR: function(upiId, name, amount) {
+    if (!upiId) {
+      UI.toast('No UPI ID', 'Please set UPI ID in profile', 'warn');
+      return;
+    }
+    
+    const qrData = this.generateQR(upiId, name, amount || 0);
+    if (!qrData) return;
+    
+    UI.createModal('qrModal', {
+      title: '💳 Payment QR Code',
+      body: `
+        <div class="qr-code-container">
+          <img src="${qrData}" alt="QR Code" style="width:200px;height:200px">
+          <div style="margin-top:var(--sp-md);color:#333">
+            <div style="font-weight:700">₹${amount || 0}</div>
+            <div style="font-size:0.85rem;color:#666;margin-top:4px">${name}</div>
+            <div style="font-size:0.75rem;color:#999">${upiId}</div>
+          </div>
+        </div>
+      `,
+      footer: `
+        <button class="btn btn-ghost" onclick="UI.closeModal('qrModal')">Close</button>
+      `
+    });
+  }
+};
+</script>
+
+<!-- Auto-Save System -->
+<script>
+var AutoSave = {
+  timers: {},
+  
+  save: function(key, data, delay) {
+    delay = delay || 2000;
+    
+    if (this.timers[key]) {
+      clearTimeout(this.timers[key]);
+    }
+    
+    this.timers[key] = setTimeout(() => {
+      try {
+        localStorage.setItem('autosave_' + key, JSON.stringify(data));
+        this.showIndicator();
+      } catch(e) {
+        console.error('AutoSave error:', e);
+      }
+    }, delay);
+  },
+  
+  load: function(key) {
+    try {
+      const data = localStorage.getItem('autosave_' + key);
+      return data ? JSON.parse(data) : null;
+    } catch(e) {
+      return null;
+    }
+  },
+  
+  clear: function(key) {
+    localStorage.removeItem('autosave_' + key);
+  },
+  
+  showIndicator: function() {
+    let indicator = document.getElementById('autosaveIndicator');
+    if (!indicator) {
+      indicator = document.createElement('div');
+      indicator.id = 'autosaveIndicator';
+      indicator.className = 'autosave-indicator';
+      indicator.innerHTML = '✓ Saved';
+      document.body.appendChild(indicator);
+    }
+    
+    indicator.classList.add('active');
+    setTimeout(() => {
+      indicator.classList.remove('active');
+    }, 2000);
+  }
+};
+
+// Auto-save for New Pooja form
+if (typeof NewPoojaUI !== 'undefined') {
+  const originalRender = NewPoojaUI.renderMaterials;
+  NewPoojaUI.renderMaterials = function() {
+    originalRender.call(this);
+    
+    // Save state
+    AutoSave.save('newPooja', {
+      yajman: UI.val('npYajman'),
+      phone: UI.val('npPhone'),
+      address: UI.val('npAddr'),
+      date: UI.val('npDate'),
+      selected: this._selected,
+      materials: this._materials
+    });
+  };
+}
+</script>
+
+<!-- Favorites System -->
+<script>
+var Favorites = {
+  list: [],
+  
+  init: function() {
+    const saved = localStorage.getItem('favorites');
+    if (saved) {
+      try {
+        this.list = JSON.parse(saved);
+      } catch(e) {
+        this.list = [];
+      }
+    }
+  },
+  
+  toggle: function(itemName) {
+    const index = this.list.indexOf(itemName);
+    if (index > -1) {
+      this.list.splice(index, 1);
+    } else {
+      this.list.push(itemName);
+    }
+    this.save();
+    return this.isFavorite(itemName);
+  },
+  
+  isFavorite: function(itemName) {
+    return this.list.includes(itemName);
+  },
+  
+  save: function() {
+    localStorage.setItem('favorites', JSON.stringify(this.list));
+  },
+  
+  getAll: function() {
+    return this.list.slice();
+  },
+  
+  addToList: function(items) {
+    // Add favorites first when creating lists
+    const favorites = [];
+    const others = [];
+    
+    items.forEach(item => {
+      if (this.isFavorite(item.name)) {
+        favorites.push(item);
+      } else {
+        others.push(item);
+      }
+    });
+    
+    return favorites.concat(others);
+  }
+};
+
+Favorites.init();
+</script>
+
+<!-- Enhanced WhatsApp Sharing -->
+<script>
+var WhatsAppShare = {
+  sharePDFLink: function(pdfUrl, yajmanName, yajmanPhone, poojaDetails) {
+    const message = `🕉️ *${poojaDetails.title || 'पूजा सामग्री'}*\n\n` +
+      `👤 यजमान: ${yajmanName}\n` +
+      `📅 तारीख: ${poojaDetails.date}\n` +
+      `🕉️ पूजा: ${poojaDetails.poojas}\n\n` +
+      `📄 PDF Link: ${pdfUrl}\n\n` +
+      `🙏 धन्यवाद`;
+    
+    const phone = (yajmanPhone || '').replace(/[^0-9]/g, '');
+    const whatsappUrl = `https://wa.me/${phone ? '91' + phone : ''}?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
+  },
+  
+  shareText: function(yajmanName, yajmanPhone, items, poojaDetails) {
+    let message = `🕉️ *पूजा सामग्री सूची*\n\n`;
+    message += `👤 यजमान: ${yajmanName}\n`;
+    message += `📅 तारीख: ${poojaDetails.date}\n`;
+    message += `🕉️ पूजा: ${poojaDetails.poojas}\n\n`;
+    message += `📦 *सामग्री:*\n`;
+    
+    items.forEach((item, index) => {
+      message += `${index + 1}. ${item.name}`;
+      if (item.qty) message += ` - ${item.qty} ${item.unit || ''}`;
+      message += '\n';
+    });
+    
+    message += `\nकुल: ${items.length} items\n`;
+    
+    const pi = PDFEngine.getPanditInfo();
+    if (pi.name) message += `\n🙏 ${pi.name}`;
+    if (pi.phone) message += `\n📞 ${pi.phone}`;
+    
+    if (navigator.share) {
+      navigator.share({
+        title: 'सामग्री - ' + yajmanName,
+        text: message
+      }).catch(() => {});
+    } else {
+      const phone = (yajmanPhone || '').replace(/[^0-9]/g, '');
+      const whatsappUrl = `https://wa.me/${phone ? '91' + phone : ''}?text=${encodeURIComponent(message)}`;
+      window.open(whatsappUrl, '_blank');
+    }
+  }
+};
+</script>
+
+<!-- Enhanced Analytics -->
+<script>
+var Analytics = {
+  charts: {},
+  
+  renderMonthlyTrend: function(containerId, data) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'monthlyChart';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    container.innerHTML = '';
+    container.appendChild(canvas);
+    
+    if (!window.Chart) {
+      console.error('Chart.js not loaded');
+      return;
+    }
+    
+    const ctx = canvas.getContext('2d');
+    this.charts.monthly = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: data.labels || [],
+        datasets: [{
+          label: 'Revenue (₹)',
+          data: data.values || [],
+          borderColor: '#FF6F00',
+          backgroundColor: 'rgba(255, 111, 0, 0.1)',
+          tension: 0.4,
+          fill: true
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            display: false
+          }
+        },
+        scales: {
+          y: {
+            beginAtZero: true,
+            ticks: {
+              color: '#b0b0c0'
+            },
+            grid: {
+              color: 'rgba(255, 255, 255, 0.06)'
+            }
+          },
+          x: {
+            ticks: {
+              color: '#b0b0c0'
+            },
+            grid: {
+              display: false
+            }
+          }
+        }
+      }
+    });
+  },
+  
+  renderPoojaDistribution: function(containerId, data) {
+    const canvas = document.createElement('canvas');
+    canvas.id = 'poojaChart';
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    
+    container.innerHTML = '';
+    container.appendChild(canvas);
+    
+    if (!window.Chart) return;
+    
+    const ctx = canvas.getContext('2d');
+    this.charts.pooja = new Chart(ctx, {
+      type: 'doughnut',
+      data: {
+        labels: data.labels || [],
+        datasets: [{
+          data: data.values || [],
+          backgroundColor: [
+            '#FF6F00',
+            '#FFB74D',
+            '#FFA726',
+            '#FF8A65',
+            '#FFAB91',
+            '#FFCCBC'
+          ]
+        }]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: {
+            position: 'bottom',
+            labels: {
+              color: '#b0b0c0',
+              padding: 10,
+              font: {
+                size: 11
+              }
+            }
+          }
+        }
+      }
+    });
+  }
+};
+</script>
+
+<!-- Backup Manager -->
+<script>
+var BackupManager = {
+  show: function() {
+    DrawerMenu.close();
+    
+    UI.createModal('backupModal', {
+      title: '💾 Backup & Restore',
+      maxWidth: '500px',
+      body: `
+        <div style="margin-bottom:var(--sp-lg)">
+          <h4 style="margin-bottom:var(--sp-sm);font-size:0.9rem">Download Backup</h4>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:var(--sp-md)">
+            Save all your data as a JSON file
+          </p>
+          <button class="btn btn-primary btn-w" onclick="BackupManager.downloadBackup()">
+            📥 Download Backup
+          </button>
+        </div>
+        
+        <div>
+          <h4 style="margin-bottom:var(--sp-sm);font-size:0.9rem">Restore from Backup</h4>
+          <p style="font-size:0.75rem;color:var(--text-muted);margin-bottom:var(--sp-md)">
+            Upload a previously saved backup file
+          </p>
+          <input type="file" id="backupFileInput" accept=".json" style="display:none" onchange="BackupManager.handleRestore(event)">
+          <button class="btn btn-ghost btn-w" onclick="document.getElementById('backupFileInput').click()">
+            📤 Choose File
+          </button>
+        </div>
+      `,
+      footer: `
+        <button class="btn btn-ghost" onclick="UI.closeModal('backupModal')">Close</button>
+      `
+    });
+  },
+  
+  downloadBackup: function() {
+    const backup = {
+      version: '4.5',
+      timestamp: Date.now(),
+      date: new Date().toISOString(),
+      data: {
+        favorites: Favorites.getAll(),
+        pdfSettings: PDFCustomizer.getSettings(),
+        profilePhoto: localStorage.getItem('profilePhoto'),
+        autosaves: {}
+      }
+    };
+    
+    // Get all autosave data
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key.startsWith('autosave_')) {
+        backup.data.autosaves[key] = localStorage.getItem(key);
+      }
+    }
+    
+    const blob = new Blob([JSON.stringify(backup, null, 2)], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `shubharambh_backup_${UI.today()}.json`;
+    a.click();
+    URL.revokeObjectURL(url);
+    
+    UI.toast('Downloaded!', 'Backup saved', 'ok');
+  },
+  
+  handleRestore: function(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      try {
+        const backup = JSON.parse(e.target.result);
+        
+        UI.confirm('Restore Backup?', 'This will overwrite current local settings', () => {
+          // Restore favorites
+          if (backup.data.favorites) {
+            localStorage.setItem('favorites', JSON.stringify(backup.data.favorites));
+            Favorites.init();
+          }
+          
+          // Restore PDF settings
+          if (backup.data.pdfSettings) {
+            localStorage.setItem('pdfSettings', JSON.stringify(backup.data.pdfSettings));
+          }
+          
+          // Restore photo
+          if (backup.data.profilePhoto) {
+            localStorage.setItem('profilePhoto', backup.data.profilePhoto);
+            ProfilePhoto.init();
+          }
+          
+          // Restore autosaves
+          if (backup.data.autosaves) {
+            Object.keys(backup.data.autosaves).forEach(key => {
+              localStorage.setItem(key, backup.data.autosaves[key]);
+            });
+          }
+          
+          UI.toast('Restored!', 'Backup loaded successfully', 'ok');
+          UI.closeModal('backupModal');
+          
+          // Reload page to apply changes
+          setTimeout(() => location.reload(), 1500);
+        });
+      } catch(err) {
+        UI.toast('Error', 'Invalid backup file', 'error');
+      }
+    };
+    reader.readAsText(file);
+  }
+};
+</script>
+
+<!-- Initialize all enhancements on app load -->
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  console.log('🕉️ Enhanced Features v4.5 Loaded');
+  
+  // Close drawer on escape
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+      if (DrawerMenu.isOpen) DrawerMenu.close();
+      PDFCustomizer.close();
+      ProfilePhoto.close();
+    }
+  });
+  
+  // Prevent double-tap zoom on buttons
+  let lastTouchEnd = 0;
+  document.addEventListener('touchend', function(e) {
+    const now = Date.now();
+    if (now - lastTouchEnd <= 300) {
+      e.preventDefault();
+    }
+    lastTouchEnd = now;
+  }, false);
+});
+</script>
+
 <!-- ============================================================
      PART E - BLOCK 6: CLOSE
      ============================================================ -->
 </body>
+
 </html>
+
