@@ -17,7 +17,7 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&family=Noto+Sans+Devanagari:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 /* ============================================================
@@ -25,59 +25,58 @@
    Complete Design System
    ============================================================ */
 :root {
-  /* DEFAULT THEME: Professional */
   /* Brand Colors */
-  --brand: #ff6b35;
-  --brand-dark: #e65a2b;
-  --brand-light: #ff8f5a;
-  --brand-pale: #fff3ee;
-  --brand-glow: rgba(255, 107, 53, 0.12);
+  --brand: #FF6F00;
+  --brand-dark: #E65100;
+  --brand-light: #FFB74D;
+  --brand-pale: #FFF3E0;
+  --brand-glow: rgba(255, 111, 0, 0.15);
   --gold: #DAA520;
 
-  /* Backgrounds - Clean White */
+  /* Backgrounds */
   --bg-primary: #f9fafb;
   --bg-secondary: #ffffff;
   --bg-card: #ffffff;
-  --bg-card-hover: #f5f6f7;
-  --bg-elevated: #ffffff;
-  --bg-input: #ffffff;
-  --bg-input-focus: #fff9f7;
+  --bg-card-hover: #fafafa;
+  --bg-elevated: rgba(255, 255, 255, 0.05);
+  --bg-input: rgba(255, 255, 255, 0.04);
+  --bg-input-focus: rgba(255, 111, 0, 0.04);
 
-  /* Borders - Subtle */
+  /* Borders */
   --border: #e5e7eb;
   --border-light: #f3f4f6;
-  --border-brand: rgba(255, 107, 53, 0.3);
-  --border-focus: #ff6b35;
+  --border-brand: rgba(255, 111, 0, 0.2);
+  --border-focus: rgba(255, 111, 0, 0.5);
 
-  /* Text - Dark on Light */
+  /* Text */
   --text-primary: #111827;
   --text-secondary: #6b7280;
   --text-muted: #9ca3af;
-  --text-brand: #ff6b35;
+  --text-brand: #FFB74D;
 
   /* Status Colors */
-  --success: #10b981;
-  --success-bg: #d1fae5;
-  --error: #ef4444;
-  --error-bg: #fee2e2;
-  --warning: #f59e0b;
-  --warning-bg: #fef3c7;
-  --info: #3b82f6;
-  --info-bg: #dbeafe;
+  --success: #00C853;
+  --success-bg: rgba(0, 200, 83, 0.08);
+  --error: #FF1744;
+  --error-bg: rgba(255, 23, 68, 0.08);
+  --warning: #FFD600;
+  --warning-bg: rgba(255, 214, 0, 0.08);
+  --info: #2979FF;
+  --info-bg: rgba(41, 121, 255, 0.08);
 
-  /* NO GRADIENTS - Flat Colors Only */
-  --grad-brand: #ff6b35;
-  --grad-bg: #f9fafb;
-  --grad-success: #10b981;
-  --grad-error: #ef4444;
-  --grad-glass: #ffffff;
+  /* Gradients */
+  
+  
+  
+  
+  
 
-  /* Shadows - Minimal & Subtle */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.04);
-  --shadow-md: 0 2px 8px rgba(0, 0, 0, 0.06);
-  --shadow-lg: 0 4px 16px rgba(0, 0, 0, 0.08);
-  --shadow-brand: 0 2px 8px rgba(255, 107, 53, 0.12);
-  --shadow-glow: 0 0 0 rgba(255, 107, 53, 0);
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
+  --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.2);
+  --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.3);
+  --shadow-brand: 0 4px 20px rgba(255, 111, 0, 0.2);
+  --shadow-glow: 0 0 30px rgba(255, 111, 0, 0.1);
 
   /* Radius */
   --r-xs: 6px;
@@ -96,11 +95,9 @@
   --sp-xl: 20px;
   --sp-2xl: 28px;
 
-  /* Typography - System Fonts for Speed */
-  --f-ui: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  /* Typography */
+  --f-ui: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
   --f-hi: 'Noto Sans Devanagari', sans-serif;
-  --font-size-base: 16px;
-  --line-height-base: 1.6;
 
   /* Transitions */
   --ease: cubic-bezier(0.4, 0, 0.2, 1);
@@ -150,32 +147,39 @@ html {
 
 body {
   font-family: var(--f-ui);
-  background: var(--bg-primary);
+  background: var(--brand);
   color: var(--text-primary);
   min-height: 100vh;
   min-height: 100dvh; /* Dynamic viewport height for mobile */
-  line-height: var(--line-height-base);
-  font-size: var(--font-size-base);
+  line-height: 1.6;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* Ambient effect removed for clean professional look */
+/* Ambient glow effect */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 10% 40%, rgba(255,111,0,0.06), transparent 55%),
+    radial-gradient(ellipse at 90% 15%, rgba(218,165,32,0.04), transparent 45%),
+    radial-gradient(ellipse at 50% 90%, rgba(255,111,0,0.03), transparent 40%);
+  pointer-events: none;
+  z-index: 0;
+}
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 6px; height: 6px; }
-::-webkit-scrollbar-track { background: var(--bg-secondary); }
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb {
   background: var(--brand);
   border-radius: 4px;
 }
-::-webkit-scrollbar-thumb:hover {
-  background: var(--brand-dark);
-}
 ::selection {
-  background: var(--brand-pale);
-  color: var(--text-primary);
+  background: rgba(255, 111, 0, 0.25);
+  color: #fff;
 }
 
 /* ============================================================
@@ -254,7 +258,7 @@ body {
 .brand-icon {
   width: 38px;
   height: 38px;
-  background: var(--grad-brand);
+  background: var(--brand);
   border-radius: var(--r-md);
   display: grid;
   place-items: center;
@@ -272,7 +276,7 @@ body {
 .brand-text h1 {
   font-size: 1.05rem;
   font-weight: 800;
-  background: var(--grad-brand);
+  background: var(--brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -319,7 +323,7 @@ body {
   width: 28px;
   height: 28px;
   border-radius: 50%;
-  background: var(--grad-brand);
+  background: var(--brand);
   display: grid;
   place-items: center;
   font-size: 0.75rem;
@@ -419,7 +423,7 @@ body {
   content: '';
   position: absolute;
   inset: 0;
-  background: var(--grad-brand);
+  background: var(--brand);
   border-radius: var(--r-md);
   z-index: -1;
   box-shadow: 0 2px 12px rgba(255, 111, 0, 0.3);
@@ -485,7 +489,7 @@ body {
 .page-title {
   font-size: 1.5rem;
   font-weight: 800;
-  background: var(--grad-brand);
+  background: var(--brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -692,12 +696,10 @@ body {
 .btn-primary {
   background: var(--brand);
   color: #fff;
-  box-shadow: var(--shadow-sm);
-  border: none;
+  box-shadow: var(--shadow-brand);
 }
 .btn-primary:hover:not(:disabled) {
-  background: var(--brand-dark);
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 6px 24px rgba(255, 111, 0, 0.4);
   transform: translateY(-1px);
 }
 
@@ -705,25 +707,23 @@ body {
 .btn-ghost {
   background: var(--bg-elevated);
   color: var(--text-primary);
-  border: 1.5px solid var(--border);
+  border: 1.5px solid var(--border-light);
 }
 .btn-ghost:hover:not(:disabled) {
-  background: var(--bg-card-hover);
-  border-color: var(--brand);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-brand);
 }
 
 /* Success */
 .btn-success {
-  background: var(--success);
+  background: var(--brand);
   color: #fff;
-  border: none;
 }
 
 /* Danger */
 .btn-danger {
-  background: var(--error);
+  background: var(--brand);
   color: #fff;
-  border: none;
 }
 
 /* Size variants */
@@ -791,7 +791,7 @@ body {
   width: 36px;
   height: 36px;
   margin: 0 auto var(--sp-xs);
-  background: var(--grad-brand);
+  background: var(--brand);
   border-radius: 50%;
   display: grid;
   place-items: center;
@@ -1204,7 +1204,7 @@ body {
 .auth-screen {
   position: fixed;
   inset: 0;
-  background: var(--grad-bg);
+  background: var(--brand);
   z-index: var(--z-auth);
   display: flex;
   align-items: center;
@@ -1239,7 +1239,7 @@ body {
 .auth-logo-icon {
   width: 64px;
   height: 64px;
-  background: var(--grad-brand);
+  background: var(--brand);
   border-radius: var(--r-xl);
   display: grid;
   place-items: center;
@@ -1252,7 +1252,7 @@ body {
 .auth-logo h1 {
   font-size: 1.8rem;
   font-weight: 900;
-  background: var(--grad-brand);
+  background: var(--brand);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -1508,7 +1508,7 @@ body {
   position: absolute;
   top: 0;
   right: 0;
-  background: var(--grad-brand);
+  background: var(--brand);
   color: #fff;
   font-size: 0.55rem;
   font-weight: 700;
@@ -1667,7 +1667,7 @@ body {
 
 .checkbox-item.checked .checkbox-box {
   border-color: var(--brand);
-  background: var(--grad-brand);
+  background: var(--brand);
   color: #fff;
 }
 
@@ -1809,7 +1809,7 @@ body {
 
 .drawer-header {
   padding: var(--sp-lg);
-  background: var(--grad-brand);
+  background: var(--brand);
   position: relative;
 }
 
@@ -2002,7 +2002,7 @@ body {
   width: 48px;
   height: 48px;
   border-radius: 50%;
-  background: var(--grad-brand);
+  background: var(--brand);
   border: none;
   color: white;
   font-size: 1.5rem;
@@ -2020,7 +2020,7 @@ body {
 
 .voice-btn.listening {
   animation: pulse 1.5s infinite;
-  background: var(--grad-error);
+  background: var(--brand);
 }
 
 @keyframes pulse {
@@ -2092,7 +2092,7 @@ body {
 
 .pdf-customizer-header {
   padding: var(--sp-lg);
-  background: var(--grad-brand);
+  background: var(--brand);
   color: white;
   display: flex;
   align-items: center;
@@ -2188,7 +2188,7 @@ body {
 }
 
 .toggle-switch.active {
-  background: var(--grad-brand);
+  background: var(--brand);
 }
 
 .toggle-knob {
@@ -2348,7 +2348,7 @@ body {
   bottom: 80px;
   left: var(--sp-md);
   right: var(--sp-md);
-  background: var(--grad-brand);
+  background: var(--brand);
   color: white;
   padding: var(--sp-md);
   border-radius: var(--r-lg);
@@ -2412,167 +2412,64 @@ body {
   cursor: pointer;
 }
 
-/* ============================================================
-   THEME SWITCHER STYLES
-   Three Professional Themes
-   ============================================================ */
 
-/* Theme 2: Modern Minimal */
-body.theme-modern {
+/* ============================================================
+   MULTI-THEME SUPPORT - Professional, Modern, Warm
+   ============================================================ */
+:root[data-theme="modern"] {
   --brand: #1a73e8;
   --brand-dark: #1557b0;
   --brand-light: #4285f4;
   --brand-pale: #e8f0fe;
-  --brand-glow: rgba(26, 115, 232, 0.12);
-  
-  --bg-primary: #ffffff;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #f8f9fa;
-  
   --text-brand: #1a73e8;
-  --border: #dadce0;
-  --border-brand: rgba(26, 115, 232, 0.3);
 }
 
-/* Theme 3: Warm & Friendly */
-body.theme-warm {
+:root[data-theme="warm"] {
   --brand: #ff8c42;
-  --brand-dark: #e67a30;
-  --brand-light: #ffa15e;
-  --brand-pale: #fff5ee;
-  --brand-glow: rgba(255, 140, 66, 0.12);
-  
+  --brand-dark: #e67a32;
+  --brand-light: #ffa666;
+  --brand-pale: #fff6f0;
   --bg-primary: #fef9f5;
-  --bg-secondary: #ffffff;
-  --bg-card: #ffffff;
-  --bg-card-hover: #fef5ed;
-  
   --text-brand: #ff8c42;
-  --border: #f0e6dc;
-  --border-brand: rgba(255, 140, 66, 0.3);
 }
 
-/* Theme Selector Component */
 .theme-selector {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   gap: var(--sp-md);
-  margin: var(--sp-lg) 0;
+  margin-top: var(--sp-md);
 }
 
-.theme-option {
-  position: relative;
-  padding: var(--sp-lg);
-  border: 2px solid var(--border);
-  border-radius: var(--r-lg);
-  cursor: pointer;
-  transition: all var(--dur) var(--ease);
+.theme-card {
   background: var(--bg-card);
+  border: 2px solid var(--border);
+  border-radius: var(--r-md);
+  padding: var(--sp-md);
+  cursor: pointer;
+  transition: all 0.2s;
   text-align: center;
 }
 
-.theme-option:hover {
+.theme-card:hover {
   border-color: var(--brand);
   transform: translateY(-2px);
   box-shadow: var(--shadow-md);
 }
 
-.theme-option.active {
+.theme-card.active {
   border-color: var(--brand);
   background: var(--brand-pale);
 }
 
-.theme-option.active::after {
-  content: '✓';
-  position: absolute;
-  top: 8px;
-  right: 8px;
-  width: 24px;
-  height: 24px;
-  background: var(--brand);
-  color: white;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 14px;
-  font-weight: 600;
-}
-
 .theme-preview {
   width: 100%;
-  height: 60px;
+  height: 80px;
   border-radius: var(--r-sm);
   margin-bottom: var(--sp-sm);
   display: flex;
-  gap: 4px;
-  padding: 8px;
-}
-
-.theme-preview-bar {
-  flex: 1;
-  border-radius: 4px;
-}
-
-.theme-option[data-theme="professional"] .theme-preview {
-  background: #f9fafb;
-}
-
-.theme-option[data-theme="professional"] .theme-preview-bar:nth-child(1) {
-  background: #ff6b35;
-}
-
-.theme-option[data-theme="professional"] .theme-preview-bar:nth-child(2) {
-  background: #e5e7eb;
-}
-
-.theme-option[data-theme="professional"] .theme-preview-bar:nth-child(3) {
-  background: #ff8f5a;
-}
-
-.theme-option[data-theme="modern"] .theme-preview {
-  background: #ffffff;
-}
-
-.theme-option[data-theme="modern"] .theme-preview-bar:nth-child(1) {
-  background: #1a73e8;
-}
-
-.theme-option[data-theme="modern"] .theme-preview-bar:nth-child(2) {
-  background: #dadce0;
-}
-
-.theme-option[data-theme="modern"] .theme-preview-bar:nth-child(3) {
-  background: #4285f4;
-}
-
-.theme-option[data-theme="warm"] .theme-preview {
-  background: #fef9f5;
-}
-
-.theme-option[data-theme="warm"] .theme-preview-bar:nth-child(1) {
-  background: #ff8c42;
-}
-
-.theme-option[data-theme="warm"] .theme-preview-bar:nth-child(2) {
-  background: #f0e6dc;
-}
-
-.theme-option[data-theme="warm"] .theme-preview-bar:nth-child(3) {
-  background: #ffa15e;
-}
-
-.theme-name {
-  font-weight: 600;
-  font-size: 0.9rem;
-  color: var(--text-primary);
-  margin-bottom: 4px;
-}
-
-.theme-desc {
-  font-size: 0.75rem;
-  color: var(--text-secondary);
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
 }
 
 </style>
@@ -2746,7 +2643,7 @@ body.theme-warm {
           </div>
           <div class="drawer-info">
             <div class="drawer-name" id="drawerName">User</div>
-            <div class="drawer-email" id="drawerEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="760305130436130e171b061a135815191b">[email&#160;protected]</a></div>
+            <div class="drawer-email" id="drawerEmail"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="1e6b6d7b6c5e7b667f736e727b307d7173">[email&#160;protected]</a></div>
           </div>
         </div>
         <button class="drawer-close" onclick="DrawerMenu.close()">✕</button>
@@ -2961,27 +2858,7 @@ var CFG = {
   UNITS: [
     'ग्राम', 'किग्रा', 'नग', 'पैकेट', 'जोड़ा', 'रुपये',
     'लीटर', 'लच्छा', 'मीटर', 'बण्डल', 'छोटी शीशी', 'बड़ी शीशी'
-  ],
-
-  /* Theme Configuration */
-  THEMES: {
-    professional: {
-      name: 'Professional',
-      desc: 'Clean Orange',
-      class: '' // default, no class needed
-    },
-    modern: {
-      name: 'Modern',
-      desc: 'Google Blue',
-      class: 'theme-modern'
-    },
-    warm: {
-      name: 'Warm',
-      desc: 'Friendly Cream',
-      class: 'theme-warm'
-    }
-  },
-  THEME_KEY: 'shubh_theme_v1'
+  ]
 };
 </script>
 
@@ -3258,7 +3135,7 @@ var UI = {
     var body =
       '<div style="text-align:center;padding:var(--sp-md) 0">' +
         '<div style="font-size:2rem;margin-bottom:var(--sp-sm)">⚠️</div>' +
-        '<p style="color:var(--text-primary);font-size:.9rem;font-weight:600">' +
+        '<p style="color:var(--text-primary);font-size: 1rem;font-weight:600">' +
           this.esc(title) + '</p>' +
         (message ? '<p style="color:var(--text-muted);font-size:.78rem;margin-top:4px">' +
           this.esc(message) + '</p>' : '') +
@@ -3393,95 +3270,6 @@ var API = {
     });
   }
 };
-</script>
-
-<!-- ============================================================
-     THEME MANAGER - Premium Theme Switching
-     ============================================================ -->
-<script>
-var ThemeManager = {
-  current: 'professional',
-
-  init: function() {
-    // Load saved theme
-    var saved = localStorage.getItem(CFG.THEME_KEY);
-    if (saved && CFG.THEMES[saved]) {
-      this.current = saved;
-    }
-    this.apply(this.current);
-  },
-
-  apply: function(themeId) {
-    if (!CFG.THEMES[themeId]) return;
-    
-    var theme = CFG.THEMES[themeId];
-    var body = document.body;
-    
-    // Remove all theme classes
-    Object.keys(CFG.THEMES).forEach(function(key) {
-      var cls = CFG.THEMES[key].class;
-      if (cls) body.classList.remove(cls);
-    });
-    
-    // Apply new theme class
-    if (theme.class) {
-      body.classList.add(theme.class);
-    }
-    
-    this.current = themeId;
-    localStorage.setItem(CFG.THEME_KEY, themeId);
-    
-    // Update UI if theme selector exists
-    this.updateUI();
-  },
-
-  updateUI: function() {
-    var options = document.querySelectorAll('.theme-option');
-    options.forEach(function(opt) {
-      var themeId = opt.getAttribute('data-theme');
-      if (themeId === ThemeManager.current) {
-        opt.classList.add('active');
-      } else {
-        opt.classList.remove('active');
-      }
-    });
-  },
-
-  renderSelector: function(containerId) {
-    var container = document.getElementById(containerId);
-    if (!container) return;
-
-    var html = '<div class="theme-selector">';
-    
-    Object.keys(CFG.THEMES).forEach(function(key) {
-      var theme = CFG.THEMES[key];
-      var active = (key === ThemeManager.current) ? 'active' : '';
-      
-      html += '<div class="theme-option ' + active + '" data-theme="' + key + '" ' +
-              'onclick="ThemeManager.apply(\'' + key + '\')">' +
-              '<div class="theme-preview">' +
-              '<div class="theme-preview-bar"></div>' +
-              '<div class="theme-preview-bar"></div>' +
-              '<div class="theme-preview-bar"></div>' +
-              '</div>' +
-              '<div class="theme-name">' + theme.name + '</div>' +
-              '<div class="theme-desc">' + theme.desc + '</div>' +
-              '</div>';
-    });
-    
-    html += '</div>';
-    container.innerHTML = html;
-  }
-};
-
-// Initialize theme on load
-if (document.readyState === 'loading') {
-  document.addEventListener('DOMContentLoaded', function() {
-    ThemeManager.init();
-  });
-} else {
-  ThemeManager.init();
-}
 </script>
 
 <!-- ============================================================
@@ -5186,7 +4974,7 @@ var HomeUI = {
           '</div>' +
         '</div>' +
         '<div class="list-row-right">' +
-          '<div style="font-weight:800;color:#FFD740;font-size:.9rem">' +
+          '<div style="font-weight:800;color:#FFD740;font-size: 1rem">' +
             UI.formatMoney(p.pendingAmount) + '</div>' +
           '<div style="font-size:.6rem;color:var(--text-muted)">pending</div>' +
         '</div>' +
@@ -5229,7 +5017,7 @@ var HomeUI = {
 
       html += '<div class="list-row" style="cursor:pointer" ' +
         'onclick="HomeUI.showYajmanDetail(\'' + y.id + '\')">' +
-        '<div class="list-row-icon" style="background:var(--grad-brand)">👤</div>' +
+        '<div class="list-row-icon" style="background: var(--brand)">👤</div>' +
         '<div class="list-row-body">' +
           '<div class="list-row-title">' + UI.esc(y.name) +
             ' <span class="badge ' + statusBadge + '">' +
@@ -5394,7 +5182,7 @@ PageBuilder.profile = function() {
     /* ---- User Card ---- */
     '<div class="card" style="text-align:center">' +
       '<div style="width:64px;height:64px;border-radius:50%;' +
-        'background:var(--grad-brand);display:grid;place-items:center;' +
+        'background: var(--brand);display:grid;place-items:center;' +
         'font-size:1.8rem;margin:0 auto var(--sp-sm)">🙏</div>' +
       '<h3 style="color:var(--text-primary);font-size:1.1rem">' +
         UI.esc(u.name || '') + '</h3>' +
@@ -5958,7 +5746,7 @@ var YajmanUI = {
 
       html += '<div class="list-row" style="cursor:pointer" ' +
         'onclick="YajmanUI.showDetail(\'' + y.id + '\')">' +
-        '<div class="list-row-icon" style="background:var(--grad-brand)">👤</div>' +
+        '<div class="list-row-icon" style="background: var(--brand)">👤</div>' +
         '<div class="list-row-body">' +
           '<div class="list-row-title">' + UI.esc(y.name) +
             ' <span class="badge ' + statusBadge + '">' +
@@ -6128,7 +5916,7 @@ var YajmanUI = {
       'background:rgba(255,111,0,0.04);border-radius:var(--r-lg);' +
       'margin-bottom:var(--sp-md)">' +
       '<div style="width:50px;height:50px;border-radius:50%;' +
-        'background:var(--grad-brand);display:grid;place-items:center;' +
+        'background: var(--brand);display:grid;place-items:center;' +
         'font-size:1.4rem;margin:0 auto var(--sp-sm)">👤</div>' +
       '<h3 style="color:var(--text-primary);font-size:1rem">' +
         UI.esc(y.name) + '</h3>' +
@@ -7253,7 +7041,7 @@ var HisabUI = {
           '</div>' +
         '</div>' +
         '<div class="list-row-right">' +
-          '<div style="font-weight:800;font-size:.9rem;color:' +
+          '<div style="font-weight:800;font-size: 1rem;color:' +
             (isI ? 'var(--success)' : 'var(--error)') + '">' +
             (isI ? '+' : '-') + UI.formatMoney(h.amount) + '</div>' +
           (parseFloat(h.pendingAmount) > 0 ?
@@ -8502,7 +8290,7 @@ var NewPoojaUI = {
           (isSel ? 'var(--brand)' : 'var(--text-muted)') +
           ';border-radius:5px;display:flex;align-items:center;justify-content:center;' +
           'flex-shrink:0;font-size:12px;transition:all .2s ease;' +
-          (isSel ? 'background:var(--grad-brand);color:#fff' : '') + '">' +
+          (isSel ? 'background: var(--brand);color:#fff' : '') + '">' +
           (isSel ? '✓' : '') +
         '</div>' +
 
@@ -8604,7 +8392,7 @@ var NewPoojaUI = {
       var y = list[i];
       html += '<div class="list-row" style="cursor:pointer" ' +
         'onclick="NewPoojaUI._applyYajman(\'' + y.id + '\')">' +
-        '<div class="list-row-icon" style="background:var(--grad-brand);' +
+        '<div class="list-row-icon" style="background: var(--brand);' +
           'width:32px;height:32px;font-size:.8rem">👤</div>' +
         '<div class="list-row-body"><div class="list-row-title" style="font-size:.82rem">' +
           UI.esc(y.name) + '</div><div class="list-row-meta">' +
@@ -8857,7 +8645,7 @@ var NewPoojaUI = {
     if (contacts.length) h += '<div style="text-align:center;font-size:9px;color:#888;margin-top:3px">' + contacts.join(' | ') + '</div>';
     h += '</div>';
 
-    h += '<div style="background:linear-gradient(135deg,#FF6F00,#FF8F00);padding:7px 24px;text-align:center"><div style="font-size:15px;font-weight:700;color:#fff;letter-spacing:2px">पूजा सामग्री सूची</div></div>';
+    h += '<div style="background:linear-gradient(135deg,#FF6F00,#FF8F00);padding:7px 24px;text-align:center"><div style="font-size: 16px;font-weight:700;color:#fff;letter-spacing:2px">पूजा सामग्री सूची</div></div>';
 
     h += '<div style="padding:8px 24px;background:#FFF8E1;border-bottom:1px solid #FFE0B2">';
     h += '<table style="width:100%;font-size:11px;color:#333"><tr><td style="padding:2px 0"><b>यजमान:</b> ' + PDFEngine._e(yajman) + '</td><td style="padding:2px 0;text-align:right"><b>दिनांक:</b> ' + UI.formatDate(date) + '</td></tr>';
@@ -9033,7 +8821,7 @@ var LibUI = {
       var t = sorted[i];
       var pList = (t.poojas || '').split(','); var pc = 0; for (var p = 0; p < pList.length; p++) { if (pList[p].trim()) pc++; }
       var ic = 0; try { if (t.samagri && Array.isArray(t.samagri)) ic = t.samagri.length; } catch(e) {}
-      html += '<div class="card" style="margin:0"><div style="margin-bottom:8px"><div style="font-weight:700;color:var(--text-primary);font-size:.9rem">' + UI.esc(t.name) + '</div><div style="font-size:.68rem;color:var(--text-muted);margin-top:2px">📅 ' + UI.formatDate(t.date) + ' • 🕉️ ' + pc + ' pooja' + (pc !== 1 ? 's' : '') + (ic ? ' • 📦 ' + ic : '') + '</div></div>';
+      html += '<div class="card" style="margin:0"><div style="margin-bottom:8px"><div style="font-weight:700;color:var(--text-primary);font-size: 1rem">' + UI.esc(t.name) + '</div><div style="font-size:.68rem;color:var(--text-muted);margin-top:2px">📅 ' + UI.formatDate(t.date) + ' • 🕉️ ' + pc + ' pooja' + (pc !== 1 ? 's' : '') + (ic ? ' • 📦 ' + ic : '') + '</div></div>';
       if (t.poojas) { html += '<div style="display:flex;flex-wrap:wrap;gap:3px;margin-bottom:8px">'; for (var j = 0; j < pList.length; j++) { var pn = pList[j].trim(); if (pn) html += '<span style="font-size:.58rem;color:var(--text-brand);background:rgba(255,111,0,0.08);padding:1px 6px;border-radius:99px">' + UI.esc(pn) + '</span>'; } html += '</div>'; }
       html += '<div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px"><button class="btn btn-xs btn-primary" onclick="LibUI.load(\'' + t.id + '\')">📂 Open</button><button class="btn btn-xs btn-ghost" onclick="LibUI.duplicate(\'' + t.id + '\')">📋 Copy</button><button class="btn btn-xs btn-danger" style="padding:4px 6px" onclick="LibUI.del(\'' + t.id + '\')">🗑️</button></div></div>';
     }
@@ -9223,27 +9011,17 @@ var ProfilePhoto = {
           <img id="photoPreviewImg" src="" alt="Preview">
         </div>
         
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-md);margin:var(--sp-lg) 0">
-          <button class="btn btn-ghost" onclick="ProfilePhoto.openCamera()" style="display:flex;flex-direction:column;gap:8px;padding:var(--sp-lg)">
-            <span style="font-size:2rem">📸</span>
-            <span style="font-size:0.85rem">Take Photo</span>
-          </button>
-          <button class="btn btn-ghost" onclick="ProfilePhoto.openGallery()" style="display:flex;flex-direction:column;gap:8px;padding:var(--sp-lg)">
-            <span style="font-size:2rem">🖼️</span>
-            <span style="font-size:0.85rem">Choose Gallery</span>
-          </button>
+        <div class="photo-upload-area" onclick="document.getElementById('photoInput').click()">
+          <div class="photo-upload-icon">📸</div>
+          <div style="color:var(--text-secondary);font-size:0.85rem">Click to upload photo</div>
+          <div style="color:var(--text-muted);font-size:0.7rem;margin-top:4px">Camera or Gallery</div>
         </div>
         
-        <input type="file" id="cameraInput" accept="image/jpeg,image/png,image/webp" capture="environment" style="display:none" onchange="ProfilePhoto.handleFile(event)">
-        <input type="file" id="galleryInput" accept="image/jpeg,image/png,image/webp" style="display:none" onchange="ProfilePhoto.handleFile(event)">
+        <input type="file" id="photoInput" accept="image/*" capture="environment" style="display:none" onchange="ProfilePhoto.handleFile(event)">
         
         <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--sp-sm)">
           <button class="btn btn-ghost" onclick="ProfilePhoto.remove()">🗑️ Remove</button>
           <button class="btn btn-primary" onclick="ProfilePhoto.save()">💾 Save</button>
-        </div>
-        
-        <div style="text-align:center;margin-top:var(--sp-sm);font-size:0.7rem;color:var(--text-muted)">
-          Max 5MB • JPG, PNG, WebP only
         </div>
       </div>
     `;
@@ -9258,14 +9036,6 @@ var ProfilePhoto = {
     }
   },
   
-  openCamera: function() {
-    document.getElementById('cameraInput').click();
-  },
-  
-  openGallery: function() {
-    document.getElementById('galleryInput').click();
-  },
-  
   close: function() {
     const modal = document.getElementById('photoModal');
     if (modal) modal.remove();
@@ -9275,71 +9045,28 @@ var ProfilePhoto = {
     const file = event.target.files[0];
     if (!file) return;
     
-    // Security: File type validation
-    const validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
-    if (!validTypes.includes(file.type)) {
-      UI.toast('Invalid Format', 'Please use JPG, PNG or WebP images only', 'error');
-      return;
-    }
-    
-    // Security: File size limit (5MB)
-    const maxSize = 5 * 1024 * 1024; // 5MB in bytes
-    if (file.size > maxSize) {
-      UI.toast('File Too Large', 'Please use an image under 5MB', 'error');
-      return;
-    }
-    
     const reader = new FileReader();
-    reader.onerror = () => {
-      UI.toast('Read Error', 'Could not read the file', 'error');
-    };
-    
     reader.onload = (e) => {
       const img = new Image();
-      img.onerror = () => {
-        UI.toast('Invalid Image', 'Could not load the image', 'error');
-      };
-      
       img.onload = () => {
-        try {
-          // Resize and crop to square 200x200
-          const canvas = document.createElement('canvas');
-          const size = Math.min(img.width, img.height);
-          canvas.width = 200;
-          canvas.height = 200;
-          const ctx = canvas.getContext('2d');
-          
-          const offsetX = (img.width - size) / 2;
-          const offsetY = (img.height - size) / 2;
-          
-          // Draw with white background
-          ctx.fillStyle = '#ffffff';
-          ctx.fillRect(0, 0, 200, 200);
-          ctx.drawImage(img, offsetX, offsetY, size, size, 0, 0, 200, 200);
-          
-          // Compress to 85% quality
-          this.currentPhoto = canvas.toDataURL('image/jpeg', 0.85);
-          
-          // Check localStorage space
-          try {
-            localStorage.setItem('profilePhoto_temp', this.currentPhoto);
-            localStorage.removeItem('profilePhoto_temp');
-          } catch (e) {
-            UI.toast('Storage Full', 'Not enough space to save photo', 'error');
-            return;
-          }
-          
-          document.getElementById('photoPreviewImg').src = this.currentPhoto;
-          document.getElementById('photoPreview').classList.add('active');
-          
-        } catch (err) {
-          UI.toast('Processing Error', 'Could not process the image', 'error');
-          console.error('Photo processing error:', err);
-        }
+        // Resize and crop to square
+        const canvas = document.createElement('canvas');
+        const size = Math.min(img.width, img.height);
+        canvas.width = 200;
+        canvas.height = 200;
+        const ctx = canvas.getContext('2d');
+        
+        const offsetX = (img.width - size) / 2;
+        const offsetY = (img.height - size) / 2;
+        
+        ctx.drawImage(img, offsetX, offsetY, size, size, 0, 0, 200, 200);
+        
+        this.currentPhoto = canvas.toDataURL('image/jpeg', 0.8);
+        document.getElementById('photoPreviewImg').src = this.currentPhoto;
+        document.getElementById('photoPreview').classList.add('active');
       };
       img.src = e.target.result;
     };
-    
     reader.readAsDataURL(file);
   },
   
@@ -9349,56 +9076,43 @@ var ProfilePhoto = {
       return;
     }
     
-    try {
-      localStorage.setItem('profilePhoto', this.currentPhoto);
-      
-      // Update all photo displays
-      const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
-      avatars.forEach(el => {
-        el.innerHTML = `<img src="${this.currentPhoto}" alt="Profile" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-      });
-      
-      UI.toast('Saved!', 'Photo updated successfully', 'ok');
-      this.close();
-    } catch (err) {
-      UI.toast('Save Failed', 'Could not save photo', 'error');
-      console.error('Photo save error:', err);
-    }
+    localStorage.setItem('profilePhoto', this.currentPhoto);
+    
+    // Update all photo displays
+    const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+    avatars.forEach(el => {
+      el.innerHTML = `<img src="${this.currentPhoto}" alt="Profile">`;
+    });
+    
+    UI.toast('Saved!', 'Photo updated', 'ok');
+    this.close();
   },
   
   remove: function() {
     UI.confirm('Remove Photo?', 'This will delete your profile photo', () => {
-      try {
-        localStorage.removeItem('profilePhoto');
-        this.currentPhoto = null;
-        
-        const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
-        avatars.forEach(el => {
-          el.innerHTML = '👤';
-        });
-        
-        UI.toast('Removed', 'Photo deleted', 'ok');
-        this.close();
-      } catch (err) {
-        UI.toast('Error', 'Could not remove photo', 'error');
-      }
+      localStorage.removeItem('profilePhoto');
+      this.currentPhoto = null;
+      
+      const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+      avatars.forEach(el => {
+        el.innerHTML = '👤';
+      });
+      
+      UI.toast('Removed', 'Photo deleted', 'ok');
+      this.close();
     });
   },
   
   init: function() {
     // Load photo on app start
-    try {
-      const photoData = localStorage.getItem('profilePhoto');
-      if (photoData) {
-        setTimeout(() => {
-          const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
-          avatars.forEach(el => {
-            el.innerHTML = `<img src="${photoData}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
-          });
-        }, 500);
-      }
-    } catch (err) {
-      console.error('Photo init error:', err);
+    const photoData = localStorage.getItem('profilePhoto');
+    if (photoData) {
+      setTimeout(() => {
+        const avatars = document.querySelectorAll('#topAvatar, #drawerPhotoImg');
+        avatars.forEach(el => {
+          el.innerHTML = `<img src="${photoData}" style="width:100%;height:100%;object-fit:cover;border-radius:50%">`;
+        });
+      }, 500);
     }
   }
 };
@@ -10192,6 +9906,941 @@ var BackupManager = {
     reader.readAsText(file);
   }
 };
+
+/* ============================================================
+   THEME MANAGER - Switch Between Themes
+   ============================================================ */
+var ThemeManager = {
+  currentTheme: 'professional',
+  
+  init: function() {
+    var saved = localStorage.getItem('shubh_theme');
+    if (saved) {
+      this.setTheme(saved);
+    }
+  },
+  
+  setTheme: function(theme) {
+    this.currentTheme = theme;
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('shubh_theme', theme);
+    
+    // Update theme selector
+    var cards = document.querySelectorAll('.theme-card');
+    cards.forEach(function(card) {
+      card.classList.remove('active');
+      if (card.getAttribute('data-theme') === theme) {
+        card.classList.add('active');
+      }
+    });
+    
+    // Update meta theme color
+    var colors = {
+      professional: '#ff6b35',
+      modern: '#1a73e8',
+      warm: '#ff8c42'
+    };
+    var meta = document.querySelector('meta[name="theme-color"]');
+    if (meta) {
+      meta.setAttribute('content', colors[theme] || '#ff6b35');
+    }
+    
+    UI.showToast && UI.showToast('Theme updated!', 'success');
+  }
+};
+
+// Initialize theme on load
+document.addEventListener('DOMContentLoaded', function() {
+  ThemeManager.init();
+});
+
+
+/* ============================================================
+   SECURITY & VALIDATION
+   XSS Protection, Input Validation, Rate Limiting
+   ============================================================ */
+var Security = {
+  // Sanitize HTML
+  escapeHTML: function(str) {
+    if (!str) return '';
+    var div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  },
+  
+  // Validate email
+  isValidEmail: function(email) {
+    if (!email) return false;
+    var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(String(email).toLowerCase());
+  },
+  
+  // Validate phone (Indian format)
+  isValidPhone: function(phone) {
+    if (!phone) return false;
+    var cleaned = phone.replace(/\D/g, '');
+    return /^[6-9]\d{9}$/.test(cleaned);
+  },
+  
+  // Validate name (letters, spaces, hyphens, Hindi chars)
+  isValidName: function(name) {
+    if (!name || name.trim().length === 0) return false;
+    var re = /^[\u0900-\u097Fa-zA-Z\s\-]+$/;
+    return re.test(name.trim());
+  },
+  
+  // Validate number
+  isValidNumber: function(num) {
+    if (num === null || num === undefined || num === '') return false;
+    return !isNaN(parseFloat(num)) && isFinite(num);
+  },
+  
+  // Rate limiting
+  _apiCallTimes: [],
+  MAX_API_CALLS_PER_MINUTE: 10,
+  
+  checkRateLimit: function() {
+    var now = Date.now();
+    var oneMinuteAgo = now - 60000;
+    
+    // Remove old calls
+    this._apiCallTimes = this._apiCallTimes.filter(function(t) {
+      return t > oneMinuteAgo;
+    });
+    
+    if (this._apiCallTimes.length >= this.MAX_API_CALLS_PER_MINUTE) {
+      return {allowed: false, message: 'Too many requests. Please wait.'};
+    }
+    
+    this._apiCallTimes.push(now);
+    return {allowed: true};
+  },
+  
+  // Sanitize filename
+  sanitizeFilename: function(filename) {
+    if (!filename) return 'download';
+    return filename.replace(/[^a-zA-Z0-9_\-\.]/g, '_').substring(0, 100);
+  }
+};
+
+// Global error handler
+window.addEventListener('error', function(event) {
+  console.error('Global error:', event.error);
+  try {
+    var errorLog = JSON.parse(localStorage.getItem('shubh_errors') || '[]');
+    errorLog.push({
+      message: event.message,
+      source: event.filename,
+      line: event.lineno,
+      time: new Date().toISOString()
+    });
+    if (errorLog.length > 50) errorLog = errorLog.slice(-50);
+    localStorage.setItem('shubh_errors', JSON.stringify(errorLog));
+  } catch(e) {}
+});
+
+// Unhandled promise rejection handler
+window.addEventListener('unhandledrejection', function(event) {
+  console.error('Unhandled promise rejection:', event.reason);
+  try {
+    var errorLog = JSON.parse(localStorage.getItem('shubh_errors') || '[]');
+    errorLog.push({
+      message: 'Unhandled Promise Rejection',
+      reason: String(event.reason),
+      time: new Date().toISOString()
+    });
+    if (errorLog.length > 50) errorLog = errorLog.slice(-50);
+    localStorage.setItem('shubh_errors', JSON.stringify(errorLog));
+  } catch(e) {}
+});
+
+// Network status detection
+window.addEventListener('online', function() {
+  if (typeof UI !== 'undefined' && UI.showToast) {
+    UI.showToast('✅ Back online', 'success');
+  }
+});
+
+window.addEventListener('offline', function() {
+  if (typeof UI !== 'undefined' && UI.showToast) {
+    UI.showToast('⚠️ No internet connection', 'warning');
+  }
+});
+
+
+/* ============================================================
+   PHOTO UPLOAD - Camera + Gallery with Crop & Compress
+   ============================================================ */
+var PhotoManager = {
+  
+  // Show photo upload options
+  showUploadOptions: function() {
+    var modal = '<div style="display:flex;flex-direction:column;gap:12px">' +
+      '<button class="btn btn-primary btn-w" onclick="PhotoManager.openCamera()">' +
+        '📸 Take Photo</button>' +
+      '<button class="btn btn-secondary btn-w" onclick="PhotoManager.openGallery()">' +
+        '🖼️ Choose from Gallery</button>' +
+      '<button class="btn btn-ghost btn-w" onclick="UI.closeModal('mPhotoUpload')">' +
+        'Cancel</button>' +
+      '</div>';
+    
+    UI.createModal('mPhotoUpload', {
+      title: '📷 Upload Photo',
+      body: modal
+    });
+  },
+  
+  // Open camera
+  openCamera: function() {
+    UI.closeModal('mPhotoUpload');
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/jpeg,image/png,image/webp';
+    input.capture = 'environment'; // Use rear camera
+    input.onchange = function(e) {
+      if (e.target.files && e.target.files[0]) {
+        PhotoManager.processPhoto(e.target.files[0]);
+      }
+    };
+    input.click();
+  },
+  
+  // Open gallery
+  openGallery: function() {
+    UI.closeModal('mPhotoUpload');
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = 'image/jpeg,image/png,image/webp';
+    input.onchange = function(e) {
+      if (e.target.files && e.target.files[0]) {
+        PhotoManager.processPhoto(e.target.files[0]);
+      }
+    };
+    input.click();
+  },
+  
+  // Process photo: validate, crop, compress
+  processPhoto: function(file) {
+    // Validate file type
+    var validTypes = ['image/jpeg', 'image/jpg', 'image/png', 'image/webp'];
+    if (!validTypes.includes(file.type)) {
+      UI.showToast('❌ Invalid file type. Use JPG, PNG or WebP', 'error');
+      return;
+    }
+    
+    // Validate file size (max 5MB)
+    if (file.size > 5 * 1024 * 1024) {
+      UI.showToast('❌ File too large. Max 5MB', 'error');
+      return;
+    }
+    
+    UI.showLoading('Processing photo...');
+    
+    var reader = new FileReader();
+    reader.onload = function(e) {
+      var img = new Image();
+      img.onload = function() {
+        PhotoManager.cropAndCompress(img);
+      };
+      img.onerror = function() {
+        UI.hideLoading();
+        UI.showToast('❌ Failed to load image', 'error');
+      };
+      img.src = e.target.result;
+    };
+    reader.onerror = function() {
+      UI.hideLoading();
+      UI.showToast('❌ Failed to read file', 'error');
+    };
+    reader.readAsDataURL(file);
+  },
+  
+  // Crop to square and compress
+  cropAndCompress: function(img) {
+    try {
+      var canvas = document.createElement('canvas');
+      var ctx = canvas.getContext('2d');
+      
+      // Square crop
+      var size = Math.min(img.width, img.height);
+      var x = (img.width - size) / 2;
+      var y = (img.height - size) / 2;
+      
+      // Target size
+      var targetSize = 200;
+      canvas.width = targetSize;
+      canvas.height = targetSize;
+      
+      // Draw cropped & resized image
+      ctx.drawImage(img, x, y, size, size, 0, 0, targetSize, targetSize);
+      
+      // Compress to base64 (85% quality)
+      var base64 = canvas.toDataURL('image/jpeg', 0.85);
+      
+      // Save to localStorage
+      try {
+        localStorage.setItem('shubh_photo', base64);
+        UI.hideLoading();
+        UI.showToast('✅ Photo uploaded successfully!', 'success');
+        
+        // Update all avatar displays
+        PhotoManager.updateAvatars();
+        
+        // Show remove button
+        var removeBtn = document.getElementById('removePhotoBtn');
+        if (removeBtn) removeBtn.style.display = 'inline-flex';
+      } catch(err) {
+        UI.hideLoading();
+        if (err.name === 'QuotaExceededError') {
+          UI.showToast('❌ Storage full. Clear some data.', 'error');
+        } else {
+          UI.showToast('❌ Failed to save photo', 'error');
+        }
+      }
+    } catch(err) {
+      UI.hideLoading();
+      UI.showToast('❌ Failed to process photo', 'error');
+      console.error('Photo processing error:', err);
+    }
+  },
+  
+  // Update all avatar displays
+  updateAvatars: function() {
+    var photo = localStorage.getItem('shubh_photo');
+    var avatars = ['headerAvatar', 'settingsAvatar'];
+    
+    avatars.forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) {
+        if (photo) {
+          el.innerHTML = '<img src="' + photo + '" alt="Profile" ' +
+            'style="width:100%;height:100%;border-radius:50%;object-fit:cover">';
+        } else {
+          var user = API.user || {};
+          var initial = (user.name || user.email || '?').charAt(0).toUpperCase();
+          el.textContent = initial;
+        }
+      }
+    });
+  },
+  
+  // Remove photo
+  removePhoto: function() {
+    UI.confirm('Remove photo?', 'Are you sure?', function() {
+      localStorage.removeItem('shubh_photo');
+      PhotoManager.updateAvatars();
+      var removeBtn = document.getElementById('removePhotoBtn');
+      if (removeBtn) removeBtn.style.display = 'none';
+      UI.showToast('Photo removed', 'success');
+    });
+  }
+};
+
+
+/* ============================================================
+   TERMS & CONDITIONS - First Login Modal
+   ============================================================ */
+var TermsManager = {
+  
+  // Check if terms accepted
+  hasAccepted: function() {
+    return localStorage.getItem('shubh_terms_accepted') === 'true';
+  },
+  
+  // Show terms modal (required, cannot skip)
+  showTerms: function(onAccept) {
+    var body = '<div style="max-height:400px;overflow-y:auto;line-height:1.8">' +
+      '<h4>Terms of Service</h4>' +
+      '<ol style="padding-left:20px">' +
+      '<li><strong>Data Ownership:</strong> You own your data. We never store it on our servers.</li>' +
+      '<li><strong>Privacy:</strong> Your Google Sheet credentials stay in your browser only.</li>' +
+      '<li><strong>Free Plan:</strong> 1 PDF per day with watermark, max 50 yajmans.</li>' +
+      '<li><strong>Pro Plan:</strong> Unlimited everything, no watermark, ₹99/month or ₹999/year.</li>' +
+      '<li><strong>Refunds:</strong> Available within 7 days of purchase.</li>' +
+      '<li><strong>Updates:</strong> We reserve the right to update these terms.</li>' +
+      '</ol>' +
+      '<h4 class="hindi" style="margin-top:20px">सेवा की शर्तें</h4>' +
+      '<ol style="padding-left:20px" class="hindi">' +
+      '<li><strong>डेटा का स्वामित्व:</strong> आपका डेटा आपका है। हम इसे कभी स्टोर नहीं करते।</li>' +
+      '<li><strong>गोपनीयता:</strong> आपकी जानकारी केवल आपके ब्राउज़र में रहती है।</li>' +
+      '<li><strong>फ्री प्लान:</strong> 1 PDF प्रतिदिन वॉटरमार्क के साथ, अधिकतम 50 यजमान।</li>' +
+      '<li><strong>प्रो प्लान:</strong> सब कुछ असीमित, बिना वॉटरमार्क, ₹99/माह या ₹999/वर्ष।</li>' +
+      '<li><strong>रिफंड:</strong> खरीद के 7 दिन के भीतर उपलब्ध।</li>' +
+      '<li><strong>अपडेट:</strong> हम इन शर्तों को अपडेट करने का अधिकार रखते हैं।</li>' +
+      '</ol>' +
+      '<div style="margin-top:20px;padding:16px;background:var(--bg-input);border-radius:8px">' +
+        '<label style="display:flex;align-items:center;gap:8px;cursor:pointer">' +
+          '<input type="checkbox" id="termsCheckbox" style="width:20px;height:20px">' +
+          '<span>I agree to the Terms & Conditions</span>' +
+        '</label>' +
+      '</div>' +
+      '</div>';
+    
+    var footer = '<button class="btn btn-primary btn-w" onclick="TermsManager.acceptTerms()" ' +
+      'id="acceptTermsBtn" disabled>Accept & Continue</button>';
+    
+    UI.createModal('mTerms', {
+      title: '📜 Terms & Conditions',
+      body: body,
+      footer: footer,
+      maxWidth: '600px'
+    });
+    
+    // Enable button when checkbox checked
+    setTimeout(function() {
+      var checkbox = document.getElementById('termsCheckbox');
+      var btn = document.getElementById('acceptTermsBtn');
+      if (checkbox && btn) {
+        checkbox.onchange = function() {
+          btn.disabled = !checkbox.checked;
+        };
+      }
+    }, 100);
+    
+    this._onAcceptCallback = onAccept;
+  },
+  
+  // Accept terms
+  acceptTerms: function() {
+    localStorage.setItem('shubh_terms_accepted', 'true');
+    localStorage.setItem('shubh_terms_accepted_date', new Date().toISOString());
+    UI.closeModal('mTerms');
+    UI.showToast('✅ Welcome to Shubharambh!', 'success');
+    
+    if (this._onAcceptCallback) {
+      this._onAcceptCallback();
+    }
+  }
+};
+
+
+/* ============================================================
+   PERFORMANCE OPTIMIZATIONS
+   Debouncing, Throttling, Caching
+   ============================================================ */
+
+// Debounce function
+function debounce(func, wait) {
+  var timeout;
+  return function() {
+    var context = this;
+    var args = arguments;
+    clearTimeout(timeout);
+    timeout = setTimeout(function() {
+      func.apply(context, args);
+    }, wait);
+  };
+}
+
+// Throttle function
+function throttle(func, limit) {
+  var inThrottle;
+  return function() {
+    var context = this;
+    var args = arguments;
+    if (!inThrottle) {
+      func.apply(context, args);
+      inThrottle = true;
+      setTimeout(function() {
+        inThrottle = false;
+      }, limit);
+    }
+  };
+}
+
+// Cache manager
+var CacheManager = {
+  _cache: {},
+  _timeout: 5 * 60 * 1000, // 5 minutes
+  
+  set: function(key, value) {
+    this._cache[key] = {
+      value: value,
+      timestamp: Date.now()
+    };
+  },
+  
+  get: function(key) {
+    var cached = this._cache[key];
+    if (!cached) return null;
+    
+    // Check if expired
+    if (Date.now() - cached.timestamp > this._timeout) {
+      delete this._cache[key];
+      return null;
+    }
+    
+    return cached.value;
+  },
+  
+  clear: function(key) {
+    if (key) {
+      delete this._cache[key];
+    } else {
+      this._cache = {};
+    }
+  }
+};
+
+
+/* ============================================================
+   GLOBAL SEARCH - Ctrl+K Shortcut
+   ============================================================ */
+var GlobalSearch = {
+  isOpen: false,
+  
+  // Toggle search modal
+  toggle: function() {
+    if (this.isOpen) {
+      this.close();
+    } else {
+      this.open();
+    }
+  },
+  
+  // Open search
+  open: function() {
+    var body = '<div class="search-container">' +
+      '<input type="text" id="globalSearchInput" class="search-input" ' +
+        'placeholder="Search yajmans, items, poojas..." ' +
+        'style="width:100%;margin-bottom:16px" ' +
+        'oninput="GlobalSearch.handleSearch()">' +
+      '<div id="globalSearchResults" style="max-height:400px;overflow-y:auto">' +
+        '<div class="empty-state">' +
+          '<div class="empty-state-icon">🔍</div>' +
+          '<div class="empty-state-text">Type to search...</div>' +
+        '</div>' +
+      '</div>' +
+      '</div>';
+    
+    UI.createModal('mGlobalSearch', {
+      title: '🔍 Search Everything',
+      body: body,
+      maxWidth: '600px'
+    });
+    
+    this.isOpen = true;
+    
+    // Focus input
+    setTimeout(function() {
+      var input = document.getElementById('globalSearchInput');
+      if (input) input.focus();
+    }, 100);
+  },
+  
+  // Close search
+  close: function() {
+    UI.closeModal('mGlobalSearch');
+    this.isOpen = false;
+  },
+  
+  // Handle search input
+  handleSearch: debounce(function() {
+    var query = document.getElementById('globalSearchInput');
+    if (!query) return;
+    
+    var q = query.value.toLowerCase().trim();
+    var results = document.getElementById('globalSearchResults');
+    if (!results) return;
+    
+    if (!q) {
+      results.innerHTML = '<div class="empty-state">' +
+        '<div class="empty-state-icon">🔍</div>' +
+        '<div class="empty-state-text">Type to search...</div></div>';
+      return;
+    }
+    
+    // Search in different data sources
+    var matches = [];
+    
+    // Search yajmans
+    try {
+      var yajmans = JSON.parse(localStorage.getItem('shubh_yajmans') || '[]');
+      yajmans.forEach(function(y) {
+        if (y.name && y.name.toLowerCase().indexOf(q) !== -1) {
+          matches.push({
+            type: 'yajman',
+            title: y.name,
+            subtitle: y.phone || y.address || '',
+            action: "Nav.go('yajman');UI.closeModal('mGlobalSearch')"
+          });
+        }
+      });
+    } catch(e) {}
+    
+    // Search master data
+    try {
+      var master = App.D && App.D.master || [];
+      var seen = {};
+      master.forEach(function(item) {
+        var samagri = item.samagri || item.Samagri || '';
+        var pooja = item.pooja || item.Pooja || '';
+        if (samagri && samagri.toLowerCase().indexOf(q) !== -1 && !seen[samagri]) {
+          seen[samagri] = true;
+          matches.push({
+            type: 'item',
+            title: samagri,
+            subtitle: 'Used in: ' + pooja,
+            action: "Nav.go('profile');UI.closeModal('mGlobalSearch')"
+          });
+        }
+      });
+    } catch(e) {}
+    
+    // Display results
+    if (matches.length === 0) {
+      results.innerHTML = '<div class="empty-state">' +
+        '<div class="empty-state-icon">😕</div>' +
+        '<div class="empty-state-text">No results found</div></div>';
+    } else {
+      var html = '<div style="display:flex;flex-direction:column;gap:8px">';
+      matches.slice(0, 10).forEach(function(m) {
+        var icon = m.type === 'yajman' ? '👤' : '📦';
+        html += '<div class="recent-item" onclick="' + m.action + '">' +
+          '<div>' +
+            '<div style="font-weight:500">' + icon + ' ' + UI.esc(m.title) + '</div>' +
+            (m.subtitle ? '<small class="text-muted">' + UI.esc(m.subtitle) + '</small>' : '') +
+          '</div>' +
+          '<div>→</div>' +
+        '</div>';
+      });
+      html += '</div>';
+      results.innerHTML = html;
+    }
+  }, 300)
+};
+
+// Keyboard shortcut: Ctrl+K
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+    e.preventDefault();
+    GlobalSearch.toggle();
+  }
+  
+  // ESC to close
+  if (e.key === 'Escape' && GlobalSearch.isOpen) {
+    GlobalSearch.close();
+  }
+});
+
+
+/* ============================================================
+   AUTO-SAVE SYSTEM - Save Form Data Every 2s
+   ============================================================ */
+var AutoSave = {
+  _timer: null,
+  _enabled: true,
+  
+  // Initialize auto-save
+  init: function() {
+    var pref = localStorage.getItem('shubh_pref_autosave');
+    this._enabled = pref !== 'false';
+  },
+  
+  // Save form data
+  saveFormData: function(formId, data) {
+    if (!this._enabled) return;
+    
+    try {
+      var key = 'shubh_autosave_' + formId;
+      localStorage.setItem(key, JSON.stringify({
+        data: data,
+        timestamp: Date.now()
+      }));
+      
+      // Show indicator
+      this.showSavedIndicator();
+    } catch(e) {
+      console.error('AutoSave failed:', e);
+    }
+  },
+  
+  // Restore form data
+  restoreFormData: function(formId) {
+    try {
+      var key = 'shubh_autosave_' + formId;
+      var saved = localStorage.getItem(key);
+      if (saved) {
+        var parsed = JSON.parse(saved);
+        // Check if data is recent (< 24 hours)
+        if (Date.now() - parsed.timestamp < 24 * 60 * 60 * 1000) {
+          return parsed.data;
+        }
+      }
+    } catch(e) {}
+    return null;
+  },
+  
+  // Clear saved data
+  clearFormData: function(formId) {
+    try {
+      var key = 'shubh_autosave_' + formId;
+      localStorage.removeItem(key);
+    } catch(e) {}
+  },
+  
+  // Show saved indicator
+  showSavedIndicator: function() {
+    var indicator = document.getElementById('autoSaveIndicator');
+    if (!indicator) {
+      indicator = document.createElement('div');
+      indicator.id = 'autoSaveIndicator';
+      indicator.style.cssText = 'position:fixed;bottom:90px;right:20px;' +
+        'padding:8px 16px;background:var(--success);color:white;' +
+        'border-radius:20px;font-size:0.875rem;z-index:999;' +
+        'opacity:0;transition:opacity 0.3s';
+      indicator.textContent = '✓ Saved';
+      document.body.appendChild(indicator);
+    }
+    
+    indicator.style.opacity = '1';
+    setTimeout(function() {
+      indicator.style.opacity = '0';
+    }, 2000);
+  },
+  
+  // Schedule auto-save
+  scheduleAutoSave: function(formId, getData) {
+    clearTimeout(this._timer);
+    this._timer = setTimeout(function() {
+      var data = getData();
+      if (data) {
+        AutoSave.saveFormData(formId, data);
+      }
+    }, 2000); // 2 second delay
+  }
+};
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', function() {
+  AutoSave.init();
+});
+
+
+/* ============================================================
+   KEYBOARD SHORTCUTS
+   Ctrl+N, Ctrl+S, Ctrl+P, ESC
+   ============================================================ */
+var KeyboardShortcuts = {
+  enabled: true,
+  
+  init: function() {
+    var pref = localStorage.getItem('shubh_pref_shortcuts');
+    this.enabled = pref !== 'false';
+    
+    if (this.enabled) {
+      this.bindShortcuts();
+    }
+  },
+  
+  bindShortcuts: function() {
+    var self = this;
+    document.addEventListener('keydown', function(e) {
+      if (!self.enabled) return;
+      
+      // Ignore if typing in input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') {
+        // ESC still works
+        if (e.key === 'Escape') {
+          e.target.blur();
+        }
+        return;
+      }
+      
+      // Ctrl+N: New Pooja
+      if ((e.ctrlKey || e.metaKey) && e.key === 'n') {
+        e.preventDefault();
+        Nav.go('newPooja');
+        return;
+      }
+      
+      // Ctrl+S: Save (context-specific)
+      if ((e.ctrlKey || e.metaKey) && e.key === 's') {
+        e.preventDefault();
+        self.handleSave();
+        return;
+      }
+      
+      // Ctrl+P: Generate PDF (on new pooja page)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'p') {
+        e.preventDefault();
+        if (Nav.currentPage === 'newPooja') {
+          NewPoojaUI.generatePDF && NewPoojaUI.generatePDF();
+        }
+        return;
+      }
+      
+      // ESC: Close modal or go back
+      if (e.key === 'Escape') {
+        var modals = document.querySelectorAll('.modal-overlay.active');
+        if (modals.length > 0) {
+          // Close last modal
+          UI.closeModal(modals[modals.length - 1].id);
+        }
+        return;
+      }
+    });
+  },
+  
+  handleSave: function() {
+    var page = Nav.currentPage;
+    
+    if (page === 'settings') {
+      ProfileUI.saveProfile && ProfileUI.saveProfile();
+    } else if (page === 'newPooja') {
+      // Auto-save happens automatically
+      UI.showToast('Auto-saved', 'success');
+    } else {
+      UI.showToast('Nothing to save', 'info');
+    }
+  },
+  
+  showHelp: function() {
+    var body = '<div style="line-height:1.8">' +
+      '<h4>Keyboard Shortcuts</h4>' +
+      '<table style="width:100%">' +
+      '<tr><td><kbd>Ctrl+K</kbd></td><td>Global search</td></tr>' +
+      '<tr><td><kbd>Ctrl+N</kbd></td><td>New pooja</td></tr>' +
+      '<tr><td><kbd>Ctrl+S</kbd></td><td>Save</td></tr>' +
+      '<tr><td><kbd>Ctrl+P</kbd></td><td>Generate PDF</td></tr>' +
+      '<tr><td><kbd>ESC</kbd></td><td>Close modal / Blur input</td></tr>' +
+      '<tr><td><kbd>Ctrl+/</kbd></td><td>Show this help</td></tr>' +
+      '</table>' +
+      '</div>';
+    
+    UI.createModal('mShortcuts', {
+      title: '⌨️ Keyboard Shortcuts',
+      body: body
+    });
+  }
+};
+
+// Ctrl+/ to show help
+document.addEventListener('keydown', function(e) {
+  if ((e.ctrlKey || e.metaKey) && e.key === '/') {
+    e.preventDefault();
+    KeyboardShortcuts.showHelp();
+  }
+});
+
+// Initialize
+document.addEventListener('DOMContentLoaded', function() {
+  KeyboardShortcuts.init();
+});
+
+
+/* ============================================================
+   ENHANCED TOAST NOTIFICATIONS
+   ============================================================ */
+if (typeof UI !== 'undefined') {
+  UI.showToast = function(message, type) {
+    // Remove existing toasts
+    var existing = document.querySelectorAll('.toast');
+    existing.forEach(function(el) {
+      el.remove();
+    });
+    
+    var toast = document.createElement('div');
+    toast.className = 'toast';
+    if (type) toast.classList.add('toast-' + type);
+    toast.textContent = message;
+    toast.style.cssText = 'position:fixed;bottom:100px;left:50%;' +
+      'transform:translateX(-50%);background:var(--text-primary);' +
+      'color:var(--bg-primary);padding:12px 24px;border-radius:8px;' +
+      'box-shadow:var(--shadow-lg);z-index:9999;animation:toastIn 0.3s ease;' +
+      'max-width:90%;font-size:0.9375rem;font-weight:500';
+    
+    if (type === 'success') {
+      toast.style.background = 'var(--success)';
+      toast.style.color = 'white';
+    } else if (type === 'error') {
+      toast.style.background = 'var(--error)';
+      toast.style.color = 'white';
+    } else if (type === 'warning') {
+      toast.style.background = 'var(--warning)';
+      toast.style.color = 'white';
+    }
+    
+    document.body.appendChild(toast);
+    
+    setTimeout(function() {
+      toast.style.opacity = '0';
+      setTimeout(function() {
+        toast.remove();
+      }, 300);
+    }, 3000);
+  };
+}
+
+
+/* ============================================================
+   FAVORITES SYSTEM - Star Frequently Used Items
+   ============================================================ */
+var Favorites = {
+  
+  // Check if item is favorited
+  isFavorite: function(type, id) {
+    try {
+      var key = 'shubh_favorites_' + type;
+      var favorites = JSON.parse(localStorage.getItem(key) || '[]');
+      return favorites.indexOf(id) !== -1;
+    } catch(e) {
+      return false;
+    }
+  },
+  
+  // Toggle favorite
+  toggle: function(type, id, name) {
+    try {
+      var key = 'shubh_favorites_' + type;
+      var favorites = JSON.parse(localStorage.getItem(key) || '[]');
+      var index = favorites.indexOf(id);
+      
+      if (index === -1) {
+        favorites.push(id);
+        UI.showToast('⭐ Added to favorites: ' + name, 'success');
+      } else {
+        favorites.splice(index, 1);
+        UI.showToast('Removed from favorites', 'info');
+      }
+      
+      localStorage.setItem(key, JSON.stringify(favorites));
+      return index === -1; // Return true if now favorited
+    } catch(e) {
+      UI.showToast('Failed to update favorites', 'error');
+      return false;
+    }
+  },
+  
+  // Get all favorites of a type
+  getAll: function(type) {
+    try {
+      var key = 'shubh_favorites_' + type;
+      return JSON.parse(localStorage.getItem(key) || '[]');
+    } catch(e) {
+      return [];
+    }
+  },
+  
+  // Sort items with favorites first
+  sortWithFavorites: function(items, type, getId) {
+    var favorites = this.getAll(type);
+    var favorited = [];
+    var regular = [];
+    
+    items.forEach(function(item) {
+      var id = getId(item);
+      if (favorites.indexOf(id) !== -1) {
+        favorited.push(item);
+      } else {
+        regular.push(item);
+      }
+    });
+    
+    return favorited.concat(regular);
+  }
+};
+
 </script>
 
 <!-- Initialize all enhancements on app load -->
